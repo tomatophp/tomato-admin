@@ -1,0 +1,52 @@
+{
+    "name": "tomatophp/tomato-admin",
+    "type": "library",
+    "description": "Tomato Admin Dashboard Build With FilamentPHP Theme for Laravel Splade",
+    "keywords": [
+        "Splade",
+        "Breeze",
+        "inertiajs",
+        "vuejs",
+        "blade",
+        "php8",
+        "laravel",
+        "filamentphp",
+        "plugin",
+        "tomatophp",
+        "generator"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TomatoPHP\\TomatoAdmin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TomatoPHP\\TomatoAdmin\\TomatoAdminServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Fady Mondy",
+            "email": "EngFadyMondy@gmail.com"
+        }
+    ],
+    "require": {
+        "tomatophp/tomato-php": "^1.0",
+        "tomatophp/console-helpers": "^1.0",
+        "tomatophp/tomato-splade": "^1.0",
+        "tomatophp/tomato-breeze": "^1.0",
+        "tomatophp/tomato-plugins": "^1.0",
+        "spatie/laravel-medialibrary": "^10.7",
+        "maatwebsite/excel": "^3.1",
+        "blade-ui-kit/blade-heroicons": "*"
+    }
+}

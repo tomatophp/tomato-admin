@@ -1,0 +1,34 @@
+<?php
+
+namespace {{ namespace }};
+
+use TomatoPHP\TomatoPHP\Services\Menu\Menu;
+use TomatoPHP\TomatoPHP\Services\Menu\TomatoMenu;
+
+class {{ name }}Menu extends TomatoMenu
+{
+    /**
+     * @var ?string
+     * @example ACL
+     */
+    public ?string $group = "{{ group }}";
+
+    /**
+     * @var ?string
+     * @example dashboard
+     */
+    public ?string $menu = "dashboard";
+
+    /**
+     * @return array
+     */
+    public static function handler(): array
+    {
+        return [
+            Menu::make()
+                ->label("{{ table }}")
+                ->icon("bx bxs-circle")
+                ->route("{{ index }}"),
+        ];
+    }
+}
