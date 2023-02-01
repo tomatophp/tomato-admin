@@ -3,7 +3,7 @@
 namespace TomatoPHP\TomatoAdmin\Views;
 
 use Illuminate\View\Component;
-use Queents\TomatoPHP\Services\Menu\MenuHandler;
+use TomatoPHP\TomatoPHP\Services\Menu\MenuHandler;
 
 class Aside extends Component
 {
