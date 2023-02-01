@@ -51,7 +51,7 @@ class TomatoAdminServiceProvider extends ServiceProvider
 
         //Register View Component
         $this->loadViewComponentsAs('tomato-admin', [
-            \Queents\TomatoAdmin\Views\Layout::class,
+            \TomatoPHP\TomatoAdmin\Views\Layout::class,
             Aside::class,
             Footer::class,
             Navbar::class,
