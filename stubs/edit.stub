@@ -4,6 +4,6 @@
     <x-splade-form class="flex flex-col space-y-4" action="{{route('admin.{{ table }}.update', $model->id)}}" method="post" :default="$model">
         {{ cols }}
 
-        <x-splade-submit label="{{trans('tomato-admin::global.crud.update')}} {{__('{{ title }}')}}')'" :spinner="true" />
+        <x-splade-submit label="{{trans('tomato-admin::global.crud.update')}} {{__('{{ title }}')}}" :spinner="true" />
     </x-splade-form>
 </x-splade-modal>
