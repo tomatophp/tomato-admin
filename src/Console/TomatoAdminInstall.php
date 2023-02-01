@@ -32,7 +32,7 @@ class TomatoAdminInstall extends Command
      */
     public function __construct()
     {
-        $this->publish = base_path('packages/queents/tomato-admin/publish');
+        $this->publish = base_path('vendor/tomatophp/tomato-admin/publish');
         parent::__construct();
     }
 
@@ -53,7 +53,7 @@ class TomatoAdminInstall extends Command
         $this->handelFile('/resources/css', resource_path('/css'), 'folder');
         $this->callSilent('optimize:clear');
         $this->info('🍅 Publish Vendor Assets ...');
-        $this->call('vendor:publish', ['--provider' => 'Queents\TomatoAdmin\TomatoAdminServiceProvider']);
+        $this->call('vendor:publish', ['--provider' => 'TomatoPHP\TomatoAdmin\TomatoAdminServiceProvider']);
         $this->info('🍅 Install NPM packages ...');
         $this->yarnCommand(['install']);
         $this->yarnCommand(['build']);

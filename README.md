@@ -25,7 +25,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Credits
 
-- [Queen Tech Solutions](https://github.com/queents)
+- [Fady Mondy](https://github.com/3x1io)
 
 ## License
 
