@@ -55,7 +55,7 @@ class {{ name }} extends Controller
         $response = Tomato::store(
             request: $request,
             model: {{ model }}::class,
-            message: '{{ title }} created successfully',
+            message: __('{{ title }} created successfully'),
             redirect: 'admin.{{ table }}.index',
         );
 
@@ -96,7 +96,7 @@ class {{ name }} extends Controller
         $response = Tomato::update(
             request: $request,
             model: $model,
-            message: '{{ title }} updated successfully',
+            message: __('{{ title }} updated successfully'),
             redirect: 'admin.{{ table }}.index',
         );
 
@@ -111,7 +111,7 @@ class {{ name }} extends Controller
     {
         return Tomato::destroy(
             model: $model,
-            message: '{{ title }} deleted successfully',
+            message: __('{{ title }} deleted successfully'),
             redirect: 'admin.{{ table }}.index',
         );
     }

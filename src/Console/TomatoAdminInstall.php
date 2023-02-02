@@ -52,8 +52,6 @@ class TomatoAdminInstall extends Command
         $this->handelFile('/resources/js', resource_path('/js'), 'folder');
         $this->handelFile('/resources/css', resource_path('/css'), 'folder');
         $this->callSilent('optimize:clear');
-        $this->info('🍅 Publish Vendor Assets ...');
-        $this->call('vendor:publish', ['--provider' => 'TomatoPHP\TomatoAdmin\TomatoAdminServiceProvider']);
         $this->info('🍅 Install NPM packages ...');
         $this->yarnCommand(['install']);
         $this->yarnCommand(['build']);

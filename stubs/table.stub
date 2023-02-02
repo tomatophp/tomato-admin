@@ -52,7 +52,7 @@ class {{ name }} extends AbstractTable
             ->bulkAction(
                 label: trans('tomato-admin::global.crud.delete'),
                 each: fn ({{ model }} $model) => $model->delete(),
-                after: fn () => Toast::danger('{{ title }} Has Been Deleted')->autoDismiss(2),
+                after: fn () => Toast::danger(__('{{ title }} Has Been Deleted'))->autoDismiss(2),
                 confirm: true
             )
             ->export()

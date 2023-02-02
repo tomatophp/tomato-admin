@@ -28,7 +28,7 @@ class TomatoAdminServiceProvider extends ServiceProvider
         //Publish config file
         $this->publishes([
             __DIR__.'/../config/tomato-admin.php' => config_path('tomato-admin.php'),
-        ], 'tomato-config');
+        ], 'tomato-admin-config');
 
         //Register View Path
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'tomato-admin');
@@ -36,7 +36,7 @@ class TomatoAdminServiceProvider extends ServiceProvider
         //Publish views
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/tomato-admin'),
-        ], 'tomato-views');
+        ], 'tomato-admin-views');
 
         //Register Routes
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
@@ -44,10 +44,15 @@ class TomatoAdminServiceProvider extends ServiceProvider
         //Load Translations
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'tomato-admin');
 
+        //Publish Languages
+        $this->publishes([
+            __DIR__.'/../resources/lang' => base_path('lang/vendor/tomato-admin'),
+        ], 'tomato-admin-lang');
+
         //Publish Views
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/tomato-admin'),
-        ], 'tomato-views');
+        ], 'tomato-admin-views');
 
         //Register View Component
         $this->loadViewComponentsAs('tomato-admin', [

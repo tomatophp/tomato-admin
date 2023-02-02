@@ -1,5 +1,5 @@
 <x-splade-modal class="font-main">
-    <h1 class="text-2xl font-bold mb-4">{{trans('tomato-admin::global.crud.view')}} {{ title }} #{{$model->id}}</h1>
+    <h1 class="text-2xl font-bold mb-4">{{trans('tomato-admin::global.crud.view')}} {{ __('{{ title }}') }} #{{$model->id}}</h1>
 
     <div class="flex flex-col space-y-4">
         {{ cols }}

@@ -1,5 +1,5 @@
 
-Route::middleware(['auth', 'splade', 'verified', \Queents\TomatoPHP\Http\Middleware\LanguageSwitcher::class])->name('admin.')->group(function () {
+Route::middleware(['auth', 'splade', 'verified'])->name('admin.')->group(function () {
     Route::get('admin/{{ table }}', [{{ name }}::class, 'index'])->name('{{ table }}.index');
     Route::get('admin/{{ table }}/api', [{{ name }}::class, 'api'])->name('{{ table }}.api');
     Route::get('admin/{{ table }}/create', [{{ name }}::class, 'create'])->name('{{ table }}.create');
