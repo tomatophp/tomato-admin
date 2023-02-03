@@ -21,11 +21,6 @@ createApp({
     render: renderSpladeApp({ el }),
     mounted() {
         this.$helpers.setDarkMode(this.$helpers.setStorage("dark"));
-        this.$helpers.langSwitch(
-            this.$helpers.setStorage("lang")
-                ? this.$helpers.setStorage("lang").id
-                : "en"
-        );
     },
 })
     .use(SpladePlugin, {

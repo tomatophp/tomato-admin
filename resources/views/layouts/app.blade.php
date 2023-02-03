@@ -53,4 +53,8 @@
         </div>
     </div>
 </div>
+<x-splade-script>
+    this.$helpers.langSwitch('{{app()->getLocale()}}');
+    console.log('{{app()->getLocale()}}');
+</x-splade-script>
 </x-splade-data>

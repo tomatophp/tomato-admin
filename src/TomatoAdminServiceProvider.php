@@ -3,6 +3,7 @@
 namespace TomatoPHP\TomatoAdmin;
 use Illuminate\Support\ServiceProvider;
 use TomatoPHP\TomatoAdmin\Console\TomatoAdminInstall;
+use TomatoPHP\TomatoAdmin\Console\TomatoAdminUpgrade;
 use TomatoPHP\TomatoAdmin\Views\Aside;
 use TomatoPHP\TomatoAdmin\Views\Footer;
 use TomatoPHP\TomatoAdmin\Views\GuestLayout;
@@ -65,7 +66,8 @@ class TomatoAdminServiceProvider extends ServiceProvider
         ]);
 
         $this->commands([
-            TomatoAdminInstall::class
+            TomatoAdminInstall::class,
+            TomatoAdminUpgrade::class
         ]);
     }
 
