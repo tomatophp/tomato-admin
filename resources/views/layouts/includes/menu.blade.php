@@ -26,6 +26,8 @@
 
 @if(config('tomato-admin.menu_provider'))
     {!! config('tomato-admin.menu_provider')::render() !!}
+@elseif(config('tomato-admin.menu_file'))
+    @include(config('tomato-admin.menu_file'))
 @else
     @php $counter = 0; @endphp
     @foreach($menus as $menu)

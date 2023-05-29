@@ -16,4 +16,9 @@ return [
      * the class must return a full rendered menu.
      */
     "menu_provider" => null,
+
+    /**
+     * if you need to change the main menu with your own menu file
+     */
+    "menu_file" => null
 ];
