@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
-use TomatoPHP\TomatoPHP\Services\Menu\Menu;
-use TomatoPHP\TomatoPHP\Services\Menu\TomatoMenu;
+use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
+use TomatoPHP\TomatoAdmin\Services\TomatoMenu;
 
 class {{ name }}Menu extends TomatoMenu
 {

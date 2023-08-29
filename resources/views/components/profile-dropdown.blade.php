@@ -51,7 +51,7 @@
                         <div>
                             <button
 
-                                @click.prevent="setToggle(false); $helpers.setDarkMode()"
+                                @click.prevent="setToggle(false); data.dark = !data.dark; $splade.refresh()"
                                 type="button"
                                 class="filament-dropdown-item flex items-center w-full h-8 px-3 text-sm font-medium group whitespace-nowrap focus:outline-none hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700"
                             >
@@ -77,7 +77,7 @@
                             <Link
                                 href="{{ route('admin.lang') }}"
                                 method="POST"
-                                @click="setToggle(false); $helpers.langSwitch()"
+                                @click="setToggle(false);"
                                 type="button"
                                 class="filament-dropdown-item flex items-center w-full h-8 px-3 text-sm font-medium group whitespace-nowrap focus:outline-none hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700"
                             >

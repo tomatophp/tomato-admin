@@ -9,7 +9,7 @@ use TomatoPHP\TomatoAdmin\Views\Footer;
 use TomatoPHP\TomatoAdmin\Views\GuestLayout;
 use TomatoPHP\TomatoAdmin\Views\Navbar;
 use TomatoPHP\TomatoAdmin\Views\ProfileDropdown;
-use TomatoPHP\TomatoPHP\Http\Middleware\LanguageSwitcher;
+use TomatoPHP\TomatoAdmin\Http\Middleware\LanguageSwitcher;
 
 class TomatoAdminServiceProvider extends ServiceProvider
 {

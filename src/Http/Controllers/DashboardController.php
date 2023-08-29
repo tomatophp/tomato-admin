@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Password;
@@ -93,13 +94,21 @@ class DashboardController extends Controller
     }
 
     public function switchLang(Request $request){
-        if(isset($_COOKIE['lang'])){
-            app()->setLocale(json_decode($_COOKIE['lang'])->id);
-        }
-        else {
+        if(!Cookie::has('lang')){
+            Cookie::queue('lang', json_encode(["id" => "en", "name" => "English"]));
             app()->setLocale("en");
         }
 
+
+
+        if( json_decode(Cookie::get('lang'))->id == "en"){
+            Cookie::queue('lang', json_encode(["id" => "ar", "name" => "Arabic"]));
+            app()->setLocale("ar");
+        }
+        else {
+            Cookie::queue('lang', json_encode(["id" => "en", "name" => "English"]));
+            app()->setLocale("en");
+        }
         return redirect()->back();
     }
 

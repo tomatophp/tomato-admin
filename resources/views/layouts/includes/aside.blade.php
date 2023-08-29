@@ -1,7 +1,7 @@
 <div
         v-cloak
         v-show="data.makeMenuHide"
-        @click.prevent="$helpers.setStorage('makeMenuHide', 'toggle', true); data.makeMenuHide = !data.makeMenuHide"
+        @click.prevent="data.makeMenuHide = !data.makeMenuHide"
         class="fixed inset-0 z-20 w-full h-full filament-sidebar-close-overlay bg-gray-900/50 lg:hidden"
 >
 

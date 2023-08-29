@@ -52,7 +52,7 @@
 
         >
             <div
-                    @click.prevent="$helpers.setStorage('makeMenuMin', 'toggle', true); data.makeMenuMin = !data.makeMenuMin"
+                    @click.prevent="data.makeMenuMin = !data.makeMenuMin"
                     class="relative lg:absolute invisible lg:visible"
             >
                 @if(app()->getLocale() === 'ar')
@@ -66,7 +66,7 @@
 
             <div
                     class="relative lg:absolute visible lg:invisible"
-                    @click.prevent="$helpers.setStorage('makeMenuHide', 'toggle', true); data.makeMenuHide = !data.makeMenuHide"
+                    @click.prevent="data.makeMenuHide = !data.makeMenuHide"
             >
                 <x-heroicon-o-bars-3 class="w-6 h-6"/>
             </div>

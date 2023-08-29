@@ -32,7 +32,6 @@
     @php $counter = 0; @endphp
     @foreach($menus as $menu)
         <button @click.prevent="
-        $helpers.setAsideMenuGroup('{{str_replace(" ", "_", $menu["label"])}}', true);
         data.asideMenuGroup['{{str_replace(" ", "_", $menu["label"])}}'] =
         !data.asideMenuGroup['{{str_replace(" ", "_", $menu["label"])}}']"
                 v-show="!data.makeMenuMin"

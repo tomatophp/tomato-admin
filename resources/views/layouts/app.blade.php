@@ -1,13 +1,20 @@
 <x-splade-data
-    default="{
-        makeMenuHide: $helpers.setStorage('makeMenuHide') ? $helpers.setStorage('makeMenuHide') : false,
-        makeMenuMin: $helpers.setStorage('makeMenuMin') ? $helpers.setStorage('makeMenuMin') : false,
-        dark: $helpers.setStorage('dark') ? $helpers.setStorage('dark') : false,
-        asideMenuGroup: $helpers.setStorage('AsideMenuGroup') ? $helpers.setStorage('AsideMenuGroup') : {} ,
+        default="{
+        makeMenuHide: false,
+        makeMenuMin:  false,
+        dark: false,
+        lang: {
+            id: 'en',
+            name: 'English'
+        },
+        asideMenuGroup: {},
     }"
+
+    remember="admin"
+                local-storage
 >
 
-<div class="filament-body bg-gray-100 text-gray-900 dark:text-gray-100 dark:bg-gray-900 font-main" @load="$helpers.setDarkMode(data.dark)">
+<div class="filament-body bg-gray-100 text-gray-900 dark:text-gray-100 dark:bg-gray-900 font-main" @load="data.dark">
     <div class="filament-app-layout flex w-full min-h-screen overflow-v-clip">
         <x-tomato-admin-aside />
         <div
@@ -53,8 +60,20 @@
         </div>
     </div>
 </div>
-<x-splade-script>
-    this.$helpers.langSwitch('{{app()->getLocale()}}');
-    console.log('{{app()->getLocale()}}');
-</x-splade-script>
+    <x-splade-script>
+        if(localStorage.getItem("splade") && typeof document !== undefined){
+                let spladeStorage = JSON.parse(localStorage.getItem("splade"));
+        let dark = spladeStorage?.admin?.dark;
+        document.body.classList[dark ? "add" : "remove"]("dark-scrollbars");
+        document.documentElement.classList[dark ? "add" : "remove"]("dark");
+        let htmlEl = document.querySelector("html");
+
+        if ("{{app()->getLocale()}}" === "ar") {
+        htmlEl.setAttribute("dir", "rtl");
+        } else {
+        htmlEl.setAttribute("dir", "ltr");
+        }
+        }
+
+    </x-splade-script>
 </x-splade-data>

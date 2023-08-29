@@ -20,5 +20,17 @@ return [
     /**
      * if you need to change the main menu with your own menu file
      */
-    "menu_file" => null
+    "menu_file" => null,
+
+    /**
+     * if you need to change the route prefix
+     */
+    "route_perfix" => "admin",
+
+    /**
+     * if you need to change the route middlewares
+     */
+    "route_middlewares" => [
+        "web"
+    ],
 ];
