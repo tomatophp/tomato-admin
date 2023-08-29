@@ -40,7 +40,6 @@
         }
     ],
     "require": {
-        "tomatophp/tomato-php": "^1.0",
         "tomatophp/console-helpers": "^1.0",
         "tomatophp/tomato-splade": "^1.0",
         "tomatophp/tomato-breeze": "^1.0",
