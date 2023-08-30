@@ -32,7 +32,7 @@ class Menu
      * @var ?string
      * @example _blank
      */
-    public ?string $target = "_blank";
+    public ?string $target = null;
 
     /**
      * @var ?string
@@ -45,6 +45,11 @@ class Menu
      * @example #fefefe
      */
     public ?string $color = "#000";
+
+    /**
+     * @var string|null
+     */
+    public ?string $group = "resources";
 
 
     /**
@@ -68,6 +73,7 @@ class Menu
            "route" => $this->route ?? null,
            "badge" => $this->badge ?? null,
            "color" => $this->color ?? null,
+           "group" => $this->group ?? null,
         ]);
     }
 
@@ -79,6 +85,16 @@ class Menu
     public function label(string $label): static
     {
         $this->label = $label;
+        return $this;
+    }
+
+    /**
+     * @param string $group
+     * @return $this
+     */
+    public function group(string $group): static
+    {
+        $this->group = $group;
         return $this;
     }
 
@@ -138,7 +154,7 @@ class Menu
      */
     public function badge(string $badge): static
     {
-        $this->target = $badge;
+        $this->badge = $badge;
         return $this;
     }
 }

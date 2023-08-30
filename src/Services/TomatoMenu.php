@@ -3,7 +3,9 @@
 namespace TomatoPHP\TomatoAdmin\Services;
 
 use Illuminate\Support\Collection;
+use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
 use TomatoPHP\TomatoAdmin\Services\Menu\TomatoMenuRegister;
+use TomatoPHP\TomatoAdmin\Facade\TomatoMenu as TomatoMenuFacade;
 
 class TomatoMenu
 {
@@ -16,24 +18,17 @@ class TomatoMenu
     /**
      * @var Collection
      */
-    public  static Collection $menu;
+    public   Collection $menu;
 
     public function __construct()
     {
-        static::$menu = collect([]);
+        $this->menu = collect([]);
     }
 
-    public static function register(string $item): void
+    public function loadFromSource(): static
     {
-        self::$menu[] = $item;
-    }
-
-    /**
-     * @return array
-     */
-    public static function loadMenus(): Collection
-    {
-        return self::$menu;
+        $this->menu = TomatoMenuFacade::load();
+        return $this;
     }
 
     /**
@@ -41,8 +36,7 @@ class TomatoMenu
      */
     public static function get(): Collection
     {
-        //Make $this->menu collection
-        return (new static)->menus()->build()->load();
+        return (new static)->loadFromSource()->build()->load();
     }
 
     /**
@@ -50,21 +44,7 @@ class TomatoMenu
      */
     public function load(): Collection
     {
-        return static::$menu;
-    }
-
-    /**
-     * @return $this
-     */
-    private function menus(): static
-    {
-        $providerMenu = static::loadMenus();
-        $menusClasses = array_merge(config('tomato-admin.menus'), $providerMenu->toArray());
-        foreach($menusClasses as $class){
-            $this->children[] = $class;
-        }
-
-        return $this;
+        return $this->menu;
     }
 
     /**
@@ -72,30 +52,8 @@ class TomatoMenu
      */
     private function build(): static
     {
-        static::$menu = collect();
-        foreach ($this->children as $menu){
-            $menuGroup = app($menu)->group;
-            $menuName = app($menu)->menu;
-            $menuItems = app($menu)->handler();
-
-            if(!static::$menu->has($menuName)){
-                static::$menu->put($menuName, collect([]));
-            }
-
-            $getGroup = static::$menu[$menuName]->where('label', $menuGroup)->first();
-            if($getGroup){
-                foreach($menuItems as $menuItemValue){
-                    $getGroup['items']->push($menuItemValue);
-                }
-            }
-            else {
-                static::$menu[$menuName]->put($menuGroup, collect([
-                    "label" => $menuGroup,
-                    "items" => collect($menuItems)
-                ]));
-            }
-        }
-
+                $collectByGroup = $this->menu->groupBy("group");
+                $this->menu = $collectByGroup;
         return $this;
     }
 }

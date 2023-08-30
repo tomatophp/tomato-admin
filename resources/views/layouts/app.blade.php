@@ -47,7 +47,7 @@
                     </h1>
 
                     <div>
-                        {{ $headerBody ?? '' }}
+                        {{ $buttons ?? '' }}
                     </div>
                 </header>
 

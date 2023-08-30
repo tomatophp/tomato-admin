@@ -3,7 +3,7 @@
 namespace TomatoPHP\TomatoAdmin\Views;
 
 use Illuminate\View\Component;
-use TomatoPHP\TomatoAdmin\Services\TomatoMenu;
+use TomatoPHP\TomatoAdmin\Facade\TomatoMenu;
 
 class Aside extends Component
 {
@@ -14,7 +14,7 @@ class Aside extends Component
      */
     public function render()
     {
-        $menus = TomatoMenu::get()['dashboard'] ?? [];
+        $menus = TomatoMenu::get();
         return view('tomato-admin::layouts.includes.aside', [
             "menus" => $menus
         ]);

@@ -3,6 +3,7 @@
 namespace TomatoPHP\TomatoAdmin\Interfaces;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ interface TomatoBase
      * @param array $data
      * @return View
      */
-    public static function index(Request $request, string $view, string $table, array $data=[]): View;
+    public function index(Request $request,string $model,  ?string $view=null, ?string $table=null, array $data=[],?bool $api =true,?Builder $query=null, array $filters = []): View | JsonResponse;
 
     /**
      * @param Request $request
@@ -26,14 +27,14 @@ interface TomatoBase
      * @param array $data
      * @return JsonResponse
      */
-    public static function json(Request $request, string $model, array $data=[]): JsonResponse;
+    public function json(Request $request, string $model, array $data=[]): JsonResponse;
 
     /**
      * @param string $view
      * @param array $data
      * @return View
      */
-    public static function create(string $view, array $data=[]): View;
+    public function create(string $view, array $data=[]): View;
 
     /**
      * @param FormRequest $request
@@ -45,7 +46,7 @@ interface TomatoBase
      * @param bool $multi
      * @return array
      */
-    public static function store(FormRequest $request, string $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array;
+    public function store(FormRequest $request, string $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array;
 
     /**
      * @param Model $model

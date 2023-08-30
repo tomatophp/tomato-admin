@@ -33,4 +33,9 @@ return [
     "route_middlewares" => [
         "web"
     ],
+
+    /**
+     * if you need to change the route path for global search
+     */
+    "global_search_route" => null,
 ];

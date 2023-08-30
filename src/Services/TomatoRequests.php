@@ -3,6 +3,7 @@
 namespace TomatoPHP\TomatoAdmin\Services;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -10,11 +11,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use ProtoneMedia\Splade\Facades\Toast;
+use TomatoPHP\TomatoAdmin\Helpers\ApiResponse;
 use TomatoPHP\TomatoAdmin\Interfaces\TomatoBase;
+use Illuminate\Http\Response;
 
-class Tomato implements TomatoBase
+class TomatoRequests
 {
 
+        private  $sorting = 'desc';
     /**
      * @param Request $request
      * @param string $view
@@ -22,11 +26,50 @@ class Tomato implements TomatoBase
      * @param array $data
      * @return View
      */
-    public static function index(Request $request, string $view, string $table, array $data=[]): View
+    public function index(
+        Request $request,
+        string $model,
+        ?string $view=null,
+        ?string $table=null,
+        array $data=[],
+        ?bool $api =true,
+        ?string $resource=null,
+        ?Builder $query=null,
+        array $filters = []
+    ): View| JsonResponse
     {
-        return view($view, array_merge([
-            'table' => app($table),
-        ],$data));
+        if(!$query){
+            $query = $model::query();
+        }
+        if(count($filters)){
+            foreach ($filters as $key){
+                if($request->has($key) && $request->get($key) !== null) {
+                    $query->where($key, $request->get($key));
+                }
+            }
+        }
+
+        $query->orderBy('id', $this->sorting);
+
+        $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
+        if((!$isAPIRequest) && $api ){
+            $response = $query->paginate(10);
+            if($resource){
+                $response = $resource::collection($response);
+            }
+            return ApiResponse::data(
+                data: $response,
+                meta: $data
+            );
+        }
+        elseif((!$isAPIRequest) && (!$api )){
+                        abort(404);
+        }
+        else {
+            return view($view, array_merge([
+                'table' => (new $table($query)),
+            ],$data));
+        }
     }
 
     /**
@@ -35,12 +78,30 @@ class Tomato implements TomatoBase
      * @param array $data
      * @return JsonResponse
      */
-    public static function json(Request $request, string $model, array $data=[],bool|int $paginate=false): JsonResponse
+    public function json(
+        Request $request,
+        string $model,
+        array $data=[],
+        bool|int $paginate=false,
+        ?Builder $query=null,
+        array $filters = []
+    ): JsonResponse
     {
-        return response()->json([
-            'model' => $paginate ? $model::paginate($paginate) : ["data"=>$model::all()->toArray()],
-            'data' => $data
-        ]);
+        if(!$query){
+            $query = $model::query();
+        }
+        if(count($filters)){
+            foreach ($filters as $key){
+                if($request->has($key) && $request->get($key) !== null) {
+                    $query->where($key, $request->get($key));
+                }
+            }
+        }
+
+        $query->orderBy('id', $this->sorting);
+
+                        $response = $paginate ? $query->paginate($paginate) : $query->get();
+        return ApiResponse::data(data: $response);
     }
 
     /**
@@ -48,7 +109,7 @@ class Tomato implements TomatoBase
      * @param array $data
      * @return View
      */
-    public static function create(string $view, array $data=[]): View
+    public function create(string $view, array $data=[]): View
     {
         return view($view, $data);
     }
@@ -64,7 +125,7 @@ class Tomato implements TomatoBase
      * @param bool $multi
      * @return array
      */
-    public static function store(FormRequest $request, string $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
+    public function store(FormRequest $request, string $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
     {
         $request->validated();
         $record = $model::create($request->all());
@@ -105,7 +166,7 @@ class Tomato implements TomatoBase
      * @param string $collection
      * @return View
      */
-    public static function get(Model $model, string $view, array $data=[], bool $hasMedia=false, string $collection="", bool $multi=false): View
+    public function get(Model $model, string $view, array $data=[], bool $hasMedia=false, string $collection="", bool $multi=false): View
     {
         if($hasMedia){
             if($multi){
@@ -138,7 +199,7 @@ class Tomato implements TomatoBase
      * @param bool $multi
      * @return array
      */
-    public static function update(FormRequest $request, Model $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
+    public function update(FormRequest $request, Model $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
     {
         $request->validated();
         $model->update($request->all());
@@ -196,7 +257,7 @@ class Tomato implements TomatoBase
      * @param string $redirect
      * @return RedirectResponse
      */
-    public static function destroy(Model $model, string $message, string $redirect): RedirectResponse
+    public function destroy(Model $model, string $message, string $redirect): RedirectResponse
     {
         $model->delete();
         Toast::title($message)->success()->autoDismiss(2);

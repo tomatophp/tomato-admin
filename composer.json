@@ -30,7 +30,11 @@
         "laravel": {
             "providers": [
                 "TomatoPHP\\TomatoAdmin\\TomatoAdminServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Tomato": "TomatoPHP\\TomatoAdmin\\Facades\\Tomato",
+                "TomatoMenu": "TomatoPHP\\TomatoAdmin\\Facades\\TomatoMenu",
+            }
         }
     },
     "authors": [

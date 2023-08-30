@@ -74,25 +74,14 @@
         <div class="flex items-center justify-between flex-1">
 
             <!-- breadcrumbs -->
-            <div class="filament-breadcrumbs flex-1">
-                {{--                <div class="hidden gap-4 items-center font-medium text-sm lg:flex dark:text-white" v-if="layoutStore.Breadcrumbs.length">--}}
-                {{--                    <div v-for="(item, key) in layoutStore.Breadcrumbs" :key="key">--}}
-                {{--                        <div class="flex justify-start">--}}
-                {{--                            <Link :href="item.route" class="dark:text-gray-400 my-auto" :class="{'text-gray-500':key === layoutStore.Breadcrumbs.length-1}">--}}
-                {{--                                {{item.label}}--}}
-                {{--                            </Link>--}}
-                {{--                            <div class="h-6 border-gray-300 -skew-x-12 dark:border-gray-500 ml-4" :class="{'border-r': key !== layoutStore.Breadcrumbs.length-1}"></div>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
-            </div>
+            <div class="flex-1"></div>
 
             <!-- Search -->
             <div class="filament-global-search flex items-center ml-4">
                 <div class="relative">
                     <div class="filament-global-search-input">
                         <label for="globalSearchInput" class="sr-only">
-                            Global search
+                            {{trans('tomato-admin::global.search')}}
                         </label>
 
                         <div class="relative group max-w-md">
@@ -105,8 +94,9 @@
                                     <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="currentColor"></path>
                                 </svg>
                             </span>
-
-                            <input  id="globalSearchInput" placeholder="{{trans('tomato-admin::global.search')}}" type="search" autocomplete="off" class="block w-full h-10 pl-10 bg-gray-400/10 placeholder-gray-500 border-transparent transition duration-75 rounded-lg focus:bg-white focus:placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400">
+                            <x-splade-form    method="GET" action="{{config('tomato-admin.global_search_route') ?: url()->current()}}">
+                                <input  id="globalSearchInput" v-model="form.search" placeholder="{{trans('tomato-admin::global.search')}}" type="search" autocomplete="off" class="block w-full h-10 pl-10 bg-gray-400/10 placeholder-gray-500 border-transparent transition duration-75 rounded-lg focus:bg-white focus:placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400">
+                            </x-splade-form>
                         </div>
                     </div>
                 </div>

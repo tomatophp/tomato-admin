@@ -4,11 +4,15 @@ namespace TomatoPHP\TomatoAdmin;
 use Illuminate\Support\ServiceProvider;
 use TomatoPHP\TomatoAdmin\Console\TomatoAdminInstall;
 use TomatoPHP\TomatoAdmin\Console\TomatoAdminUpgrade;
+use TomatoPHP\TomatoAdmin\Services\TomatoMenuHandler;
+use TomatoPHP\TomatoAdmin\Services\TomatoRequests;
+use TomatoPHP\TomatoAdmin\Views\Layout;
 use TomatoPHP\TomatoAdmin\Views\Aside;
 use TomatoPHP\TomatoAdmin\Views\Footer;
 use TomatoPHP\TomatoAdmin\Views\GuestLayout;
 use TomatoPHP\TomatoAdmin\Views\Navbar;
 use TomatoPHP\TomatoAdmin\Views\ProfileDropdown;
+use TomatoPHP\TomatoAdmin\Views\Button;
 use TomatoPHP\TomatoAdmin\Http\Middleware\LanguageSwitcher;
 
 class TomatoAdminServiceProvider extends ServiceProvider
@@ -57,18 +61,28 @@ class TomatoAdminServiceProvider extends ServiceProvider
 
         //Register View Component
         $this->loadViewComponentsAs('tomato-admin', [
-            \TomatoPHP\TomatoAdmin\Views\Layout::class,
+            Layout::class,
             Aside::class,
             Footer::class,
             Navbar::class,
             ProfileDropdown::class,
-            GuestLayout::class
+            GuestLayout::class,
+            Button::class
         ]);
 
         $this->commands([
             TomatoAdminInstall::class,
             TomatoAdminUpgrade::class
         ]);
+
+        $this->app->bind('tomato-menu',function(){
+            return new TomatoMenuHandler();
+        });
+
+        $this->app->bind('tomato',function(){
+            return new TomatoRequests();
+        });
+
     }
 
     /**
