@@ -3,20 +3,23 @@
 namespace TomatoPHP\TomatoAdmin\Views;
 
 use Illuminate\View\Component;
-use TomatoPHP\TomatoAdmin\Facade\TomatoMenu;
 
 class Button extends Component
 {
+    public ?bool $primary =false;
+
     public function __construct(
         public string $type='link',
         public ?string $label=null,
+        public ?string $method="get",
         public ?string$icon=null,
-        public ?bool $primary =false,
         public ?bool $warning =false,
+        public ?bool $secondary =false,
         public ?bool $danger =false,
         public ?bool $success =false,
     )
     {
+        $this->primary = !$this->warning && !$this->danger && !$this->success && !$this->secondary;
     }
 
     /**

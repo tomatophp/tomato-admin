@@ -39,7 +39,7 @@
 
             <x-tomato-admin-navbar />
 
-            <div class="filament-main-content flex-1 w-full px-4 mx-auto md:px-6 lg:px-8 max-w-7xl">
+            <div class="filament-main-content flex-1 w-full px-4 mx-auto md:px-6 lg:px-8">
                 <header
                         class="mb-4 items-start justify-between space-y-2 filament-header sm:flex sm:space-y-0 sm:space-v-4 sm:rtl:space-v-reverse sm:py-4">
                     <h1 class="text-2xl font-bold tracking-tight md:text-3xl filament-header-heading">

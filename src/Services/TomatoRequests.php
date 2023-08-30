@@ -125,9 +125,9 @@ class TomatoRequests
      * @param bool $multi
      * @return array
      */
-    public function store(FormRequest $request, string $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
+    public function store(Request $request, string $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
     {
-        $request->validated();
+//        $request->validated();
         $record = $model::create($request->all());
 
         if($hasMedia){
@@ -199,9 +199,9 @@ class TomatoRequests
      * @param bool $multi
      * @return array
      */
-    public function update(FormRequest $request, Model $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
+    public function update(Request $request, Model $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
     {
-        $request->validated();
+//        $request->validated();
         $model->update($request->all());
 
         if($hasMedia){
