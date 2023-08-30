@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use ProtoneMedia\Splade\Facades\Toast;
@@ -116,7 +117,7 @@ class TomatoRequests
 
 
     /**
-     * @param FormRequest $request
+     * @param Request $request
      * @param string $model
      * @param string $message
      * @param string $redirect
@@ -125,36 +126,69 @@ class TomatoRequests
      * @param bool $multi
      * @return array
      */
-    public function store(Request $request, string $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
+    public function store(
+        Request $request,
+        string $model,
+        ?array $validation = [],
+        ?string $message="Record Updated Success",
+        ?string $validationError="Validation Error",
+        ?string $redirect=null,
+        ?bool $hasMedia=false,
+        ?array $collection=[],
+        ?bool $api=true
+    ): TomatoResponse|JsonResponse
     {
-//        $request->validated();
-        $record = $model::create($request->all());
-
-        if($hasMedia){
-
-            if($multi){
-                if(count($request->get($collection))){
-                    foreach ($request->{$collection} as $item) {
-                        $record->addMedia($item)
-                            ->preservingOriginal()
-                            ->toMediaCollection($collection);
-                    }
-                }
+        $validator = Validator::make($request->all(), $validation);
+        $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
+        if ($validator->fails()) {
+            if($api  && (!$isAPIRequest)){
+                return ApiResponse::errors(
+                    message: $validationError,
+                    errorsArray: $validator->errors()
+                );
             }
             else {
-                if($request->hasFile($collection)){
-                    $record->addMedia($request->{$collection})
-                        ->preservingOriginal()
-                        ->toMediaCollection($collection);
-                }
+                Toast::danger($validationError)->autoDismiss(2);
+                $validator->validate();
             }
         }
 
-        Toast::title($message)->success()->autoDismiss(2);
-        return [
-            "redirect" => redirect()->route($redirect),
-            "record" => $record
-        ];
+        $record = $model::create($request->all());
+
+        if($hasMedia){
+            foreach ($collection as $key=>$multi){
+                                if($multi){
+                                    if(is_array($request->get($key)) && count($request->get($key))){
+                                        if(count($request->get($key))){
+                                            foreach ($request->{$key} as $item) {
+                                                $record->addMedia($item)
+                                                    ->preservingOriginal()
+                                                    ->toMediaCollection($key);
+                                            }
+                                        }
+                                    }
+                                }
+                else{
+                                    if($request->hasFile($key)){
+                                        $record->addMedia($request->{$key})
+                                            ->preservingOriginal()
+                                            ->toMediaCollection($key);
+                                    }
+                                }
+            }
+        }
+
+        if($api  && (!$isAPIRequest)){
+            return ApiResponse::data(
+                data: $record,
+                message: $message
+            );
+        }
+        else {
+            Toast::title($message)->success()->autoDismiss(2);
+            return  TomatoResponse::make()->redirect($redirect ? redirect()->route($redirect) : redirect()->back())->record($record);
+        }
+
     }
 
 

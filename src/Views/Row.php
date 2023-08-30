@@ -10,7 +10,8 @@ class Row extends Component
 
     public function __construct(
         public ?string $label=null,
-        public ?string $value=null,
+        public string|array|null $value=null,
+        public ?string $type="text",
     )
     {
 

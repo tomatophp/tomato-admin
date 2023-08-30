@@ -14,9 +14,9 @@ class ApiResponse
      * @param $code
      * @return Response|Application|ResponseFactory
      */
-    public static function errors($errorsArray =null, $code=400): Response
+    public static function errors($errorsArray =null, $code=400, $message="Something Went Wrong"): JsonResponse
     {
-        return response(['status' => false, 'message' => $errorsArray ?? __("Something Went Wrong")],$code);
+        return response()->json(['status' => false, 'message' => $errorsArray ?? $message],$code);
     }
 
     /**
