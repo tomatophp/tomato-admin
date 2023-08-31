@@ -154,17 +154,14 @@ class TomatoRequests
         }
 
         $record = $model::create($request->all());
-
         if($hasMedia){
             foreach ($collection as $key=>$multi){
                                 if($multi){
-                                    if(is_array($request->get($key)) && count($request->get($key))){
-                                        if(count($request->get($key))){
-                                            foreach ($request->{$key} as $item) {
-                                                $record->addMedia($item)
-                                                    ->preservingOriginal()
-                                                    ->toMediaCollection($key);
-                                            }
+                                    if(is_array($request->{$key}) && count($request->{$key})){
+                                        foreach ($request->{$key} as $item) {
+                                            $record->addMedia($item)
+                                                ->preservingOriginal()
+                                                ->toMediaCollection($key);
                                         }
                                     }
                                 }

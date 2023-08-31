@@ -16,18 +16,18 @@
                 </div>
             </div>
         </div>
-        @elseif($type === 'images' && is_array($value))
-            <div class="grid grid-cols-2 gap-4">
+        @elseif($type === 'images')
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mt-3">
             @foreach($value as $image)
                     <a href="{{$image->getUrl()}}" target="_blank">
-                        <div class="bg-cover bg-center w-16 h-16 rounded-full"  style="background-image:url('{{$image->getUrl()}}') ">
+                        <div class="bg-cover bg-center w-16 h-16 rounded-lg"  style="background-image:url('{{$image->getUrl()}}') ">
                         </div>
                     </a>
             @endforeach
             </div>
         @elseif($type === 'image')
-            <a href="{{$value}}" target="_blank">
-                <div class="bg-cover bg-center w-16 h-16 rounded-full"  style="background-image:url('{{$value}}') ">
+            <a href="{{$value}}" class="mt-3" target="_blank">
+                <div class="bg-cover bg-center w-16 h-16 rounded-lg"  style="background-image:url('{{$value}}') ">
                 </div>
             </a>
             @endif
