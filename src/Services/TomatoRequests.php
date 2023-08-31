@@ -130,7 +130,7 @@ class TomatoRequests
         Request $request,
         string $model,
         ?array $validation = [],
-        ?string $message="Record Updated Success",
+        ?string $message="Record Created Success",
         ?string $validationError="Validation Error",
         ?string $redirect=null,
         ?bool $hasMedia=false,
@@ -157,7 +157,7 @@ class TomatoRequests
         if($hasMedia){
             foreach ($collection as $key=>$multi){
                                 if($multi){
-                                    if(is_array($request->{$key}) && count($request->{$key})){
+                                    if($request->has($key) && is_array($request->{$key}) && count($request->{$key})){
                                         foreach ($request->{$key} as $item) {
                                             $record->addMedia($item)
                                                 ->preservingOriginal()
@@ -197,26 +197,61 @@ class TomatoRequests
      * @param string $collection
      * @return View
      */
-    public function get(Model $model, string $view, array $data=[], bool $hasMedia=false, string $collection="", bool $multi=false): View
+    public function get(
+        Model $model,
+        string $view,
+        array $data=[],
+        bool $hasMedia=false,
+        array $collection=[],
+        array $attach = [],
+        ?bool $api=true
+    ): View|JsonResponse
     {
-        if($hasMedia){
-            if($multi){
-                $model->{$collection} = $model->getMedia($collection)->map(function ($file) {
-                    return $file->getUrl();
-                });
+        $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
+
+        if(count($attach)){
+            foreach ($attach as $key=>$value){
+                $model->{$key} = $value;
             }
-            else {
-                $model->{$collection} = $model->getMedia($collection)->first() ? $model->getMedia($collection)->first()->getUrl() : null;
+        }
+
+        if($hasMedia){
+            foreach ($collection as $key=>$multi) {
+                if ($multi) {
+                    $model->{$key} = $model->getMedia($key)->map(function ($file) {
+                        return $file->getUrl();
+                    });
+                } else {
+                    $model->{$key} = $model->getMedia($key)->first() ? $model->getMedia($key)->first()->getUrl() : null;
+                }
             }
 
+            unset($model->media);
+            if($api  && (!$isAPIRequest)){
+                return ApiResponse::data(
+                    data: $model,
+                    message: "Record Fetched Success"
+                );
+            }
+            else {
+                return view($view, array_merge([
+                    "model" => $model
+                ], $data));
+            }
+        }
+
+        if($api  && (!$isAPIRequest)){
+            return ApiResponse::data(
+                data: $model,
+                message: "Record Fetched Success"
+            );
+        }
+        else {
             return view($view, array_merge([
                 "model" => $model
             ], $data));
         }
 
-        return view($view, array_merge([
-            "model" => $model
-        ], $data));
     }
 
 
@@ -230,56 +265,87 @@ class TomatoRequests
      * @param bool $multi
      * @return array
      */
-    public function update(Request $request, Model $model, string $message, string $redirect, bool $hasMedia=false, string $collection="", bool $multi = false): array
+    public function update(
+        Request $request,
+                           Model $model,
+                           ?array $validation = [],
+                           ?string $message="Record Updated Success",
+                           ?string $validationError="Validation Error",
+                           ?string $redirect=null,
+                           ?bool $hasMedia=false,
+                           ?array $collection=[],
+                           ?bool $api=true):TomatoResponse|JsonResponse
     {
-//        $request->validated();
-        $model->update($request->all());
+        $validator = Validator::make($request->all(), $validation);
+        $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
+        if ($validator->fails()) {
+            if($api  && (!$isAPIRequest)){
+                return ApiResponse::errors(
+                    message: $validationError,
+                    errorsArray: $validator->errors()
+                );
+            }
+            else {
+                Toast::danger($validationError)->autoDismiss(2);
+                $validator->validate();
+            }
+        }
+        $model->update(collect($request->all())->filter( function($value, $key) {
+            return $value !== null;
+        })->toArray());
 
         if($hasMedia){
-            if($request->{$collection} ){
-                $model->clearMediaCollection($collection);
+            foreach ($collection as $key=>$multi){
                 if($multi){
-                    if($request->has($collection) && count($request->get($collection))){
-                        foreach ($request->{$collection} as $item) {
+                    if($request->has($key) && is_array($request->{$key}) && count($request->{$key})){
+                        $model->clearMediaCollection($key);
+                        foreach ($request->{$key} as $item) {
                             if(!is_string($item)){
                                 if($item->getClientOriginalName() === 'blob'){
                                     $model->addMedia($item)
-                                        ->usingFileName(strtolower(Str::random(10).'_'.$collection.'.'.$item->extension()))
+                                        ->usingFileName(strtolower(Str::random(10).'_'.$key.'.'.$item->extension()))
                                         ->preservingOriginal()
-                                        ->toMediaCollection($collection);
+                                        ->toMediaCollection($key);
                                 }
                                 else {
                                     $model->addMedia($item)
                                         ->preservingOriginal()
-                                        ->toMediaCollection($collection);
+                                        ->toMediaCollection($key);
                                 }
                             }
                         }
                     }
                 }
-                else {
-                    if($request->has($collection)){
-                        if($request->{$collection}->getClientOriginalName() === 'blob'){
-                            $model->addMedia($request->{$collection})
-                                ->usingFileName(strtolower(Str::random(10).'_'.$collection.'.'.$request->{$collection}->extension()))
+                else{
+                    if($request->has($key)){
+                        $model->clearMediaCollection($key);
+                        if($request->{$key}->getClientOriginalName() === 'blob'){
+                            $model->addMedia($request->{$key})
+                                ->usingFileName(strtolower(Str::random(10).'_'.$key.'.'.$request->{$key}->extension()))
                                 ->preservingOriginal()
-                                ->toMediaCollection($collection);
+                                ->toMediaCollection($key);
                         }
                         else {
-                            $model->addMedia($request->{$collection})
+                            $model->addMedia($request->{$key})
                                 ->preservingOriginal()
-                                ->toMediaCollection($collection);
+                                ->toMediaCollection($key);
                         }
                     }
+
                 }
             }
         }
 
-        Toast::title($message)->success()->autoDismiss(2);
-        return [
-            "redirect" => redirect()->route($redirect),
-            "record" => $model
-        ];
+        if($api  && (!$isAPIRequest)){
+            return ApiResponse::data(
+                data: $model,
+                message: $message
+            );
+        }
+        else {
+            Toast::title($message)->success()->autoDismiss(2);
+            return  TomatoResponse::make()->redirect($redirect ? redirect()->route($redirect) : redirect()->back())->record($model);
+        }
     }
 
     /**
@@ -288,10 +354,34 @@ class TomatoRequests
      * @param string $redirect
      * @return RedirectResponse
      */
-    public function destroy(Model $model, string $message, string $redirect): RedirectResponse
+    public function destroy(
+        Model $model,
+        string $message,
+        string $redirect,
+        ?bool $hasMedia=false,
+                           ?array $collection=[],
+                           ?bool $api=true
+    ): TomatoResponse|JsonResponse
     {
+        $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
+
+        if($hasMedia) {
+            foreach ($collection as $key => $multi) {
+                $model->clearMediaCollection($key);
+            }
+        }
+
         $model->delete();
-        Toast::title($message)->success()->autoDismiss(2);
-        return redirect()->route($redirect);
+
+        if($api  && (!$isAPIRequest)){
+            return ApiResponse::data(
+                data: [],
+                message: $message
+            );
+        }
+        else {
+            Toast::title($message)->success()->autoDismiss(2);
+            return  TomatoResponse::make()->redirect($redirect ? redirect()->route($redirect) : redirect()->back());
+        }
     }
 }
