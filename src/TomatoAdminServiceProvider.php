@@ -20,6 +20,13 @@ use TomatoPHP\TomatoAdmin\Views\Widget;
 use TomatoPHP\TomatoAdmin\Http\Middleware\LanguageSwitcher;
 use TomatoPHP\TomatoAdmin\Views\Row;
 use TomatoPHP\TomatoAdmin\Views\Submit;
+use TomatoPHP\TomatoAdmin\Views\Repeater;
+use TomatoPHP\TomatoAdmin\Views\Rich;
+use TomatoPHP\TomatoAdmin\Views\Tel;
+use TomatoPHP\TomatoAdmin\Views\Select;
+use TomatoPHP\TomatoAdmin\Views\Draggable;
+use TomatoPHP\TomatoAdmin\Views\Color;
+use TomatoPHP\TomatoAdmin\Views\Code;
 
 class TomatoAdminServiceProvider extends ServiceProvider
 {
@@ -79,7 +86,14 @@ class TomatoAdminServiceProvider extends ServiceProvider
             Row::class,
             MenuItem::class,
             MenuGroup::class,
-            Widget::class
+            Widget::class,
+            Repeater::class,
+            Color::class,
+            Rich::class,
+            Tel::class,
+            Select::class,
+            Code::class,
+            Draggable::class
         ]);
 
         $this->commands([

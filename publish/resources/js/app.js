@@ -9,6 +9,16 @@ const el = document.getElementById("app");
 
 import './choices.scss';
 
+import TomatoRoles from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoRoles.vue";
+import TomatoRepeater from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoRepeater.vue";
+import TomatoColor from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoColor.vue";
+import TomatoRich from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoRich.vue";
+import TomatoTel from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoTel.vue";
+import TomatoSelect from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoSelect.vue";
+import TomatoArtisan from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoArtisan.vue";
+import TomatoCode from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoCode.vue";
+import TomatoDraggable from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoDraggable.vue";
+
 createApp({
     render: renderSpladeApp({ el })
 })
@@ -17,4 +27,13 @@ createApp({
         transform_anchors: false,
         progress_bar: true,
     })
+    .component("TomatoDraggable", TomatoDraggable)
+    .component("TomatoRoles", TomatoRoles)
+    .component("TomatoRepeater", TomatoRepeater)
+    .component("TomatoColor", TomatoColor)
+    .component("TomatoTel", TomatoTel)
+    .component("TomatoRich", TomatoRich)
+    .component("TomatoSelect", TomatoSelect)
+    .component("TomatoArtisan", TomatoArtisan)
+    .component("TomatoCode", TomatoCode)
     .mount(el);

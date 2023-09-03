@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use ProtoneMedia\Splade\Facades\Toast;
+use ProtoneMedia\Splade\SpladeTable;
 use TomatoPHP\TomatoAdmin\Helpers\ApiResponse;
 use TomatoPHP\TomatoAdmin\Interfaces\TomatoBase;
 use Illuminate\Http\Response;
@@ -31,7 +32,7 @@ class TomatoRequests
         Request $request,
         string $model,
         ?string $view=null,
-        ?string $table=null,
+        mixed $table=null,
         array $data=[],
         ?bool $api =true,
         ?string $resource=null,
@@ -138,18 +139,20 @@ class TomatoRequests
         ?bool $api=true
     ): TomatoResponse|JsonResponse
     {
-        $validator = Validator::make($request->all(), $validation);
         $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
-        if ($validator->fails()) {
-            if($api  && (!$isAPIRequest)){
-                return ApiResponse::errors(
-                    message: $validationError,
-                    errorsArray: $validator->errors()
-                );
-            }
-            else {
-                Toast::danger($validationError)->autoDismiss(2);
-                $validator->validate();
+        if(count($validation)){
+            $validator = Validator::make($request->all(), $validation);
+            if ($validator->fails()) {
+                if($api  && (!$isAPIRequest)){
+                    return ApiResponse::errors(
+                        message: $validationError,
+                        errorsArray: $validator->errors()
+                    );
+                }
+                else {
+                    Toast::danger($validationError)->autoDismiss(2);
+                    $validator->validate();
+                }
             }
         }
 
@@ -276,18 +279,20 @@ class TomatoRequests
                            ?array $collection=[],
                            ?bool $api=true):TomatoResponse|JsonResponse
     {
-        $validator = Validator::make($request->all(), $validation);
         $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
-        if ($validator->fails()) {
-            if($api  && (!$isAPIRequest)){
-                return ApiResponse::errors(
-                    message: $validationError,
-                    errorsArray: $validator->errors()
-                );
-            }
-            else {
-                Toast::danger($validationError)->autoDismiss(2);
-                $validator->validate();
+        if(count($validation)){
+            $validator = Validator::make($request->all(), $validation);
+            if ($validator->fails()) {
+                if($api && (!$isAPIRequest)){
+                    return ApiResponse::errors(
+                        message: $validationError,
+                        errorsArray: $validator->errors()
+                    );
+                }
+                else {
+                    Toast::danger($validationError)->autoDismiss(2);
+                    $validator->validate();
+                }
             }
         }
         $model->update(collect($request->all())->filter( function($value, $key) {
