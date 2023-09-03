@@ -45,11 +45,12 @@
     ],
     "require": {
         "tomatophp/console-helpers": "^1.0",
-        "tomatophp/tomato-splade": "^1.0",
+        "tomatophp/tomato-splade": "^1.1",
         "tomatophp/tomato-breeze": "^1.0",
-        "tomatophp/tomato-plugins": "^1.0",
+        "tomatophp/tomato-plugins": "^1.1",
+        "blade-ui-kit/blade-heroicons": "^2.0",
         "spatie/laravel-medialibrary": "^10.7",
         "maatwebsite/excel": "^3.1",
-        "blade-ui-kit/blade-heroicons": "*"
+        "kirschbaum-development/eloquent-power-joins": "^3.0"
     }
 }

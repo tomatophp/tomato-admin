@@ -1,9 +1,0 @@
-<x-splade-modal class="font-main">
-    <h1 class="text-2xl font-bold mb-4">{{trans('tomato-admin::global.crud.edit')}} {{__('{{ title }}')}} #{{$model->id}}</h1>
-
-    <x-splade-form class="flex flex-col space-y-4" action="{{route('admin.{{ table }}.update', $model->id)}}" method="post" :default="$model">
-        {{ cols }}
-
-        <x-splade-submit label="{{trans('tomato-admin::global.crud.update')}} {{__('{{ title }}')}}" :spinner="true" />
-    </x-splade-form>
-</x-splade-modal>

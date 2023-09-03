@@ -48,7 +48,6 @@ class TomatoAdminInstall extends Command
         $this->handelFile('/tailwind.config.js', base_path('/tailwind.config.js'));
         $this->handelFile('/vite.config.js', base_path('/vite.config.js'));
         $this->handelFile('/package.json', base_path('/package.json'));
-        $this->handelFile('/config/tomato-php.php', config_path('/tomato-php.php'));
         $this->handelFile('/resources/js', resource_path('/js'), 'folder');
         $this->handelFile('/resources/css', resource_path('/css'), 'folder');
         $this->callSilent('optimize:clear');
