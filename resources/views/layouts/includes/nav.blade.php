@@ -102,7 +102,7 @@
                 </div>
             </div>
 
-            @if(class_exists(\Queents\TomatoNotifications\Models\UserNotification::class))
+            @if(class_exists(\TomatoPHP\TomatoNotifications\Models\UserNotification::class))
             <!-- Notifications -->
             <div>
                 <div class="filament-notifications pointer-events-none fixed inset-4 z-50 mx-auto flex justify-end gap-3 items-end flex-col-reverse" role="status">
@@ -125,7 +125,7 @@
                             </svg>
                             <span class="filament-icon-button-indicator absolute rounded-full text-xs inline-block w-4 h-4 -top-0.5 -right-0.5 bg-primary-500/10">
                                 {{
-                                    \Queents\TomatoNotifications\Models\UserNotification::where('model_type',User::class)
+                                    \TomatoPHP\TomatoNotifications\Models\UserNotification::where('model_type',User::class)
                                             ->where('model_id', auth()->user()->id)
                                             ->orWhere('model_id', null)
                                             ->get()->count()
