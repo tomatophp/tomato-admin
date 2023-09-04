@@ -9,7 +9,6 @@ const el = document.getElementById("app");
 
 import './choices.scss';
 
-import TomatoRoles from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoRoles.vue";
 import TomatoRepeater from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoRepeater.vue";
 import TomatoColor from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoColor.vue";
 import TomatoRich from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoRich.vue";
@@ -28,7 +27,6 @@ createApp({
         progress_bar: true,
     })
     .component("TomatoDraggable", TomatoDraggable)
-    .component("TomatoRoles", TomatoRoles)
     .component("TomatoRepeater", TomatoRepeater)
     .component("TomatoColor", TomatoColor)
     .component("TomatoTel", TomatoTel)
