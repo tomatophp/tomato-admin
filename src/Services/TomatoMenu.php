@@ -52,7 +52,7 @@ class TomatoMenu
      */
     private function build(): static
     {
-                $collectByGroup = $this->menu->groupBy("group");
+                $collectByGroup = $this->menu->groupBy("group")->sort();
                 $this->menu = $collectByGroup;
         return $this;
     }
