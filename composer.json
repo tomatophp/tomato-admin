@@ -33,7 +33,8 @@
             ],
             "aliases": {
                 "Tomato": "TomatoPHP\\TomatoAdmin\\Facades\\Tomato",
-                "TomatoMenu": "TomatoPHP\\TomatoAdmin\\Facades\\TomatoMenu"
+                "TomatoMenu": "TomatoPHP\\TomatoAdmin\\Facades\\TomatoMenu",
+                "TomatoWidget": "TomatoPHP\\TomatoAdmin\\Facades\\TomatoWidget"
             }
         }
     },

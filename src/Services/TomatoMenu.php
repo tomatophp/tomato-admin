@@ -11,11 +11,6 @@ class TomatoMenu
 {
 
     /**
-     * @var array
-     */
-    public array $children = [];
-
-    /**
      * @var Collection
      */
     public   Collection $menu;

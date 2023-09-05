@@ -3,17 +3,17 @@
 namespace TomatoPHP\TomatoAdmin\Facade;
 
 use Illuminate\Support\Facades\Facade;
-use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
+use TomatoPHP\TomatoAdmin\Views\Widget;
 
 /**
  *  @method static \Illuminate\Support\Collection get()
  * @method static \Illuminate\Support\Collection load()
- * @method static \TomatoPHP\TomatoAdmin\Services\TomatoMenu register(array|Menu $item)
+ * @method static \TomatoPHP\TomatoAdmin\Services\TomatoWidget register(array|Widget $item)
  */
-class TomatoMenu extends  Facade
+class TomatoWidget extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'tomato-menu';
+        return 'tomato-widget';
     }
 }
