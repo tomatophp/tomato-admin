@@ -54,4 +54,12 @@
         z-index: 1;
         top: -1px;
     }
+
+    .filepond--drop-label > label {
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
 }
