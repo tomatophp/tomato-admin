@@ -2,6 +2,8 @@
 
 namespace TomatoPHP\TomatoAdmin\Services\Contracts;
 
+use Illuminate\Support\Facades\Cookie;
+
 class Menu
 {
     /**
@@ -50,6 +52,14 @@ class Menu
      * @var string|null
      */
     public ?string $group = "resources";
+
+    public function __construct()
+    {
+        // decrypt
+        $decryptedString = \Crypt::decrypt(Cookie::get('lang'), false);
+        $lang = json_decode(explode('|', $decryptedString)[1]);
+        app()->setLocale($lang->id ?? config('app.locale'));
+    }
 
 
     /**
