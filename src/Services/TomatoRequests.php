@@ -207,7 +207,9 @@ class TomatoRequests
         bool $hasMedia=false,
         array $collection=[],
         array $attach = [],
-        ?bool $api=true
+        ?bool $api=true,
+        ?string $resource=null,
+        ?Builder $query=null,
     ): View|JsonResponse
     {
         $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
@@ -231,8 +233,12 @@ class TomatoRequests
 
             unset($model->media);
             if($api  && (!$isAPIRequest)){
+                $response = $model;
+                if($resource){
+                    $response = $resource::collection($response);
+                }
                 return ApiResponse::data(
-                    data: $model,
+                    data: $response,
                     message: "Record Fetched Success"
                 );
             }
@@ -244,8 +250,12 @@ class TomatoRequests
         }
 
         if($api  && (!$isAPIRequest)){
+            $response = $model;
+            if($resource){
+                $response = $resource::collection($response);
+            }
             return ApiResponse::data(
-                data: $model,
+                data: $response,
                 message: "Record Fetched Success"
             );
         }
