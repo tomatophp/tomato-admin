@@ -37,32 +37,32 @@ class ApiResponse
      * @param $code
      * @return Response|Application|ResponseFactory
      */
-    public static function success($message =null, $code=200):Response|Application|ResponseFactory
+    public static function success($message =null, $code=200): JsonResponse
     {
-        return response(['status' => true, 'message' => $message ?? __("Done !")],$code);
+        return response()->json(['status' => true, 'message' => $message ?? __("Done !")],$code);
     }
 
     /**
      * @return Response|Application|ResponseFactory
      */
-    public static function bannedMessage():Response|Application|ResponseFactory
+    public static function bannedMessage(): JsonResponse
     {
-        return response(['status' => false, 'account_status' => 'banned', 'errors' => ['token' => [trans('main.account_is_banned')]]]);
+        return response()->json(['status' => false, 'account_status' => 'banned', 'errors' => ['token' => [trans('main.account_is_banned')]]]);
     }
 
     /**
      * @return Response|Application|ResponseFactory
      */
-    public static function emptyToken(): Response|Application|ResponseFactory
+    public static function emptyToken(): JsonResponse
     {
-        return response(['status' => false, 'errors' => ['unauthorized'=>['you are unauthorized']]],401);
+        return response()->json(['status' => false, 'errors' => ['unauthorized'=>['you are unauthorized']]],401);
     }
 
     /**
      * @return Response|Application|ResponseFactory
      */
-    public static function emptyTokenHeader(): Response|Application|ResponseFactory
+    public static function emptyTokenHeader(): JsonResponse
     {
-        return response(['unauthorized'=>['you are unauthorized']],400);
+        return response()->json(['unauthorized'=>['you are unauthorized']],400);
     }
 }
