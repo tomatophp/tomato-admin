@@ -18,6 +18,45 @@
                 </div>
             </div>
         </div>
+        @elseif($type === 'date')
+                <div class="flex fi-in-text">
+                    <div class="min-w-0 flex-10">
+                        <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white  text-primary-600" >
+                            <div class="flex flex-col item-center justifiy-center">
+                                <i class="bx bx-calendar"></i>
+                            </div>
+                            <div>
+                                {{$value}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        @elseif($type === 'datetime')
+                <div class="flex fi-in-text">
+                    <div class="min-w-0 flex-10">
+                        <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white  text-primary-600" >
+                            <div class="flex flex-col item-center justifiy-center">
+                                <i class="bx bx-calender"></i>
+                            </div>
+                            <div>
+                                {{$value}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        @elseif($type === 'time')
+            <div class="flex fi-in-text">
+                <div class="min-w-0 flex-10">
+                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white  text-primary-600" >
+                        <div class="flex flex-col item-center justifiy-center">
+                            <i class="bx bx-time"></i>
+                        </div>
+                        <div>
+                            {{$value}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         @elseif($type === 'number')
             <div class="flex fi-in-text">
                 <div class="min-w-0 flex-1">
