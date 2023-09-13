@@ -159,22 +159,22 @@ class TomatoRequests
         $record = $model::create($request->all());
         if($hasMedia){
             foreach ($collection as $key=>$multi){
-                                if($multi){
-                                    if($request->has($key) && is_array($request->{$key}) && count($request->{$key})){
-                                        foreach ($request->{$key} as $item) {
-                                            $record->addMedia($item)
-                                                ->preservingOriginal()
-                                                ->toMediaCollection($key);
-                                        }
-                                    }
-                                }
+                if($multi){
+                   if($request->has($key) && is_array($request->{$key}) && count($request->{$key})){
+                       foreach ($request->{$key} as $item) {
+                            $record->addMedia($item)
+                                ->preservingOriginal()
+                                ->toMediaCollection($key);
+                        }
+                   }
+                }
                 else{
-                                    if($request->hasFile($key)){
-                                        $record->addMedia($request->{$key})
-                                            ->preservingOriginal()
-                                            ->toMediaCollection($key);
-                                    }
-                                }
+                    if($request->hasFile($key)){
+                        $record->addMedia($request->{$key})
+                            ->preservingOriginal()
+                            ->toMediaCollection($key);
+                    }
+                }
             }
         }
 
@@ -332,7 +332,7 @@ class TomatoRequests
                     }
                 }
                 else{
-                    if($request->has($key)){
+                    if($request->hasFile($key)){
                         $model->clearMediaCollection($key);
                         if($request->{$key}->getClientOriginalName() === 'blob'){
                             $model->addMedia($request->{$key})
