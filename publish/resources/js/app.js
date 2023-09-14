@@ -19,7 +19,21 @@ import TomatoCode from "../../vendor/tomatophp/tomato-admin/resources/js/compone
 import TomatoDraggable from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoDraggable.vue";
 
 createApp({
-    render: renderSpladeApp({ el })
+    render: renderSpladeApp({ el }),
+    mounted() {
+        document.querySelectorAll('input').forEach((input) => {
+            input.attributes['autocomplete'] = 'off';
+        });
+
+        document.querySelectorAll('a').forEach((a) => {
+            a.addEventListener('click', (e) => {
+                a.classList.add('noClick');
+                setTimeout(() => {
+                    a.classList.remove('noClick');
+                }, 5000)
+            });
+        });
+    }
 })
     .use(SpladePlugin, {
         max_keep_alive: 10,
