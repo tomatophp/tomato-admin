@@ -10,10 +10,12 @@ class TomatoMenuHandler
      * @var array|null
      */
     public ?Collection $menu;
+    public ?Collection $groups;
 
     public function __construct()
     {
         $this->menu = collect([]);
+        $this->groups = collect([]);
     }
 
     /**
@@ -22,11 +24,10 @@ class TomatoMenuHandler
      */
     public function register(array|Menu $item): void
     {
-
         if(is_array($item)){
-                        foreach ($item as $menuItem) {
+           foreach ($item as $menuItem) {
                 $this->menu->push($menuItem);
-                        }
+           }
         }
         else {
             $this->menu->push($item);
@@ -39,6 +40,17 @@ class TomatoMenuHandler
     public function load(): Collection
     {
         return $this->menu;
+    }
+
+    public function groups(array $groups): static
+    {
+        $this->groups = collect($groups);
+        return $this;
+    }
+
+    public function loadGroups(): Collection
+    {
+        return $this->groups;
     }
 
     public function get(): Collection

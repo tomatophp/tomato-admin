@@ -14,10 +14,12 @@ class TomatoMenu
      * @var Collection
      */
     public   Collection $menu;
+    public Collection $groups;
 
     public function __construct()
     {
         $this->menu = collect([]);
+        $this->groups = collect([]);
     }
 
     public function loadFromSource(): static
@@ -47,8 +49,14 @@ class TomatoMenu
      */
     private function build(): static
     {
-                $collectByGroup = $this->menu->groupBy("group")->sort();
-                $this->menu = $collectByGroup;
+        $groups = TomatoMenuFacade::loadGroups();
+        $collectHiddenGroups = $groups->filter(function ($item) {
+            return $item===false;
+        });
+        $collectByGroup = $this->menu->whereNotIn('group',  array_keys($collectHiddenGroups->toArray()))->groupBy("group")->sortBy(function ($item) use ($groups) {
+            return array_search($item->first()->group, array_keys($groups->toArray()));
+        });
+        $this->menu = $collectByGroup;
         return $this;
     }
 }
