@@ -2,6 +2,7 @@
 
 namespace TomatoPHP\TomatoAdmin\Views;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
 class Row extends Component
@@ -12,6 +13,9 @@ class Row extends Component
         public ?string $label=null,
         public mixed $value=null,
         public ?string $type="text",
+        public ?string $href=null,
+        public ?string $icon=null,
+        public ?string $color=null,
     )
     {
 

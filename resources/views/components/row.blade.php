@@ -1,4 +1,4 @@
-<div class="flex flex-col">
+<div class="grid grid-cols-1 gap-2">
     @if(!isset($table))
         <div class="flex items-center justify-between gap-x-3">
             <dt class="inline-flex items-center gap-x-3">
@@ -18,6 +18,34 @@
                 </div>
             </div>
         </div>
+        @elseif($type === 'badge')
+            @if($href)
+            <x-splade-link :href="$href" class="flex fi-in-text">
+                <div class="min-w-0 flex-1">
+                    <div
+                        @if($color)
+                            style="
+                                color: {{$color}} !important;
+                                background-color: #eaeaea !important;
+                            "
+                        @endif
+                            class="inline-flex items-center gap-2 justify-center ml-auto rtl:ml-0 rtl:mr-auto min-h-4 px-2 py-0.5 text-xs font-medium tracking-tight rounded-xl whitespace-normal text-primary-700 bg-primary-500/10 dark:text-primary-500" >
+                        @if($icon)
+                            <i class="{{$icon}}" ></i>
+                        @endif
+                        {!! $value !!}
+                    </div>
+                </div>
+            </x-splade-link>
+            @else
+            <div class="flex fi-in-text">
+                <div class="min-w-0 flex-1">
+                    <div class="inline-flex items-center justify-center ml-auto rtl:ml-0 rtl:mr-auto min-h-4 px-2 py-0.5 text-xs font-medium tracking-tight rounded-xl whitespace-normal text-primary-700 bg-primary-500/10 dark:text-primary-500" >
+                        {!! $value !!}
+                    </div>
+                </div>
+            </div>
+            @endif
         @elseif($type === 'date')
                 <div class="flex fi-in-text">
                     <div class="min-w-0 flex-10">
