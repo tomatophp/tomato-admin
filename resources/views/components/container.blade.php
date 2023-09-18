@@ -16,4 +16,8 @@
             </div>
         </x-splade-modal>
     </div>
+
+    @if(isset($body))
+        {{$body}}
+    @endif
 </x-tomato-admin-layout>

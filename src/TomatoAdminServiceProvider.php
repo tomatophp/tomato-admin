@@ -17,6 +17,8 @@ use TomatoPHP\TomatoAdmin\Views\ProfileDropdown;
 use TomatoPHP\TomatoAdmin\Views\Button;
 use TomatoPHP\TomatoAdmin\Views\MenuGroup;
 use TomatoPHP\TomatoAdmin\Views\MenuItem;
+use TomatoPHP\TomatoAdmin\Views\Relations;
+use TomatoPHP\TomatoAdmin\Views\RelationsGroup;
 use TomatoPHP\TomatoAdmin\Views\Widget;
 use TomatoPHP\TomatoAdmin\Http\Middleware\LanguageSwitcher;
 use TomatoPHP\TomatoAdmin\Views\Row;
@@ -94,7 +96,9 @@ class TomatoAdminServiceProvider extends ServiceProvider
             Tel::class,
             Select::class,
             Code::class,
-            Draggable::class
+            Draggable::class,
+            Relations::class,
+            RelationsGroup::class
         ]);
 
         $this->commands([
