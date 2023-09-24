@@ -252,7 +252,7 @@ class TomatoRequests
         if($api  && (!$isAPIRequest)){
             $response = $model;
             if($resource){
-                $response = $resource::collection($response);
+                $response = $resource::make($response);
             }
             return ApiResponse::data(
                 data: $response,
