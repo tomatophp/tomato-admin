@@ -1,5 +1,5 @@
 <TomatoSelect
-    {{ $attributes->only(['v-if', 'v-show', 'class']) }}
+    {{ $attributes->only(['v-if', 'v-show', 'class', '@select']) }}
     :multiple="@js($multiple)"
     :placeholder="@js($placeholder)"
     v-model="{{ $vueModel() }}"

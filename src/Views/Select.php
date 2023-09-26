@@ -15,6 +15,13 @@ class Select extends Component
 {
     use InteractsWithFormElement;
 
+    private static bool|array $defaultChoicesOptions = false;
+
+    private static bool $defaultResetOnNewRemoteUrl = false;
+
+    private static bool $defaultSelectFirstRemoteOption = false;
+
+
     /**
      * Create a new component instance.
      *
@@ -37,11 +44,13 @@ class Select extends Component
         public string $optionValue = '',
         public string $optionLabel = '',
         public string $scope = 'select',
+        public bool|null $resetOnNewRemoteUrl = null,
+        public bool|null $selectFirstRemoteOption = null,
         public bool $alwaysEnablePrepend = false,
         public bool $alwaysEnableAppend = false,
         public string $prepend = '',
         public string $append = '',
-        public bool $paginated = false,
+        public int $paginated = 10,
         public string $queryBy = 'search',
         public ?string $loadMoreLabel=null,
     ) {
@@ -67,7 +76,57 @@ class Select extends Component
         if (!Str::startsWith($remoteUrl, '`') && !Str::endsWith($remoteUrl, '`')) {
             $this->remoteUrl = Js::from($remoteUrl);
         }
+
+        if (!Str::startsWith($remoteUrl, '`') && !Str::endsWith($remoteUrl, '`')) {
+            $this->remoteUrl = Js::from($remoteUrl);
+        }
+
+        $this->resetOnNewRemoteUrl = is_bool($resetOnNewRemoteUrl)
+            ? $resetOnNewRemoteUrl
+            : static::$defaultResetOnNewRemoteUrl;
+
+        $this->selectFirstRemoteOption = is_bool($selectFirstRemoteOption)
+            ? $selectFirstRemoteOption
+            : static::$defaultSelectFirstRemoteOption;
     }
+
+    /**
+     * Enable Choices.js globally for all selects elements, optionally with default options.
+     *
+     * @return void
+     */
+    public static function defaultChoices(bool|array $options = true)
+    {
+        static::$defaultChoicesOptions = $options;
+    }
+
+    /**
+     * Set the default value for the resetOnNewRemoteUrl property.
+     */
+    public static function defaultResetOnNewRemoteUrl(bool $value = true)
+    {
+        static::$defaultResetOnNewRemoteUrl = $value;
+    }
+
+    /**
+     * Set the default value for the selectFirstRemoteOption property.
+     */
+    public static function defaultSelectFirstRemoteOption(bool $value = true)
+    {
+        static::$defaultSelectFirstRemoteOption = $value;
+    }
+
+    /**
+     * Determines whether the given value is selected. It's a
+     * workaround for a Vue bug. See also Form::selected().
+     *
+     * @param  mixed  $value
+     */
+    public function selected($value): bool
+    {
+        return Form::selected($this->name, $value);
+    }
+
 
     /**
      * Returns a boolean whether the input type is 'hidden'.

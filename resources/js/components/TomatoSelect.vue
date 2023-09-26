@@ -44,6 +44,7 @@
             v-model="value"
             :options="getType === 'relation' ? relation : []"
             @search-change="queryThis"
+            @select="selectThis"
             :multiple="multiple"
             track-by="id"
             label="name"
@@ -51,6 +52,7 @@
             :hide-selected="true"
             :show-no-results="false"
             :internal-search="false"
+            selectLabel=""
             :disabled="disabled"
         >
             <template #afterList>
@@ -213,7 +215,30 @@ export default {
                     }
                 })
                 if (this.modelValue !== null && this.modelValue !== undefined) {
+                    let currentValue = this.modelValue;
                     this.value = this.relation.find(option => option[this.optionValue] === this.modelValue)
+                    if(typeof this.value === "undefined"){
+                        let searchURL = this.remoteUrl.includes('?') ?  this.remoteUrl + '&id=' + currentValue : this.remoteUrl + '?id=' + currentValue;
+                        axios.get(searchURL).then(response => {
+                            let responseData = null;
+                            if(this.paginated){
+                                responseData = response.data.data[this.remoteRoot];
+                            }
+                            else {
+                                responseData = response.data.data;
+                            }
+                            let newData = responseData.map(option => {
+                                let optionsArray = this.optionLabel.split('.');
+                                return {
+                                    name: option[optionsArray[0]][optionsArray[1]],
+                                    id: option[this.optionValue]
+                                }
+                            })
+                            newData.forEach((item) => {
+                                this.value = item
+                            });
+                        });
+                    }
                 }
                 this.loading = false;
             });
@@ -237,7 +262,6 @@ export default {
     watch: {
         value: function (val) {
             this.$emit("update:modelValue", typeof val === 'object' ? this.optionValue ? val[this.optionValue] : null : val);
-            this.$emit("change");
         },
         modelValue: function (val) {
             if(typeof val === 'object'){
@@ -251,6 +275,9 @@ export default {
         },
     },
     methods: {
+        selectThis(val){
+            this.$emit('select', typeof val === 'object' ? this.optionValue ? val[this.optionValue] : null : val)
+        },
         loadMore(){
             this.loading = true;
             let searchURL = "";
@@ -278,11 +305,11 @@ export default {
                 newData.forEach((item) => {
                     this.relation.push(item);
                 });
-                console.log(this.relation);
                 this.loading = false;
             });
         },
         queryThis(value){
+            this.$emit("update:change", value);
             this.loading = true;
             this.searchQuery = value;
             let searchURL = this.remoteUrl.includes('?') ?  this.remoteUrl + '&'+this.queryBy+'=' + value : this.remoteUrl + '?'+this.queryBy+'=' + value;

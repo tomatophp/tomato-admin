@@ -103,6 +103,10 @@ class TomatoRequests
             $query->where($request->get('searchBy'),'LIKE', '%'.$request->get('search').'%');
         }
 
+        if($request->has('id') && !empty($request->get('id'))){
+            $query->where('id',$request->get('id'));
+        }
+
         if($request->has('paginated')){
             $paginate  = $request->get('paginated');
         }
