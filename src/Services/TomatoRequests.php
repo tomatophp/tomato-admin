@@ -99,6 +99,13 @@ class TomatoRequests
                 }
             }
         }
+        if($request->has('search') && !empty($request->get('search') && $request->has('searchBy'))){
+            $query->where($request->get('searchBy'),'LIKE', '%'.$request->get('search').'%');
+        }
+
+        if($request->has('paginated')){
+            $paginate  = $request->get('paginated');
+        }
 
         $query->orderBy('id', $this->sorting);
 

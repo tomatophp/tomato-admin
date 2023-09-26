@@ -41,20 +41,19 @@ class Select extends Component
         public bool $alwaysEnableAppend = false,
         public string $prepend = '',
         public string $append = '',
-        public ?string $model = '',
-        public ?array $query = [],
+        public bool $paginated = false,
+        public string $queryBy = 'search',
+        public ?string $loadMoreLabel=null,
     ) {
+        if(!$loadMoreLabel){
+            $this->loadMoreLabel = __('Load More');
+        }
         if ($placeholder === true) {
             $this->placeholder = __('Search') . '...';
         }
 
 
         Form::allowAttribute($name);
-
-        if($model){
-            $this->type = 'relation';
-            $this->options = $model::query()->paginate(10)->toArray();
-        }
 
         if ($relation) {
             Form::parseEloquentRelation($name);

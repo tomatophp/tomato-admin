@@ -8,10 +8,11 @@
     :remote-root="@js($remoteRoot ?: null)"
     :option-value="@js($optionValue)"
     :option-label="@js($optionLabel)"
-    :model="@js($model)"
-    :query="@js($query)"
     :options="@js($options)"
     :getType="@js($type)"
+    :paginated="@js($paginated)"
+    :queryBy="@js($queryBy)"
+    :loadMoreLabel="@js($loadMoreLabel)"
 >
     <template #prepend>
         @includeWhen($label, 'splade::form.label', ['label' => $label])

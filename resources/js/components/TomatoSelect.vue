@@ -42,12 +42,22 @@
         <multiselect
             v-else-if="getType==='select-value' || getType === 'relation'"
             v-model="value"
-            :options="getType === 'relation' ? options.data:options"
+            :options="getType === 'relation' ? relation : []"
+            @search-change="queryThis"
             :multiple="multiple"
-            :track-by="optionValue"
-            :label="optionLabel"
+            track-by="id"
+            label="name"
+            :loading="loading"
+            :hide-selected="true"
+            :show-no-results="false"
+            :internal-search="false"
             :disabled="disabled"
         >
+            <template #afterList>
+                <li @click.prevent="loadMore()" class="text-center py-2 text-primary-500" v-if="this.currentPage">
+                    <button>{{ loadMoreLabel }}</button>
+                </li>
+            </template>
         </multiselect>
         <multiselect
             v-else-if="getType==='select'"
@@ -80,12 +90,6 @@ export default {
             type: Boolean,
             required: false,
             default: false
-        },
-
-        model: {
-            type: String,
-            required: false,
-            default: ''
         },
 
         options: {
@@ -135,11 +139,23 @@ export default {
             default: null,
         },
 
-        query: {
-            type: Array,
+        queryBy: {
+            type: String,
             required: false,
             default: null,
         },
+
+        paginated: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+
+        loadMoreLabel: {
+            type: String,
+            required: false,
+            default: null,
+        }
     },
     emits: ["update:modelValue"],
     computed:{
@@ -172,17 +188,43 @@ export default {
             selectShowDropdownListener: null,
             loading: false,
             disabled: false,
-            value: ""
+            value: "",
+            relation: [],
+            searchQuery: "",
+            currentPage: 0
         };
     },
     mounted() {
+        if(this.remoteUrl){
+            this.loading = true;
+            axios.get(this.remoteUrl).then(response => {
+                if(this.paginated){
+                    this.currentPage = parseInt(response.data.data.current_page) === parseInt(response.data.data.last_page) ? 0 : parseInt(response.data.data.current_page);
+                    this.relation = response.data.data[this.remoteRoot];
+                }
+                else {
+                    this.relation = response.data.data;
+                }
+                this.relation = this.relation.map(option => {
+                    let optionsArray = this.optionLabel.split('.');
+                    return {
+                        name: option[optionsArray[0]][optionsArray[1]],
+                        id: option[this.optionValue]
+                    }
+                })
+                if (this.modelValue !== null && this.modelValue !== undefined) {
+                    this.value = this.relation.find(option => option[this.optionValue] === this.modelValue)
+                }
+                this.loading = false;
+            });
+        }
         if (this.modelValue !== null && this.modelValue !== undefined) {
             if(typeof this.modelValue === 'object'){
                 this.value = this.modelValue
             }
-            else {
-                if(this.options.data.length){
-                    this.value = this.options.data.find(option => option[this.optionValue] === this.modelValue)
+            else if(typeof this.modelValue !== "undefined"){
+                if(this.options.length){
+                    this.value = this.options.find(option => option[this.optionValue] === this.modelValue)
                 }
             }
         }
@@ -194,19 +236,74 @@ export default {
     },
     watch: {
         value: function (val) {
-            this.$emit("update:modelValue", typeof val === 'object' ? val[this.optionValue] : val);
+            this.$emit("update:modelValue", typeof val === 'object' ? this.optionValue ? val[this.optionValue] : null : val);
             this.$emit("change");
         },
         modelValue: function (val) {
             if(typeof val === 'object'){
                 this.value = val;
             }
-            else {
-                this.value = this.options.data.find(option => option[this.optionValue] === val);
+            else if(typeof val !== "undefined"){
+                if(this.options.length){
+                    this.value = this.options.find(option => option[this.optionValue] === val)
+                }
             }
         },
     },
     methods: {
+        loadMore(){
+            this.loading = true;
+            let searchURL = "";
+            if(this.searchQuery){
+                searchURL = this.remoteUrl.includes('?') ?  this.remoteUrl + '&'+this.queryBy+'=' + this.searchQuery : this.remoteUrl + '?'+this.queryBy+'=' + this.searchQuery;
+            }
+            else {
+                searchURL = this.remoteUrl;
+            }
+            this.currentPage +=1;
+            searchURL = searchURL.includes('?') ? searchURL + '&page=' + this.currentPage :  searchURL + '?page=' + this.currentPage;
+            axios.get(searchURL).then(response => {
+                let responseData = [];
+                if(this.paginated){
+                    this.currentPage = parseInt(response.data.data.current_page) === parseInt(response.data.data.last_page) ? 0 : parseInt(response.data.data.current_page);
+                    responseData = response.data.data[this.remoteRoot];
+                }
+                let newData = responseData.map(option => {
+                    let optionsArray = this.optionLabel.split('.');
+                    return {
+                        name: option[optionsArray[0]][optionsArray[1]],
+                        id: option[this.optionValue]
+                    }
+                })
+                newData.forEach((item) => {
+                    this.relation.push(item);
+                });
+                console.log(this.relation);
+                this.loading = false;
+            });
+        },
+        queryThis(value){
+            this.loading = true;
+            this.searchQuery = value;
+            let searchURL = this.remoteUrl.includes('?') ?  this.remoteUrl + '&'+this.queryBy+'=' + value : this.remoteUrl + '?'+this.queryBy+'=' + value;
+            axios.get(searchURL).then(response => {
+                if(this.paginated){
+                    this.currentPage = parseInt(response.data.data.current_page) === parseInt(response.data.data.last_page) ? 0 : parseInt(response.data.data.current_page);
+                    this.relation = response.data.data[this.remoteRoot];
+                }
+                else {
+                    this.relation = response.data.data;
+                }
+                this.relation = this.relation.map(option => {
+                    let optionsArray = this.optionLabel.split('.');
+                    return {
+                        name: option[optionsArray[0]][optionsArray[1]],
+                        id: option[this.optionValue]
+                    }
+                })
+                this.loading = false;
+            });
+        },
         updateData(number, phoneObject) {
             if (phoneObject) {
                 this.value = phoneObject.number;
@@ -228,7 +325,12 @@ export default {
         });
     }
 };
-
-
-
 </script>
+<style>
+.multiselect__tags{
+    border-radius: 0.375rem;
+    --tw-border-opacity: 1;
+    border-color: rgb(209 213 219 / var(--tw-border-opacity));
+    font-weight: 500 !important;
+}
+</style>
