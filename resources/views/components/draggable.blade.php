@@ -11,7 +11,7 @@
         </span>
     @endif
 
-    <template #default="darg">
+    <template #default="drag">
         {{ $slot }}
     </template>
 
