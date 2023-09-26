@@ -50,7 +50,7 @@ class Select extends Component
         public bool $alwaysEnableAppend = false,
         public string $prepend = '',
         public string $append = '',
-        public int $paginated = 10,
+        public string|int|null $paginated = null,
         public string $queryBy = 'search',
         public ?string $loadMoreLabel=null,
     ) {

@@ -99,8 +99,8 @@ class TomatoRequests
                 }
             }
         }
-        if($request->has('search') && !empty($request->get('search') && $request->has('searchBy'))){
-            $query->where($request->get('searchBy'),'LIKE', '%'.$request->get('search').'%');
+        if($request->has('search') && !empty($request->get('search'))){
+            $query->where($request->get('searchBy')?: 'name','LIKE', '%'.$request->get('search').'%');
         }
 
         if($request->has('id') && !empty($request->get('id'))){

@@ -148,7 +148,6 @@ export default {
         },
 
         paginated: {
-            type: Boolean,
             required: false,
             default: false,
         },
@@ -201,6 +200,7 @@ export default {
             this.loading = true;
             axios.get(this.remoteUrl).then(response => {
                 if(this.paginated){
+                    console.log('hERE!!')
                     this.currentPage = parseInt(response.data.data.current_page) === parseInt(response.data.data.last_page) ? 0 : parseInt(response.data.data.current_page);
                     this.relation = response.data.data[this.remoteRoot];
                 }
