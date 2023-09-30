@@ -74,7 +74,11 @@
         <div class="flex items-center justify-between flex-1">
 
             <!-- breadcrumbs -->
-            <div class="flex-1"></div>
+            <div class="flex-1">
+                @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getNavLeftSide() as $item)
+                    @include($item)
+                @endforeach
+            </div>
 
             <!-- Search -->
             <div class="filament-global-search flex items-center ml-4">
@@ -138,8 +142,15 @@
                 <div></div>
             </div>
             @endif
+            @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getNavBeforeUserDropdown() as $item)
+                @include($item)
+            @endforeach
 
             <x-tomato-admin-profile-dropdown />
+
+            @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getNavAfterUserDropdown() as $item)
+                @include($item)
+            @endforeach
         </div>
     </div>
 </header>

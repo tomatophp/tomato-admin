@@ -40,20 +40,40 @@
             <x-tomato-admin-navbar />
 
             <div class="filament-main-content flex-1 w-full px-4 mx-auto md:px-6 lg:px-8">
+                @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutTop() as $item)
+                    @include($item)
+                @endforeach
                 <header
                         class="mb-4 items-start justify-between space-y-2 filament-header sm:flex sm:space-y-0 sm:space-v-4 sm:rtl:space-v-reverse sm:py-4">
-                    <h1 class="text-2xl font-bold tracking-tight md:text-3xl filament-header-heading">
-                        {{ $header ?? '' }}
-                    </h1>
-
                     <div>
+                        <h1 class="text-2xl font-bold tracking-tight md:text-3xl filament-header-heading">
+                            {{ $header ?? '' }}
+                        </h1>
+
+                        @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutTitle() as $item)
+                            @include($item)
+                        @endforeach
+                    </div>
+
+                    <div class="flex jusitifiy-start gap-4">
                         {{ $buttons ?? '' }}
+
+                        <div>
+                            @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutButtons() as $item)
+                                @include($item)
+                            @endforeach
+                        </div>
                     </div>
                 </header>
 
                 <!-- SLOT -->
                 {{$slot}}
+
             </div>
+
+            @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutBottom() as $item)
+                @include($item)
+            @endforeach
 
             <!-- Footer -->
             <x-tomato-admin-footer />

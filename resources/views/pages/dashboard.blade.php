@@ -5,6 +5,9 @@
                 {{trans('tomato-admin::global.dashboard')}}
             </x-slot>
 
+            @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getDashboardTop() as $item)
+                @include($item)
+            @endforeach
             <!-- Dashboard Widgets -->
             <div class="grid grid-cols-1 gap-4 mb-6 filament-widgets-container md:grid-cols-2 lg:grid-cols-2 lg:gap-8">
                 @php
@@ -47,6 +50,10 @@
                     </div>
                 @endif
             </div>
+
+            @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getDashboardBottom() as $item)
+                @include($item)
+            @endforeach
         </div>
     </div>
 </x-tomato-admin-layout>

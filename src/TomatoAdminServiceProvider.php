@@ -6,6 +6,7 @@ use TomatoPHP\TomatoAdmin\Console\TomatoAdminInstall;
 use TomatoPHP\TomatoAdmin\Console\TomatoAdminUpgrade;
 use TomatoPHP\TomatoAdmin\Services\TomatoMenuHandler;
 use TomatoPHP\TomatoAdmin\Services\TomatoRequests;
+use TomatoPHP\TomatoAdmin\Services\TomatoSlots;
 use TomatoPHP\TomatoAdmin\Services\TomatoWidgetHandler;
 use TomatoPHP\TomatoAdmin\Views\Container;
 use TomatoPHP\TomatoAdmin\Views\Layout;
@@ -112,6 +113,10 @@ class TomatoAdminServiceProvider extends ServiceProvider
 
         $this->app->bind('tomato-widget',function(){
             return new TomatoWidgetHandler();
+        });
+
+        $this->app->bind('tomato-slot',function(){
+            return new TomatoSlots();
         });
 
         $this->app->bind('tomato',function(){

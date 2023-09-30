@@ -1,3 +1,6 @@
+@foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getSidebarTop() as $item)
+    @include($item)
+@endforeach
 <div>
     <ul class="mx-3 mt-2 space-y-1 text-sm">
         <li class="filament-sidebar-item ">
@@ -125,3 +128,6 @@
     @endforeach
 @endif
 
+@foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getSidebarBottom() as $item)
+    @include($item)
+@endforeach
