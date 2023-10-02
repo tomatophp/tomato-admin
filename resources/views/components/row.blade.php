@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 gap-2">
+<div @if(isset($table)) class="grid grid-cols-1 gap-2" @endif>
     @if(!isset($table))
         <div class="flex items-center justify-between gap-x-3">
             <dt class="inline-flex items-center gap-x-3">
