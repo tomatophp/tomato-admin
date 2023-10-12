@@ -51,15 +51,7 @@ class TomatoAdminInstall extends Command
         $this->handelFile('/resources/js', resource_path('/js'), 'folder');
         $this->handelFile('/resources/css', resource_path('/css'), 'folder');
         $this->callSilent('optimize:clear');
-        $this->info('🍅 Install NPM packages ...');
-        $this->yarnCommand(['install']);
-        $this->yarnCommand(['build']);
-        $install = $this->ask('🍅 Do you want to install Tomato Plugins? (yes/no) [yes]:', 'yes');
-        if($install === 'y' || $install === 'yes' || $install === null){
-            $this->call('tomato:plugins');
-        }
-        else {
-            $this->info('🍅 Tomato Admin installed successfully.');
-        }
+        $this->info('🍅 now please run yarn & yarn build');
+        $this->info('🍅 Tomato Admin installed successfully.');
     }
 }
