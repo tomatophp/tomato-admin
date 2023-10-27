@@ -8,6 +8,7 @@ use TomatoPHP\TomatoAdmin\Services\TomatoMenuHandler;
 use TomatoPHP\TomatoAdmin\Services\TomatoRequests;
 use TomatoPHP\TomatoAdmin\Services\TomatoSlots;
 use TomatoPHP\TomatoAdmin\Services\TomatoWidgetHandler;
+use TomatoPHP\TomatoAdmin\Views\ActionButtons;
 use TomatoPHP\TomatoAdmin\Views\Container;
 use TomatoPHP\TomatoAdmin\Views\Layout;
 use TomatoPHP\TomatoAdmin\Views\Aside;
@@ -20,6 +21,7 @@ use TomatoPHP\TomatoAdmin\Views\MenuGroup;
 use TomatoPHP\TomatoAdmin\Views\MenuItem;
 use TomatoPHP\TomatoAdmin\Views\Relations;
 use TomatoPHP\TomatoAdmin\Views\RelationsGroup;
+use TomatoPHP\TomatoAdmin\Views\SubmitButtons;
 use TomatoPHP\TomatoAdmin\Views\Widget;
 use TomatoPHP\TomatoAdmin\Http\Middleware\LanguageSwitcher;
 use TomatoPHP\TomatoAdmin\Views\Row;
@@ -76,31 +78,6 @@ class TomatoAdminServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views' => resource_path('views/vendor/tomato-admin'),
         ], 'tomato-admin-views');
 
-        //Register View Component
-        $this->loadViewComponentsAs('tomato-admin', [
-            Layout::class,
-            Aside::class,
-            Footer::class,
-            Navbar::class,
-            ProfileDropdown::class,
-            GuestLayout::class,
-            Button::class,
-            Submit::class,
-            Container::class,
-            Row::class,
-            MenuItem::class,
-            MenuGroup::class,
-            Widget::class,
-            Repeater::class,
-            Color::class,
-            Rich::class,
-            Tel::class,
-            Select::class,
-            Code::class,
-            Draggable::class,
-            Relations::class,
-            RelationsGroup::class
-        ]);
 
         $this->commands([
             TomatoAdminInstall::class,
@@ -135,5 +112,33 @@ class TomatoAdminServiceProvider extends ServiceProvider
         //Add Middleware Global to Routes web
         $this->app['router']->aliasMiddleware('tomato-admin', LanguageSwitcher::class);
         $this->app['router']->pushMiddlewareToGroup('web', LanguageSwitcher::class);
+
+        //Register View Component
+        $this->loadViewComponentsAs('tomato-admin', [
+            Layout::class,
+            Aside::class,
+            Footer::class,
+            Navbar::class,
+            ProfileDropdown::class,
+            GuestLayout::class,
+            Button::class,
+            Submit::class,
+            Container::class,
+            Row::class,
+            MenuItem::class,
+            MenuGroup::class,
+            Widget::class,
+            Repeater::class,
+            Color::class,
+            Rich::class,
+            Tel::class,
+            Select::class,
+            Code::class,
+            Draggable::class,
+            Relations::class,
+            RelationsGroup::class,
+            ActionButtons::class,
+            SubmitButtons::class,
+        ]);
     }
 }

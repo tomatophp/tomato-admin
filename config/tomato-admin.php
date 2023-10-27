@@ -28,6 +28,11 @@ return [
     "route_perfix" => "admin",
 
     /**
+     * if you need to disable the register route
+     */
+    "register" => true,
+
+    /**
      * if you need to change the route middlewares
      */
     "route_middlewares" => [

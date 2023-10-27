@@ -12,11 +12,19 @@
         @if($type ==='bool' || !empty($value))
         @if($type === 'text' || $type === 'string' || $type === 'rich')
         <div class="flex fi-in-text">
-            <div class="min-w-0 flex-1">
-                <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white" >
+            @if($href)
+            <a class="min-w-0 flex-1" href="{{$href}}" target="_blank">
+                <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white underline" >
                     {!! $value !!}
                 </div>
-            </div>
+            </a>
+            @else
+                <div class="min-w-0 flex-1">
+                    <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white" >
+                        {!! $value !!}
+                    </div>
+                </div>
+            @endif
         </div>
         @elseif($type === 'badge')
             @if($href)

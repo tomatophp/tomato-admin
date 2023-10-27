@@ -5,8 +5,10 @@ use \TomatoPHP\TomatoAdmin\Http\Controllers\DashboardController;
 use TomatoPHP\TomatoPHP\Http\Middleware\LanguageSwitcher;
 
 Route::middleware(array_merge(['splade'], config('tomato-admin.route_middlewares')))->prefix(config('tomato-admin.route_perfix'))->name(config('tomato-admin.route_perfix') . '.')->group(function () {
-    Route::get('register', [\TomatoPHP\TomatoAdmin\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->name('register');
-    Route::post('register', [\TomatoPHP\TomatoAdmin\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
+    if(config('tomato-admin.register')){
+        Route::get('register', [\TomatoPHP\TomatoAdmin\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->name('register');
+        Route::post('register', [\TomatoPHP\TomatoAdmin\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
+    }
 
     Route::get('login', [\TomatoPHP\TomatoAdmin\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [\TomatoPHP\TomatoAdmin\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);

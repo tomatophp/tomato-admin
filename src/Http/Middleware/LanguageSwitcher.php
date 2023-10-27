@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
 
 class LanguageSwitcher extends Middleware
 {
@@ -13,7 +14,7 @@ class LanguageSwitcher extends Middleware
     {
         if(Cookie::get('lang')){
             $lang = json_decode(Cookie::get('lang'));
-            app()->setLocale($lang->id);
+            app()->setLocale(Str::of($lang->id)->remove(' ')->toString());
         }
         else {
             Cookie::queue('lang', json_encode([
