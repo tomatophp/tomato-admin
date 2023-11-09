@@ -1,7 +1,9 @@
 <x-splade-toggle>
-    <button  @click.prevent="toggle" class="relative py-3 px-4 w-full hover:bg-gray-100 text-center"  {{$attributes}}>
+    <button  @click.prevent="toggle"  {{$attributes->class([
+        "relative py-3 px-4 w-full hover:bg-gray-100 text-center"
+    ])}}>
         <div class="flex justify-center gap-2 mt-1">
-            <div >
+            <div>
                 <i class="bx bx-chevron-down" v-show="!toggled"></i>
                 <i class="bx bx-chevron-up" v-show="toggled"></i>
             </div>
