@@ -17,6 +17,11 @@ import TomatoSelect from "../../vendor/tomatophp/tomato-admin/resources/js/compo
 import TomatoArtisan from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoArtisan.vue";
 import TomatoCode from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoCode.vue";
 import TomatoDraggable from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoDraggable.vue";
+import TomatoClipboard from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoClipboard.vue";
+import {
+    Tooltip,
+} from 'floating-vue'
+import 'floating-vue/dist/style.css'
 
 createApp({
     render: renderSpladeApp({ el }),
@@ -40,6 +45,7 @@ createApp({
         transform_anchors: false,
         progress_bar: true,
     })
+    .component('VTooltip', Tooltip)
     .component("TomatoDraggable", TomatoDraggable)
     .component("TomatoRepeater", TomatoRepeater)
     .component("TomatoColor", TomatoColor)
@@ -48,4 +54,5 @@ createApp({
     .component("TomatoSelect", TomatoSelect)
     .component("TomatoArtisan", TomatoArtisan)
     .component("TomatoCode", TomatoCode)
+    .component("TomatoClipboard", TomatoClipboard)
     .mount(el);

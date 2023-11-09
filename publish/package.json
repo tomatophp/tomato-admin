@@ -21,6 +21,9 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "jquery": "^3.7.1",
+        "floating-vue": "^2.0.0-beta.24",
+        "@vueuse/core": "^10.5.0",
         "@suadelabs/vue3-multiselect": "^1.0.2",
         "@tailwindcss/line-clamp": "^0.4.2",
         "boxicons": "^2.1.4",

@@ -13,13 +13,13 @@
 </x-splade-link>
 @elseif($type === 'icon')
     <x-splade-link  {{ $attributes->class([
-        'px-2',
-        'text-danger-500' => $danger,
-        'text-warning-500' => $warning,
-        'text-primary-500' => $primary,
-        'text-success-500' => $success
-    ]) }} :method="$method">
-        {{$label ?: $slot}}
+            'px-2',
+            'text-danger-500' => $danger,
+            'text-warning-500' => $warning,
+            'text-primary-500' => $primary,
+            'text-success-500' => $success
+        ]) }} title="{{$label}}" :method="$method">
+        {{$slot}}
     </x-splade-link>
 @else
     <button  {{ $attributes->class([

@@ -10,6 +10,9 @@ use TomatoPHP\TomatoAdmin\Services\TomatoSlots;
 use TomatoPHP\TomatoAdmin\Services\TomatoWidgetHandler;
 use TomatoPHP\TomatoAdmin\Views\ActionButtons;
 use TomatoPHP\TomatoAdmin\Views\Container;
+use TomatoPHP\TomatoAdmin\Views\Copy;
+use TomatoPHP\TomatoAdmin\Views\Dropdown;
+use TomatoPHP\TomatoAdmin\Views\DropdownItem;
 use TomatoPHP\TomatoAdmin\Views\Layout;
 use TomatoPHP\TomatoAdmin\Views\Aside;
 use TomatoPHP\TomatoAdmin\Views\Footer;
@@ -22,6 +25,7 @@ use TomatoPHP\TomatoAdmin\Views\MenuItem;
 use TomatoPHP\TomatoAdmin\Views\Relations;
 use TomatoPHP\TomatoAdmin\Views\RelationsGroup;
 use TomatoPHP\TomatoAdmin\Views\SubmitButtons;
+use TomatoPHP\TomatoAdmin\Views\Tooltip;
 use TomatoPHP\TomatoAdmin\Views\Widget;
 use TomatoPHP\TomatoAdmin\Http\Middleware\LanguageSwitcher;
 use TomatoPHP\TomatoAdmin\Views\Row;
@@ -139,6 +143,10 @@ class TomatoAdminServiceProvider extends ServiceProvider
             RelationsGroup::class,
             ActionButtons::class,
             SubmitButtons::class,
+            Copy::class,
+            Tooltip::class,
+            Dropdown::class,
+            DropdownItem::class,
         ]);
     }
 }
