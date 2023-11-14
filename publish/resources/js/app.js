@@ -17,35 +17,22 @@ import TomatoSelect from "../../vendor/tomatophp/tomato-admin/resources/js/compo
 import TomatoArtisan from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoArtisan.vue";
 import TomatoCode from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoCode.vue";
 import TomatoDraggable from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoDraggable.vue";
+import TomatoDiagram from "../../vendor/tomatophp/tomato-builder/resources/js/components/TomatoDiagram.vue";
 import TomatoClipboard from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoClipboard.vue";
-import {
-    Tooltip,
-} from 'floating-vue'
-import 'floating-vue/dist/style.css'
+import TomatoTooltip from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoTooltip.vue";
+import TomatoSlider from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoSlider.vue";
+
 
 createApp({
     render: renderSpladeApp({ el }),
-    mounted() {
-        document.querySelectorAll('input').forEach((input) => {
-            input.attributes['autocomplete'] = 'off';
-        });
-
-        document.querySelectorAll('a').forEach((a) => {
-            a.addEventListener('click', (e) => {
-                a.classList.add('noClick');
-                setTimeout(() => {
-                    a.classList.remove('noClick');
-                }, 5000)
-            });
-        });
-    }
 })
     .use(SpladePlugin, {
         max_keep_alive: 10,
         transform_anchors: false,
         progress_bar: true,
     })
-    .component('VTooltip', Tooltip)
+    .component('TomatoTooltip', TomatoTooltip)
+    .component("TomatoDiagram", TomatoDiagram)
     .component("TomatoDraggable", TomatoDraggable)
     .component("TomatoRepeater", TomatoRepeater)
     .component("TomatoColor", TomatoColor)
@@ -55,4 +42,5 @@ createApp({
     .component("TomatoArtisan", TomatoArtisan)
     .component("TomatoCode", TomatoCode)
     .component("TomatoClipboard", TomatoClipboard)
+    .component("TomatoSlider", TomatoSlider)
     .mount(el);

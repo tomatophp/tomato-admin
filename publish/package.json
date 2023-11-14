@@ -22,7 +22,6 @@
     },
     "dependencies": {
         "jquery": "^3.7.1",
-        "floating-vue": "^2.0.0-beta.24",
         "@vueuse/core": "^10.5.0",
         "@suadelabs/vue3-multiselect": "^1.0.2",
         "@tailwindcss/line-clamp": "^0.4.2",
@@ -36,6 +35,7 @@
         "vue-draggable-next": "^2.2.1",
         "vue3-editor": "^0.1.1",
         "vue3-swatches": "^1.2.3",
-        "vue3-tel-input": "^1.0.4"
+        "vue3-tel-input": "^1.0.4",
+        "vue3-carousel": "^0.3.1"
     }
 }

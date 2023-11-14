@@ -24,6 +24,7 @@ use TomatoPHP\TomatoAdmin\Views\MenuGroup;
 use TomatoPHP\TomatoAdmin\Views\MenuItem;
 use TomatoPHP\TomatoAdmin\Views\Relations;
 use TomatoPHP\TomatoAdmin\Views\RelationsGroup;
+use TomatoPHP\TomatoAdmin\Views\Slider;
 use TomatoPHP\TomatoAdmin\Views\SubmitButtons;
 use TomatoPHP\TomatoAdmin\Views\Tooltip;
 use TomatoPHP\TomatoAdmin\Views\Widget;
@@ -147,6 +148,7 @@ class TomatoAdminServiceProvider extends ServiceProvider
             Tooltip::class,
             Dropdown::class,
             DropdownItem::class,
+            Slider::class,
         ]);
     }
 }
