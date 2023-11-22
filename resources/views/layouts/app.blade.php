@@ -8,6 +8,7 @@
             name: 'English'
         },
         asideMenuGroup: {},
+        groupOpened: false
     }"
 
     remember="admin"
@@ -58,11 +59,13 @@
                     <div class="flex jusitifiy-start gap-4">
                         {{ $buttons ?? '' }}
 
+                        @if(count(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutButtons()))
                         <div>
                             @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutButtons() as $item)
                                 @include($item)
                             @endforeach
                         </div>
+                        @endif
                     </div>
                 </header>
 
