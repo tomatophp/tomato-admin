@@ -52,7 +52,6 @@
             :hide-selected="true"
             :show-no-results="false"
             :internal-search="false"
-            selectLabel=""
             :disabled="disabled"
         >
             <template #afterList>
@@ -65,6 +64,8 @@
             v-else-if="getType==='select'"
             v-model="value"
             :options="options"
+            :track-by="optionValue??'id'"
+            :label="optionLabel??'name'"
             :multiple="multiple"
             :disabled="disabled"
         >
@@ -200,7 +201,6 @@ export default {
             this.loading = true;
             axios.get(this.remoteUrl).then(response => {
                 if(this.paginated){
-                    console.log('hERE!!')
                     this.currentPage = parseInt(response.data.data.current_page) === parseInt(response.data.data.last_page) ? 0 : parseInt(response.data.data.current_page);
                     this.relation = response.data.data[this.remoteRoot];
                 }
@@ -208,11 +208,21 @@ export default {
                     this.relation = response.data.data;
                 }
                 this.relation = this.relation.map(option => {
-                    let optionsArray = this.optionLabel.split('.');
-                    return {
-                        name: option[optionsArray[0]][optionsArray[1]],
-                        id: option[this.optionValue]
+                    if(this.optionLabel.includes('.')){
+                        let optionsArray = this.optionLabel.split('.');
+                        return {
+                            name: option[optionsArray[0]][optionsArray[1]],
+                            id: option[this.optionValue]
+                        }
                     }
+                    else {
+                        let optionsArray = this.optionLabel.split('.');
+                        return {
+                            name: option[this.optionLabel],
+                            id: option[this.optionValue]
+                        }
+                    }
+
                 })
                 if (this.modelValue !== null && this.modelValue !== undefined) {
                     let currentValue = this.modelValue;
@@ -228,10 +238,19 @@ export default {
                                 responseData = response.data.data;
                             }
                             let newData = responseData.map(option => {
-                                let optionsArray = this.optionLabel.split('.');
-                                return {
-                                    name: option[optionsArray[0]][optionsArray[1]],
-                                    id: option[this.optionValue]
+                                if(this.optionLabel.includes('.')){
+                                    let optionsArray = this.optionLabel.split('.');
+                                    return {
+                                        name: option[optionsArray[0]][optionsArray[1]],
+                                        id: option[this.optionValue]
+                                    }
+                                }
+                                else {
+                                    let optionsArray = this.optionLabel.split('.');
+                                    return {
+                                        name: option[this.optionLabel],
+                                        id: option[this.optionValue]
+                                    }
                                 }
                             })
                             newData.forEach((item) => {
@@ -296,10 +315,19 @@ export default {
                     responseData = response.data.data[this.remoteRoot];
                 }
                 let newData = responseData.map(option => {
-                    let optionsArray = this.optionLabel.split('.');
-                    return {
-                        name: option[optionsArray[0]][optionsArray[1]],
-                        id: option[this.optionValue]
+                    if(this.optionLabel.includes('.')){
+                        let optionsArray = this.optionLabel.split('.');
+                        return {
+                            name: option[optionsArray[0]][optionsArray[1]],
+                            id: option[this.optionValue]
+                        }
+                    }
+                    else {
+                        let optionsArray = this.optionLabel.split('.');
+                        return {
+                            name: option[this.optionLabel],
+                            id: option[this.optionValue]
+                        }
                     }
                 })
                 newData.forEach((item) => {
@@ -322,10 +350,19 @@ export default {
                     this.relation = response.data.data;
                 }
                 this.relation = this.relation.map(option => {
-                    let optionsArray = this.optionLabel.split('.');
-                    return {
-                        name: option[optionsArray[0]][optionsArray[1]],
-                        id: option[this.optionValue]
+                    if(this.optionLabel.includes('.')){
+                        let optionsArray = this.optionLabel.split('.');
+                        return {
+                            name: option[optionsArray[0]][optionsArray[1]],
+                            id: option[this.optionValue]
+                        }
+                    }
+                    else {
+                        let optionsArray = this.optionLabel.split('.');
+                        return {
+                            name: option[this.optionLabel],
+                            id: option[this.optionValue]
+                        }
                     }
                 })
                 this.loading = false;
