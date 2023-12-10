@@ -22,6 +22,9 @@ import TomatoClipboard from "../../vendor/tomatophp/tomato-admin/resources/js/co
 import TomatoTooltip from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoTooltip.vue";
 import TomatoSlider from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoSlider.vue";
 
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
 
 createApp({
     render: renderSpladeApp({ el }),
@@ -31,6 +34,8 @@ createApp({
         transform_anchors: false,
         progress_bar: true,
     })
+    .component("Swiper", Swiper)
+    .component("SwiperSlide", SwiperSlide)
     .component('TomatoTooltip', TomatoTooltip)
     .component("TomatoDiagram", TomatoDiagram)
     .component("TomatoDraggable", TomatoDraggable)

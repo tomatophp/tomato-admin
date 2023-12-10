@@ -15,6 +15,7 @@ class Slider extends Component
         public ?bool $horizontal=false,
         public ?array $images=[],
         public ?int $items=1,
+        public bool $navigation=false,
     )
     {
         $this->position = $this->horizontal ? "horizontal" : "vertical";

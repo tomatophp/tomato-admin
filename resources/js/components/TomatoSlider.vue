@@ -1,112 +1,119 @@
 <template>
-    <swiper
-        v-if="type === 'slider'"
-        :loop="true"
-        :slides-per-view="items"
-        :space-between="50"
-        navigation
-    >
-        <swiper-slide v-for="(item, key) in images">
-            <img :src="item" alt="">
-        </swiper-slide>
-    </swiper>
-    <div v-if="type === 'gallery'">
-        <div v-if="position === 'vertical'">
-            <div clas="flex flex-col justify-center">
-                <div class="flex justify-center">
-                    <div class=" w-80 h-80 rounded-lg border overflow-hidden">
-                        <img :src="activeSlider" @click.prevent="isOpen=!isOpen"  class="object-contain" />
-                    </div>
-                </div>
-                <div class="flex justify-center">
-                    <div class="grid grid-cols-6 gap-4 w-80 h-12 my-4 cursor-pointer">
-                        <div v-for="(item, key) in images" @mouseover="activeSlider = item" :class="{'ring ring-primary-500 ring-2': activeSlider === item}" class="bg-cover bg-center w-12 h-12 rounded-lg p-1" :style="'background-image: url('+item+')'">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-else>
-            <div class="flex justify-center gap-4 px-4">
-                <div class="flex justify-center col-span-1">
-                    <div class="flex flex-col gap-4 cursor-pointer">
-                        <div v-for="(item, key) in images" @mouseover="activeSlider = item" :class="{'ring ring-primary-500 ring-2': activeSlider === item}" class="bg-cover bg-center w-12 h-12 rounded-lg p-1" :style="'background-image: url('+item+')'">
-
-                        </div>
-                        <div class="relative" v-if="sliderOver">
-                            <img :src="sliderOver" width="100%" height="100%" />
-
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-center col-span-11 w-80 h-80 rounded-lg border overflow-hidden">
-                    <img :src="activeSlider" class="object-contain" @mouseover="sliderOver = activeSlider" @mouseleave="sliderOver = ''" />
-                </div>
-            </div>
-        </div>
+    <div class="w-full h-full" :class="{'flex justify-between gap-4': position !== 'horizontal'}">
+        <swiper
+            v-if="images.length && position !== 'horizontal'"
+            watch-slides-progress
+            class="mySwiper"
+            ref="swiperSlideRef"
+            @swiper="setThumbsSwiper"
+            :spaceBetween="10"
+            :slidesPerView="4"
+            :direction="position"
+            :freeMode="true"
+            :modules="modules"
+            style="height: 300px; width: 350px;"
+        >
+            <swiper-slide v-for="image in images" class="border rounded-lg overflow-hidden">
+                <img :src="image" />
+            </swiper-slide>
+        </swiper>
+        <swiper
+            class="swiper-main"
+            :navigation="navigation"
+            :pagination="true"
+            :modules="modules"
+            slidesPerView="auto"
+            :spaceBetween="14"
+            :zoom="{
+                maxRatio: 3,
+            }"
+            :thumbs="{ swiper: thumbsSwiper }"
+        >
+            <slot />
+        </swiper>
+        <swiper
+            v-if="images.length && position === 'horizontal'"
+            watch-slides-progress
+            class="mySwiper"
+            ref="swiperSlideRef"
+            @swiper="setThumbsSwiper"
+            :spaceBetween="10"
+            :slidesPerView="4"
+            :direction="position"
+            :freeMode="true"
+            :modules="modules"
+            style="height: 80px; width: 350px;"
+        >
+            <swiper-slide v-for="image in images" class="border rounded-lg overflow-hidden">
+                <img :src="image" />
+            </swiper-slide>
+        </swiper>
     </div>
 </template>
-<script>
+<script setup>
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import {Navigation, Pagination, Zoom, Thumbs, FreeMode} from 'swiper/modules';
+import {onMounted, ref} from 'vue';
 
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue';
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import 'swiper/css/zoom';
+import 'swiper/css/thumbs';
 
-// Import Swiper styles
-export default {
-    components: {
-        Swiper,
-        SwiperSlide,
-    },
-    data(){
-        return {
-            activeSlider: "",
-            sliderOver: "",
-            isOpen: false
-        }
-    },
-    mounted(){
-        this.activeSlider = this.images[0];
-    },
-    props: {
-        type: {
-            type: String,
-            default: () => "gallery",
-        },
-        position: {
-            type: String,
-            default: () => "vertical",
-        },
-        images: {
-            type: Array,
-            default: () => [],
-        },
-        items: {
-            type: Number,
-            default: () => 1,
-        }
-    },
-    setup() {
-        const onSwiper = (swiper) => {
-            console.log(swiper);
-        };
-        const onSlideChange = () => {
-            console.log('slide change');
-        };
-        return {
-            onSwiper,
-            onSlideChange,
-            modules: [Navigation, Pagination, Scrollbar, A11y],
-        };
-    },
+
+onMounted(()=>{
+    const swiper = document.querySelector('.swiper-main').swiper;
+    var swiperSlide = document.querySelectorAll('.swiper-main .swiper-slide')
+    for(var index = 0; index< swiperSlide.length; index++) {
+        swiperSlide[index].addEventListener('mouseover', function (e) {
+            swiper.zoom.in();
+        });
+
+        swiperSlide[index].addEventListener('mouseout', function (e) {
+            swiper.zoom.out();
+        });
+    }
+});
+
+const thumbsSwiper = ref(null);
+
+const setThumbsSwiper = (swiper) => {
+    thumbsSwiper.value = swiper;
 };
 
+const modules = ref([Navigation, Zoom, Thumbs, Pagination, FreeMode]);
+
+const props = defineProps({
+    navigation: {
+        type: Boolean,
+        default: false
+    },
+    images: {
+        type: Array,
+        default: []
+    },
+    position: {
+        type: String,
+        default: 'horizontal'
+    }
+})
 </script>
+
+<style scoped>
+.mySwiper {
+    box-sizing: border-box;
+}
+
+.mySwiper .swiper-slide {
+    opacity: 0.4;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+    opacity: 1;
+}
+</style>
