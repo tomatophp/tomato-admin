@@ -9,7 +9,9 @@ class SliderItem extends Component
 {
 
 
-    public function __construct()
+    public function __construct(
+        public bool $zoom = false
+    )
     {
     }
 
