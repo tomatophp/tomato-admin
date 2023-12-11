@@ -17,7 +17,6 @@ import TomatoSelect from "../../vendor/tomatophp/tomato-admin/resources/js/compo
 import TomatoArtisan from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoArtisan.vue";
 import TomatoCode from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoCode.vue";
 import TomatoDraggable from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoDraggable.vue";
-import TomatoDiagram from "../../vendor/tomatophp/tomato-builder/resources/js/components/TomatoDiagram.vue";
 import TomatoClipboard from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoClipboard.vue";
 import TomatoTooltip from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoTooltip.vue";
 import TomatoSlider from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoSlider.vue";
@@ -37,7 +36,6 @@ createApp({
     .component("Swiper", Swiper)
     .component("SwiperSlide", SwiperSlide)
     .component('TomatoTooltip', TomatoTooltip)
-    .component("TomatoDiagram", TomatoDiagram)
     .component("TomatoDraggable", TomatoDraggable)
     .component("TomatoRepeater", TomatoRepeater)
     .component("TomatoColor", TomatoColor)
