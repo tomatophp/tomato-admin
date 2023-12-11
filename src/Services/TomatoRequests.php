@@ -21,7 +21,8 @@ use Illuminate\Http\Response;
 class TomatoRequests
 {
 
-        private  $sorting = 'desc';
+    private  $sorting = 'desc';
+
     /**
      * @param Request $request
      * @param string $view
@@ -52,7 +53,9 @@ class TomatoRequests
             }
         }
 
-        $query->orderBy('id', $this->sorting);
+        if($this->sorting && !request()->has('sort')){
+            $query->orderBy('id', $this->sorting);
+        }
 
         $isAPIRequest = Str::contains('splade', \Route::current()->gatherMiddleware());
         if((!$isAPIRequest) && $api ){
