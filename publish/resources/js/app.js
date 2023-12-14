@@ -20,8 +20,8 @@ import TomatoDraggable from "../../vendor/tomatophp/tomato-admin/resources/js/co
 import TomatoClipboard from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoClipboard.vue";
 import TomatoTooltip from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoTooltip.vue";
 import TomatoSlider from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoSlider.vue";
-import TomatoSearch from "../../vendor/tomatophp/tomato-admin/resources/js/TomatoSearch.vue";
-import TomatoItems from "../../vendor/tomatophp/tomato-admin/resources/js/TomatoItems.vue";
+import TomatoSearch from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoSearch.vue";
+import TomatoItems from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoItems.vue";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
