@@ -8,6 +8,8 @@ use TomatoPHP\TomatoAdmin\Services\TomatoMenuHandler;
 use TomatoPHP\TomatoAdmin\Services\TomatoRequests;
 use TomatoPHP\TomatoAdmin\Services\TomatoSlots;
 use TomatoPHP\TomatoAdmin\Services\TomatoWidgetHandler;
+use TomatoPHP\TomatoAdmin\View\Components\Items;
+use TomatoPHP\TomatoAdmin\View\Components\Search;
 use TomatoPHP\TomatoAdmin\Views\ActionButtons;
 use TomatoPHP\TomatoAdmin\Views\Container;
 use TomatoPHP\TomatoAdmin\Views\Copy;
@@ -154,5 +156,11 @@ class TomatoAdminServiceProvider extends ServiceProvider
             SliderItem::class,
             TableAction::class
         ]);
+
+        $this->loadViewComponentsAs('tomato', [
+            Search::class,
+            Items::class
+        ]);
+
     }
 }
