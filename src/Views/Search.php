@@ -1,6 +1,6 @@
 <?php
 
-namespace TomatoPHP\TomatoAdmin\View\Components;
+namespace TomatoPHP\TomatoAdmin\Views;
 
 use Illuminate\Support\Js;
 use Illuminate\Support\Str;
