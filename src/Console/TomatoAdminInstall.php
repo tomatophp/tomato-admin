@@ -50,6 +50,10 @@ class TomatoAdminInstall extends Command
         $this->handelFile('/package.json', base_path('/package.json'));
         $this->handelFile('/resources/js', resource_path('/js'), 'folder');
         $this->handelFile('/resources/css', resource_path('/css'), 'folder');
+        $this->call('vendor:publish', [
+            "--provider" => "Spatie\MediaLibraryPro\MediaLibraryProServiceProvider",
+        ]);
+        $this->callSilent('migrate');
         $this->callSilent('optimize:clear');
         $this->info('🍅 now please run yarn & yarn build');
         $this->info('🍅 Tomato Admin installed successfully.');
