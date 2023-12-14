@@ -32,6 +32,7 @@ createApp({
         max_keep_alive: 10,
         transform_anchors: false,
         progress_bar: true,
+        view_transitions: true
     })
     .component("Swiper", Swiper)
     .component("SwiperSlide", SwiperSlide)

@@ -64,8 +64,8 @@
         </Link>
     </header>
 
-    <nav class="flex-1 py-6 overflow-y-auto filament-sidebar-nav">
-        <div>
+    <nav class="flex-1 py-6 overflow-y-auto filament-sidebar-nav" @preserveScroll('sidebar')>
+        <div >
             @include('tomato-admin::layouts.includes.menu')
         </div>
     </nav>
