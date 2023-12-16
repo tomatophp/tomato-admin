@@ -98,8 +98,9 @@
                                     <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="currentColor"></path>
                                 </svg>
                             </span>
-                            <x-splade-form    method="GET" action="{{config('tomato-admin.global_search_route') ?: url()->current()}}">
-                                <input  id="globalSearchInput" v-model="form.search" placeholder="{{trans('tomato-admin::global.search')}}" type="search" autocomplete="off" class="block w-full h-10 pl-10 bg-gray-400/10 placeholder-gray-500 border-transparent transition duration-75 rounded-lg focus:bg-white focus:placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400">
+                            <x-splade-form :default="['filter' => ['global' => request()->get('filters')['global'] ?? null]]"  method="GET" action="{{config('tomato-admin.global_search_route') ?: url()->current()}}">
+
+                                <input  id="globalSearchInput" v-model="form.filter['global']" placeholder="{{trans('tomato-admin::global.search')}}" type="search" autocomplete="off" class="block w-full h-10 pl-10 bg-gray-400/10 placeholder-gray-500 border-transparent transition duration-75 rounded-lg focus:bg-white focus:placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-inset focus:ring-primary-500 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400">
                             </x-splade-form>
                         </div>
                     </div>
