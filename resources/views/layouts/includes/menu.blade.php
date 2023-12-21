@@ -1,31 +1,49 @@
 @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getSidebarTop() as $item)
     @include($item)
 @endforeach
+<div class="px-4 py-3 flex justify-start gap-4" v-show="!data.makeMenuMin">
+    @php
+        $email = auth('web')->user()->email;
+        $size = 220;
+        $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=identicon&s=" . $size;
+    @endphp
+    <div>
+        <div class="w-14 h-14 rounded-full bg-gray-200 bg-cover bg-center dark:bg-gray-900" style="background-image: url('{{$grav_url}}')">
+        </div>
+    </div>
+    <div class="flex flex-col items-center justify-center">
+        <div>
+            <h6 class="text-lg text-white font-bold">{{auth('web')->user()->name}}</h6>
+            <p class="text-sm text-gray-300">{{auth('web')->user()->email}}</p>
+        </div>
+    </div>
+</div>
+<div v-show="!data.makeMenuMin" class="my-2 border-t border-gray-700"></div>
 <div>
-    <ul class="mx-3 mt-2 space-y-1 text-sm">
-        <li class="filament-sidebar-item ">
+    <div class="text-sm">
+        <div>
             <Link
                 href="{{ route('admin') }}"
                 class="
                 @if(request()->routeIs('admin'))
                     bg-primary-500 text-white
                 @else
-                    hover:bg-gray-500/5 focus:bg-gray-500/5 dark:text-gray-300 dark:hover:bg-gray-700
+                    text-gray-300 hover:bg-gray-500/5 focus:bg-gray-500/5 dark:text-gray-300 dark:hover:bg-gray-700
                 @endif
-                flex items-center justify-center gap-3 px-3 py-2 font-medium transition rounded-lg">
+                    flex items-center justify-center w-full py-3 font-medium transition" :class="{'gap-3 px-4': !data.makeMenuMin}">
 
-            <i class="w-5 h-5 shrink-0 bx bxs-home" style="font-size: 20px"></i>
+                <i class="w-5 h-5 shrink-0 bx bxs-home" style="font-size: 20px"></i>
 
-            <div class="flex flex-1" v-show="!data.makeMenuMin">
+                <div class="flex flex-1" v-show="!data.makeMenuMin">
                     <span>
                         {{ trans("tomato-admin::global.dashboard") }}
                     </span>
-            </div>
+                </div>
             </Link>
-        </li>
-    </ul>
+        </div>
+    </div>
+    <div v-show="data.makeMenuMin" class="my-2 border-t border-gray-700"></div>
 </div>
-<div class="my-6 ml-6 border-t rtl:ml-auto rtl:mr-6 dark:border-gray-700"></div>
 
 @if(config('tomato-admin.menu_provider'))
     {!! config('tomato-admin.menu_provider')::render() !!}
@@ -38,8 +56,12 @@
         data.asideMenuGroup['{{str_replace(" ", "_", $key)}}'] =
         !data.asideMenuGroup['{{str_replace(" ", "_", $key)}}']"
                 v-show="!data.makeMenuMin"
-                class="flex items-center justify-between w-full px-6">
-            <div class="flex items-center gap-4 text-gray-600 dark:text-gray-300">
+                class="w-full dark:text-gray-300 flex items-center justify-between gap-3 px-4 py-3 font-medium transition"
+                :class="{
+                    'bg-gray-900 hover:bg-gray-800 text-white': data.asideMenuGroup['{{str_replace(" ", "_", $key)}}'],
+                    'text-gray-300 hover:bg-gray-500/5 dark:hover:bg-gray-700 focus:bg-gray-500/5': !data.asideMenuGroup['{{str_replace(" ", "_", $key)}}'],
+                }">
+            <div class="flex items-center gap-4">
                 <p class="flex-1 text-xs font-bold tracking-wider uppercase">
                     {{ $key }}
                 </p>
@@ -59,11 +81,9 @@
         </button>
 
         <div>
-            <ul class="mx-3 mt-2 space-y-1 text-sm"
-                v-if="data.asideMenuGroup"
-                v-show="data.asideMenuGroup['{{str_replace(" ", "_", $key)}}'] || data.makeMenuMin ">
+            <div v-show="data.asideMenuGroup && data.asideMenuGroup['{{str_replace(' ', '_', $key)}}'] || data.makeMenuMin" class="text-sm" :class="{'bg-gray-950':!data.makeMenuMin}">
                 @foreach($menu as $item)
-                    <li class="filament-sidebar-item "  title="{{$item->label}}" style="color: {{$item->color}} !important;">
+                    <div class="filament-sidebar-item"  title="{{$item->label}}" style="color: {{$item->color}} !important;">
                         @if($item->target === '_blank')
                             <a
                                 target="_blank"
@@ -74,7 +94,7 @@
                             @else
                                 hover:bg-gray-500/5 focus:bg-gray-500/5 dark:text-gray-300 dark:hover:bg-gray-700
                             @endif
-                          flex items-center justify-center w-full gap-3 px-3 py-2 font-medium transition rounded-lg">
+                          flex items-center justify-center w-full gap-3 px-4 py-2 font-medium transition rounded-lg">
 
                                 <i class="w-5 h-5 shrink-0 {{ $item->icon }}" style="font-size: 20px"></i>
 
@@ -93,13 +113,16 @@
                         @else
                             <Link
                                 href="{{$item->route ? route($item->route) : $item->url}}"
+                                :class="{
+                                    'ltr:pl-8 rtl:pr-8': !data.makeMenuMin
+                                }"
                                 class="
                             @if($item->route && request()->routeIs($item->route))
                                 bg-primary-500 text-white
                             @else
-                                hover:bg-gray-500/5 focus:bg-gray-500/5 dark:text-gray-300 dark:hover:bg-gray-700
+                                text-gray-300 hover:bg-gray-500/5 focus:bg-gray-500/5 dark:text-gray-300 dark:hover:bg-gray-700
                             @endif
-                          flex items-center justify-center w-full gap-3 px-3 py-2 font-medium transition rounded-lg">
+                           flex items-center justify-center w-full gap-3  py-3   pr-3 font-medium transition">
 
                             <i class="w-5 h-5 shrink-0 {{ $item->icon }}" style="font-size: 20px"></i>
 
@@ -116,13 +139,12 @@
                             </div>
                             </Link>
                         @endif
-                    </li>
+                    </div>
                 @endforeach
-
-            </ul>
+            </div>
         </div>
         @if($counter !== count($menus)-1)
-            <div class="my-6 ml-6 border-t rtl:ml-auto rtl:mr-6 dark:border-gray-700"></div>
+            <div v-show="data.makeMenuMin" class="my-2 border-t border-gray-700"></div>
         @endif
         @php $counter++; @endphp
     @endforeach

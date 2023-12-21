@@ -15,13 +15,13 @@
                 local-storage
 >
 
-<div class="filament-body bg-gray-100 text-gray-900 dark:text-gray-100 dark:bg-gray-900 font-main" @load="data.dark">
+<div class="filament-body bg-gray-50 text-gray-950 dark:text-white dark:bg-gray-950 font-main" @load="data.dark">
     <div class="filament-app-layout flex w-full min-h-screen overflow-v-clip">
         <x-tomato-admin-aside />
         <div
                 :class="{
                         'lg:pl-24 lg:pl-24 rtl:lg:pr-24 rtl:lg:pl-0': data.makeMenuMin,
-                        'lg:pl-80 lg:pl-80 rtl:lg:pr-80 rtl:lg:pl-0': !data.makeMenuMin
+                        'lg:pl-72 lg:pl-72 rtl:lg:pr-72 rtl:lg:pl-0': !data.makeMenuMin
                     }"
                 class="
                         flex

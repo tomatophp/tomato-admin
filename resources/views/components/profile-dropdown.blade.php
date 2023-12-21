@@ -1,8 +1,13 @@
 <div class="filament-dropdown">
     <x-splade-toggle>
         <div class="filament-dropdown-trigger cursor-pointer ml-4" @click.prevent="toggle">
+            @php
+                $email = auth('web')->user()->email;
+                $size = 120;
+                $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=identicon&s=" . $size;
+            @endphp
             <!-- Profile -->
-            <div class="w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center dark:bg-gray-900" style="background-image: url('https://avatars.dicebear.com/api/initials/{{auth()->user()->name}}.svg')">
+            <div class="w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center dark:bg-gray-900" style="background-image: url('{{$grav_url}}')">
             </div>
         </div>
 

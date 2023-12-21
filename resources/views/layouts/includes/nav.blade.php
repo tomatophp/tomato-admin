@@ -9,6 +9,7 @@
                     shrink-0
                     items-center
                     border-b
+                    border-gray-100
                     bg-white
                     dark:bg-gray-800
                     dark:border-gray-700
