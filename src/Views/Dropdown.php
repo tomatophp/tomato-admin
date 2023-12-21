@@ -10,6 +10,7 @@ class Dropdown extends Component
 
     public function __construct(
         public ?string $label=null,
+        public ?string $icon=null,
         public ?string $id=null,
     )
     {

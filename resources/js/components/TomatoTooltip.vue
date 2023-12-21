@@ -15,7 +15,12 @@ const props = defineProps({
     id: {
         required: true,
         type: String,
-    }
+    },
+    position: {
+        required: false,
+        type: String,
+        default: 'top',
+    },
 });
 
 
@@ -26,6 +31,7 @@ onMounted(()=>{
             tippy('#tippy'+props.id, {
                 content: props.text,
                 animation: 'fade',
+                placement: props.position,
             });
         }, 2000);
     });

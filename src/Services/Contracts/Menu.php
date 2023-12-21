@@ -51,7 +51,7 @@ class Menu
     /**
      * @var string|null
      */
-    public ?string $group = "resources";
+    public string|array|null $group = "resources";
 
     public function __construct()
     {
@@ -104,7 +104,7 @@ class Menu
      * @param string $group
      * @return $this
      */
-    public function group(string $group): static
+    public function group(string|array $group): static
     {
         $this->group = $group;
         return $this;

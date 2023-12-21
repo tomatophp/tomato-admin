@@ -5,7 +5,7 @@
     <x-slot:buttons>
         {{ $buttons ?? '' }}
     </x-slot:buttons>
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border dark:border-gray-700 ">
+    <div class="bg-white border-gray-200 dark:bg-gray-800 p-6 rounded-xl border dark:border-gray-700 mb-6">
         <x-splade-modal class="font-main">
             <x-slot:title>
                 {{$label}}

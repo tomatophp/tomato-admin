@@ -3,6 +3,7 @@
 namespace TomatoPHP\TomatoAdmin\Services;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
 use TomatoPHP\TomatoAdmin\Services\Menu\TomatoMenuRegister;
 use TomatoPHP\TomatoAdmin\Facade\TomatoMenu as TomatoMenuFacade;
@@ -50,12 +51,34 @@ class TomatoMenu
     private function build(): static
     {
         $groups = TomatoMenuFacade::loadGroups();
+
         $collectHiddenGroups = $groups->filter(function ($item) {
             return $item===false;
         });
-        $collectByGroup = $this->menu->whereNotIn('group',  array_keys($collectHiddenGroups->toArray()))->groupBy("group")->sortBy(function ($item) use ($groups) {
+
+        $collectMenusByGroup = $this->menu->groupBy("group")->sortBy(function ($item) use ($groups) {
             return array_search($item->first()->group, array_keys($groups->toArray()));
         });
+        if($groups->count()){
+            $collectByGroup = collect([]);
+            foreach ($collectMenusByGroup as $key=>$groupItem){
+                foreach ($groups as $groupKey=>$icon){
+                    if($key==$groupKey){
+                        if($icon){
+                            $collectByGroup->put($groupKey, collect([
+                                "menu" => $groupItem,
+                                "icon" => $icon,
+                                "key" => Str::slug($groupKey),
+                                "label" => $groupKey,
+                            ]));
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            $collectByGroup = $collectMenusByGroup;
+        }
         $this->menu = $collectByGroup;
         return $this;
     }

@@ -1,15 +1,8 @@
 <div  {{$attributes->class([
-    "fi-wi-stats-overview-stat relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-300 dark:bg-gray-900 dark:ring-white/10"
+    "relative rounded-xl bg-white p-6 shadow-sm border border-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:ring-white/10"
 ])}} >
-    <div class="flex justify-start gap-4">
-        @if($icon)
-            <div class="flex flex-col items-center justify-center rtl:border-l ltr:border-r ltr:pr-4 rtl:pl-4 text-primary-500">
-                <div class="text-custom-50 ">
-                    <i class="{{$icon}} bx-lg"/>
-                </div>
-            </div>
-        @endif
-        <div class="grid gap-y-2">
+    <div class="flex justify-between gap-4">
+        <div>
             <div class="flex items-center gap-x-2">
                 <span class="text-sm font-medium text-gray-500 dark:text-gray-400"> {{$title}} </span>
             </div>
@@ -27,5 +20,21 @@
                 @endif
             </div>
         </div>
+        @if($icon)
+            @if($color)
+                <div class="text-white text-center p-4 rounded-full" style="background-color: {{$color}}">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="{{$icon}} text-2xl"></div>
+                    </div>
+                </div>
+            @else
+                <div class="bg-primary-500 text-white text-center p-4 rounded-full">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="{{$icon}} text-2xl"></div>
+                    </div>
+                </div>
+            @endif
+
+        @endif
     </div>
 </div>

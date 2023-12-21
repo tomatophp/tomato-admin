@@ -2,6 +2,7 @@ $choices-bg-color: white;
 
 @import "choices.js/src/styles/choices";
 
+
 span+.#{$choices-selector} {
     @apply mt-1;
 }
@@ -18,7 +19,7 @@ fieldset:disabled .#{$choices-selector} {
     @apply shadow-sm;
 
     .#{$choices-selector}__inner {
-        @apply block rounded-md border-gray-300 shadow-sm w-full py-2;
+        @apply block rounded-md border-gray-300 dark:border-gray-800 shadow-sm w-full py-2;
 
         min-height: auto;
     }
@@ -71,11 +72,15 @@ fieldset:disabled .#{$choices-selector} {
     }
 
     .#{$choices-selector}__list {
-        @apply rtl:pr-0 py-0 pl-0;
+        @apply rtl:pr-0 py-0 ltr:pl-0;
+    }
+
+    .#{$choices-selector}__list--single {
+        @apply rtl:pr-6;
     }
 
     .#{$choices-selector}__list--dropdown {
-        @apply mt-1 shadow-lg rounded-md border-gray-300;
+        @apply mt-1 shadow-lg rounded-md border-gray-300 dark:border-gray-700;
 
         .#{$choices-selector}__item.#{$choices-selector}__placeholder {
             @apply hidden;
@@ -106,7 +111,7 @@ fieldset:disabled .#{$choices-selector} {
 
     &[data-type*="select-multiple"] {
         .#{$choices-selector}__inner {
-            @apply pr-8 py-2;
+            @apply ltr:pr-8 rtl:pl-8 py-2;
 
             &[data-has-selection="true"]{
                 @apply pt-1.5 pb-2;
@@ -118,7 +123,7 @@ fieldset:disabled .#{$choices-selector} {
         }
 
         .#{$choices-selector}__input {
-            @apply m-0 py-px pl-0 rtl:pr-0 text-base dark:text-gray-200 min-w-0 leading-none;
+            @apply m-0 py-px ltr:pl-0 rtl:pr-0 text-base dark:text-gray-200 min-w-0 leading-none;
         }
     }
 }

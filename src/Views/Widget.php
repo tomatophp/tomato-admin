@@ -16,6 +16,7 @@ class Widget extends Component
         public ?array $query=[],
         public ?string $description=null,
         public ?string $icon=null,
+        public ?string $color=null,
     )
     {
         //

@@ -15,7 +15,7 @@
                 local-storage
 >
 
-<div class="filament-body bg-gray-50 text-gray-950 dark:text-white dark:bg-gray-950 font-main" @load="data.dark">
+<div class="filament-body bg-gray-50 text-gray-950 dark:text-white dark:bg-gray-950 font-main" @load="data.dark" id="appBody">
     <div class="filament-app-layout flex w-full min-h-screen overflow-v-clip">
         <x-tomato-admin-aside />
         <div
@@ -29,9 +29,8 @@
                         flex-col
                         gap-y-6
                         w-screen
-                        flex-1
                         hidden
-                        h-full
+                        min-h-screen
                         transition-all
                         filament-main-sidebar-open
                     "

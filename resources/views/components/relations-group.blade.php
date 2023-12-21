@@ -14,7 +14,7 @@
                 @endforeach
             </nav>
         </div>
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border dark:border-gray-700 my-4">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 my-4">
             {{$slot}}
         </div>
     </x-splade-data>
