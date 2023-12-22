@@ -1,5 +1,5 @@
 @if($type === 'button')
-    <button class="p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-900" {{ $attributes }} {{ $attributes->class([
+    <button class="p-3 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900" {{ $attributes }} {{ $attributes->class([
             'text-black' => $black,
             'text-danger-500' => $danger,
             'text-warning-500' => $warning,
@@ -16,7 +16,7 @@
         </div>
     </button>
 @elseif($type === 'link')
-    <x-splade-link class="p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-900" {{ $attributes }} {{ $attributes->class([
+    <x-splade-link class="p-3 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900" {{ $attributes }} {{ $attributes->class([
             'text-black' => $black,
             'text-danger-500' => $danger,
             'text-warning-500' => $warning,
@@ -33,7 +33,7 @@
         </div>
     </x-splade-link>
 @elseif($type === 'copy')
-    <x-tomato-admin-copy class="p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-900" {{ $attributes }} {{ $attributes->class([
+    <x-tomato-admin-copy class="p-3 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900" {{ $attributes }} {{ $attributes->class([
             'text-black' => $black,
             'text-danger-500' => $danger,
             'text-warning-500' => $warning,

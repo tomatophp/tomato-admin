@@ -43,6 +43,7 @@
                 @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutTop() as $item)
                     @include($item)
                 @endforeach
+                @isset($header)
                 <header
                         class="mb-4 items-start justify-between space-y-2 filament-header sm:flex sm:space-y-0 sm:space-v-4 sm:rtl:space-v-reverse sm:py-4">
                     <div>
@@ -67,7 +68,7 @@
                         @endif
                     </div>
                 </header>
-
+                @endif
                 <!-- SLOT -->
                 {{$slot}}
 
