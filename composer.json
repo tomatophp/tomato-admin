@@ -57,7 +57,7 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "php artisan tomato-admin:upgrade",
+            "php artisan tomato-admin:upgrade"
         ]
     }
 }
