@@ -10,7 +10,7 @@
             @endif
         </div>
     </x-slot:button>
-    <div class="px-2 dark:bg-gray-800">
+    <div class="px-4">
         <ul class="divide-y divide-gray-200 dark:divide-gray-700">
             {{ $slot }}
         </ul>
