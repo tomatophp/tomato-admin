@@ -17,6 +17,7 @@
 
 <div class="filament-body bg-gray-50 text-gray-950 dark:text-white dark:bg-gray-950 font-main" @load="data.dark" id="appBody">
     <div class="filament-app-layout flex w-full min-h-screen overflow-v-clip">
+
         <x-tomato-admin-aside />
         <div
                 :class="{
@@ -29,12 +30,10 @@
                         flex-col
                         gap-y-6
                         w-screen
-                        hidden
                         min-h-screen
                         transition-all
                         filament-main-sidebar-open
                     "
-                style="display: flex"
         >
 
             <x-tomato-admin-navbar />
@@ -44,12 +43,18 @@
                     @include($item)
                 @endforeach
                 @isset($header)
-                <header
-                        class="mb-4 items-start justify-between space-y-2 filament-header sm:flex sm:space-y-0 sm:space-v-4 sm:rtl:space-v-reverse sm:py-4">
+                <header class="flex justify-between mb-4">
                     <div>
-                        <h1 class="text-2xl font-bold tracking-tight md:text-3xl filament-header-heading">
-                            {{ $header ?? '' }}
-                        </h1>
+                        <div class="flex flex-col items-center justify-center">
+                            <div class="flex justify-start gap-2">
+                                <div>
+                                    <i class="{{ $icon ?? 'bx bxs-category' }} text-1xl md:text-2xl font-bold text-primary-500"></i>
+                                </div>
+                                <h1 class="text-1xl md:text-2xl font-bold tracking-tight  filament-header-heading">
+                                    {{ $header ?? '' }}
+                                </h1>
+                            </div>
+                        </div>
 
                         @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutTitle() as $item)
                             @include($item)

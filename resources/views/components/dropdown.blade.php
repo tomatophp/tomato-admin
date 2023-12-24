@@ -1,22 +1,18 @@
-<x-splade-toggle>
-    <button  @click.prevent="toggle"  {{$attributes->class([
-        "relative"
-    ])}}>
-        <div class="flex justify-center gap-2">
+<x-splade-component is="button-with-dropdown"  v-bind:close-on-click="true">
+    <x-slot:button>
+        <div {{ $attributes }}>
             @if($icon)
                 <i class="{{$icon}}"></i>
             @else
-                <div>
-                    <i class="bx bx-chevron-down" v-show="!toggled"></i>
-                    <i class="bx bx-chevron-up" v-show="toggled"></i>
-                </div>
                 <div class="text-sm">
                     {{$label}}
                 </div>
             @endif
         </div>
-        <div v-show="toggled" class="absolute flex flex-col top-12 left-0 shadow-sm overflow-hidden z-10 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 border border-gray-200 w-80">
+    </x-slot:button>
+    <div class="px-2 dark:bg-gray-800">
+        <ul class="divide-y divide-gray-200 dark:divide-gray-700">
             {{ $slot }}
-        </div>
-    </button>
-</x-splade-toggle>
+        </ul>
+    </div>
+</x-splade-component>

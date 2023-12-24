@@ -32,7 +32,7 @@ class TomatoAdminUpgrade extends Command
      */
     public function __construct()
     {
-        $this->publish = base_path('vendor/tomatophp/tomato-admin/publish');
+        $this->publish = base_path('vendor/tomatophp/tomato-admin/');
         parent::__construct();
     }
 
@@ -42,16 +42,14 @@ class TomatoAdminUpgrade extends Command
     public function handle(): void
     {
         $this->info('🍅 Updating Files ...');
-        $this->handelFile('/tailwind.config.js', base_path('/tailwind.config.js'));
-        $this->handelFile('/vite.config.js', base_path('/vite.config.js'));
-        $this->handelFile('/package.json', base_path('/package.json'));
-        $this->handelFile('/config/tomato-php.php', config_path('/tomato-php.php'));
-        $this->handelFile('/resources/js', resource_path('/js'), 'folder');
-        $this->handelFile('/resources/css', resource_path('/css'), 'folder');
+        $this->handelFile('/publish/tailwind.config.js', base_path('/tailwind.config.js'));
+        $this->handelFile('/publish/vite.config.js', base_path('/vite.config.js'));
+        $this->handelFile('/publish/package.json', base_path('/package.json'));
+        $this->handelFile('/config/tomato-admin.php', config_path('/tomato-admin.php'));
+        $this->handelFile('/publish/resources/js', resource_path('/js'), 'folder');
+        $this->handelFile('/publish/resources/css', resource_path('/css'), 'folder');
         $this->callSilent('optimize:clear');
-        $this->info('🍅 Install NPM packages ...');
-        $this->yarnCommand(['install']);
-        $this->yarnCommand(['build']);
+        $this->info('run yarn & yarn build');
         $this->info('🍅 Upgrade Done!');
     }
 }

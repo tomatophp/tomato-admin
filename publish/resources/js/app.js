@@ -9,6 +9,7 @@ const el = document.getElementById("app");
 
 import './choices.scss';
 
+import TomatoTable from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoTable.vue";
 import TomatoRepeater from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoRepeater.vue";
 import TomatoColor from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoColor.vue";
 import TomatoRich from "../../vendor/tomatophp/tomato-admin/resources/js/components/TomatoRich.vue";
@@ -34,10 +35,11 @@ createApp({
         max_keep_alive: 10,
         transform_anchors: false,
         progress_bar: true,
-        view_transitions: true
+        view_transitions: false
     })
     .component("Swiper", Swiper)
     .component("SwiperSlide", SwiperSlide)
+    .component('TomatoTable', TomatoTable)
     .component('TomatoTooltip', TomatoTooltip)
     .component("TomatoDraggable", TomatoDraggable)
     .component("TomatoRepeater", TomatoRepeater)

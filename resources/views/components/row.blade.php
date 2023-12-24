@@ -37,7 +37,7 @@
                                 background-color: #eaeaea !important;
                             "
                         @endif
-                            class="inline-flex items-center gap-2 justify-center ml-auto rtl:ml-0 rtl:mr-auto min-h-4 px-2 py-0.5 text-xs font-medium tracking-tight rounded-xl whitespace-normal text-primary-700 bg-primary-500/10 dark:text-primary-500" >
+                            class="whitespace-nowrap inline-flex items-center gap-2 justify-center ml-auto rtl:ml-0 rtl:mr-auto min-h-4 px-2 py-0.5 text-xs font-medium tracking-tight rounded-xl whitespace-normal text-primary-700 bg-primary-500/10 dark:text-primary-500" >
                         @if($icon)
                             <i class="{{$icon}}" ></i>
                         @endif
@@ -146,9 +146,13 @@
                 <div class="min-w-0 flex-10">
                     <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white" >
                         @if($value === true)
-                            <x-heroicon-s-check-circle class="w-6 h-6 text-success-500" />
+                            <div class="w-4 h-4 bg-success-500 rounded-full">
+
+                            </div>
                         @else
-                            <x-heroicon-s-x-circle class="w-6 h-6 text-danger-600"/>
+                            <div class="w-4 h-4 bg-gray-500 rounded-full">
+
+                            </div>
                         @endif
 
                     </div>

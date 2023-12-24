@@ -35,6 +35,7 @@ return [
         "delete-model-button" => "الغاء الحساب",
     ],
     "crud" => [
+        "actions" => "العمليات",
         "create" => "إنشاء ",
         "create-new" => "إنشاء",
         "edit" => "تعديل",
