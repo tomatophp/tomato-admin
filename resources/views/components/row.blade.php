@@ -34,10 +34,9 @@
                         @if($color)
                             style="
                                 color: {{$color}} !important;
-                                background-color: #eaeaea !important;
                             "
                         @endif
-                            class="whitespace-nowrap inline-flex items-center gap-2 justify-center ml-auto rtl:ml-0 rtl:mr-auto min-h-4 px-2 py-0.5 text-xs font-medium tracking-tight rounded-xl whitespace-normal text-primary-700 bg-primary-500/10 dark:text-primary-500" >
+                            class="bg-primary-100 whitespace-nowrap inline-flex items-center gap-2 justify-center ml-auto rtl:ml-0 rtl:mr-auto min-h-4 px-2 py-0.5 text-xs font-medium tracking-tight rounded-xl whitespace-normal text-primary-700 bg-primary-500/10 dark:text-primary-500" >
                         @if($icon)
                             <i class="{{$icon}}" ></i>
                         @endif

@@ -66,7 +66,8 @@ export default {
             forcedVisibleSearchInputs: [],
             debounceUpdateQuery: null,
             isLoading: false,
-            processingAction: false
+            processingAction: false,
+            showResetButton: false
         };
     },
 
@@ -132,12 +133,13 @@ export default {
     mounted() {
         const query = this.getCurrentQuery();
 
+
         const columns = query.columns || [];
 
         // Parse the query string and figure out whether there
         // are Search Inputs that should be visible.
         forOwn(query, (value, key) => {
-            if(startsWith(key, "filter[") && !value) {
+            if(startsWith(key, "filter[") && value) {
                 const splittedKey = key.split("[");
                 const filterKey = splittedKey[1].substring(0, splittedKey[1].length - 1);
 
@@ -497,7 +499,7 @@ export default {
             performBulkAction: this.performBulkAction,
             processingAction: this.processingAction,
             selectedItems: this.selectedItems,
-            isLoading: this.isLoading,
+            isLoading: this.isLoading
         });
     },
 };

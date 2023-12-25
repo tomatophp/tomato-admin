@@ -6,8 +6,8 @@
             v-model="value"
             :options="options"
             :multiple="multiple"
-            :track-by="optionValue"
-            :label="optionLabel"
+            track-by="id"
+            label="name"
             :disabled="disabled"
         >
             <template #singleLabel="props">
@@ -58,6 +58,38 @@
                 <li @click.prevent="loadMore()" class="text-center py-2 text-primary-500" v-if="this.currentPage">
                     <button>{{ loadMoreLabel }}</button>
                 </li>
+            </template>
+        </multiselect>
+        <multiselect
+            v-else-if="getType==='icon'"
+            v-model="value"
+            :options="options"
+            :multiple="multiple"
+            :disabled="disabled"
+        >
+            <template #singleLabel="props">
+                <div class="flex justify-start gap-2">
+                    <div class="flex flex-col items-center justify-center text-primary-500">
+                        <i class="bx" :class="props.option"></i>
+                    </div>
+                    <span class="option__desc">
+                        <span class="option__title font-bold">
+                            {{ props.option }}
+                        </span>
+                    </span>
+                </div>
+            </template>
+            <template #option="props">
+                <div class="flex justify-start gap-2">
+                    <div class="flex flex-col items-center justify-center text-primary-500">
+                        <i class="bx" :class="props.option"></i>
+                    </div>
+                    <div class="option__desc">
+                        <span class="option__title">
+                            {{ props.option }}
+                        </span>
+                    </div>
+                </div>
             </template>
         </multiselect>
         <multiselect
@@ -263,12 +295,17 @@ export default {
             });
         }
         if (this.modelValue !== null && this.modelValue !== undefined) {
-            if(typeof this.modelValue === 'object'){
+            if(this.getType === 'icon'){
                 this.value = this.modelValue
             }
-            else if(typeof this.modelValue !== "undefined"){
-                if(this.options.length){
-                    this.value = this.options.find(option => option[this.optionValue] === this.modelValue)
+            else {
+                if(typeof this.modelValue === 'object'){
+                    this.value = this.modelValue
+                }
+                else if(typeof this.modelValue !== "undefined"){
+                    if(this.options.length){
+                        this.value = this.options.find(option => option.id === this.modelValue)
+                    }
                 }
             }
         }
@@ -280,22 +317,32 @@ export default {
     },
     watch: {
         value: function (val) {
-            this.$emit("update:modelValue", typeof val === 'object' ? this.optionValue ? val[this.optionValue] : null : val);
+            if(this.getType === 'icon'){
+                this.$emit("update:modelValue",  val);
+            }
+            else {
+                this.$emit("update:modelValue", typeof val === 'object' ? this.optionValue ? val.id : null : val);
+            }
         },
         modelValue: function (val) {
-            if(typeof val === 'object'){
+            if(this.getType === 'icon'){
                 this.value = val;
             }
-            else if(typeof val !== "undefined"){
-                if(this.options.length){
-                    this.value = this.options.find(option => option[this.optionValue] === val)
+            else {
+                if(typeof val === 'object'){
+                    this.value = val;
+                }
+                else if(typeof val !== "undefined"){
+                    if(this.options.length){
+                        this.value = this.options.find(option => option.id === val)
+                    }
                 }
             }
         },
     },
     methods: {
         selectThis(val){
-            this.$emit('select', typeof val === 'object' ? this.optionValue ? val[this.optionValue] : null : val)
+            this.$emit('select', typeof val === 'object' ? this.optionValue ? val.id : null : val)
         },
         loadMore(){
             this.loading = true;
