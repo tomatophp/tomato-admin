@@ -47,7 +47,7 @@
             @else
             <div class="flex fi-in-text">
                 <div class="min-w-0 flex-1">
-                    <div class="inline-flex items-center justify-center ml-auto rtl:ml-0 rtl:mr-auto min-h-4 px-2 py-0.5 text-xs font-medium tracking-tight rounded-xl whitespace-normal text-primary-700 bg-primary-500/10 dark:text-primary-500" >
+                    <div class="bg-primary-100 whitespace-nowrap inline-flex items-center justify-center ml-auto rtl:ml-0 rtl:mr-auto min-h-4 px-2 py-0.5 text-xs font-medium tracking-tight rounded-xl whitespace-normal text-primary-700 bg-primary-500/10 dark:text-primary-500" >
                         {!! $value !!}
                     </div>
                 </div>
