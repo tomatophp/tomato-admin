@@ -1,12 +1,16 @@
 <x-splade-component is="dropdown"  v-bind:close-on-click="true">
     <x-slot:trigger>
         <div {{ $attributes }}>
-            @if($icon)
-                <i class="{{$icon}}"></i>
+            @isset($button)
+                {{ $button }}
             @else
-                <div class="text-sm">
-                    {{$label}}
-                </div>
+                @if($icon)
+                    <i class="{{$icon}}"></i>
+                @else
+                    <div class="text-sm">
+                        {{$label}}
+                    </div>
+                @endif
             @endif
         </div>
     </x-slot:trigger>
