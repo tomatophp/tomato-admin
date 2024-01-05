@@ -54,7 +54,7 @@
         "maatwebsite/excel": "^3.1",
         "kirschbaum-development/eloquent-power-joins": "^3.0",
         "laravel/fortify": "^1.15",
-        "laravel/jetstream": "^4.2"
+        "laravel/jetstream": "^4.0"
     },
     "scripts": {
         "post-update-cmd": [
