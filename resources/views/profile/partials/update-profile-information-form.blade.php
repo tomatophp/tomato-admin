@@ -62,7 +62,8 @@
                 <x-splade-input id="email" name="email" type="email" :label="__('Email')" autocomplete="name" />
                 <div id="verify-email" />
             </div>
-
+        </div>
+        <div class="mt-4">
             <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-300">
                 {{ trans('tomato-admin::global.saved') }}
             </p>

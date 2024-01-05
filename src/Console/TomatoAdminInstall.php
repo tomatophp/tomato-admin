@@ -49,10 +49,11 @@ class TomatoAdminInstall extends Command
         $this->handelFile('/package.json', base_path('/package.json'));
         $this->handelFile('/resources/js', resource_path('/js'), 'folder');
         $this->handelFile('/resources/css', resource_path('/css'), 'folder');
-        $this->handelFile('/markdown', resource_path('/'), 'folder');
-        $this->handelFile('/emails', resource_path('/views'), 'folder');
+        $this->handelFile('/publish/markdown', resource_path('/markdown'), 'folder');
+        $this->handelFile('/publish/emails', resource_path('/views/emails'), 'folder');
         $this->call('vendor:publish', [
-            "--provider" => "Spatie\MediaLibraryPro\MediaLibraryProServiceProvider",
+            "--provider" => "Spatie\MediaLibrary\MediaLibraryServiceProvider",
+            "--tag" => "medialibrary-migrations"
         ]);
         $this->callSilent('migrate');
         $this->callSilent('optimize:clear');

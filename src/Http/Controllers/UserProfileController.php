@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Password;
 
+use Jenssegers\Agent\Agent;
 use Laravel\Fortify\Features;
 
 class UserProfileController extends Controller
@@ -77,7 +78,7 @@ class UserProfileController extends Controller
      */
     protected function createAgent($session)
     {
-        return tap(new \Laravel\Jetstream\Agent, function ($agent) use ($session) {
+        return tap(new Agent, function ($agent) use ($session) {
             $agent->setUserAgent($session->user_agent);
         });
     }

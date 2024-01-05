@@ -6,7 +6,11 @@
                     <span class="inline-flex rounded-md">
                         <button type="button" class="flex gap-2 items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
                             <div>
-                                {{ auth()->user()->currentTeam->name }}
+                                @if(auth()->user()->currentTeam)
+                                {{ auth()->user()->currentTeam?->name }}
+                                @else
+                                    {{ __('No Team')}}
+                                @endif
                             </div>
 
                             <div>
@@ -18,13 +22,15 @@
                     </span>
                 </x-slot:button>
 
+                @if(auth()->user()->currentTeam)
                 <!-- Team Management -->
                 <div class="block px-4 py-2 text-xs text-gray-400">
                     {{ __('Manage Team') }}
                 </div>
 
-                <!-- Team Settings -->
-                <x-tomato-admin-dropdown-item type="link" icon="bx bxs-cog" :href="route('admin.teams.show', auth()->user()->currentTeam)" :label="__('Team Settings')" />
+
+                    <!-- Team Settings -->
+                    <x-tomato-admin-dropdown-item type="link" icon="bx bxs-cog" :href="route('admin.teams.show', auth()->user()->currentTeam)" :label="__('Team Settings')" />
                 @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                     <x-tomato-admin-dropdown-item type="link" icon="bx bxs-plus-circle" :href="route('admin.teams.create')" :label="__('Create New Team')" />
                 @endcan
@@ -39,6 +45,17 @@
                         <x-tomato-admin-dropdown-item type="button" :icon="$team->is(auth()->user()->currentTeam) ? 'bx bxs-check-circle' : 'bx bx-check-circle'" :label="$team->name" />
                     </x-splade-form>
                 @endforeach
+                @else
+                    <!-- Team Management -->
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('Manage Team') }}
+                    </div>
+
+                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                        <x-tomato-admin-dropdown-item type="link" icon="bx bxs-plus-circle" :href="route('admin.teams.create')" :label="__('Create New Team')" />
+                    @endcan
+                @endif
+
             </x-tomato-admin-dropdown>
         </div>
     @endif

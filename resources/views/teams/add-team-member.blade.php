@@ -57,8 +57,11 @@
             </div>
         @endif
 
-        <x-splade-submit :label="__('Save')" />
 
-        <p class="text-sm text-gray-600 dark:text-gray-300" v-if="form.recentlySuccessful">{{ trans('tomato-admin::global.saved') }}</p>
+       <div class="col-span-6">
+           <x-splade-submit :label="__('Save')" />
+
+           <p class="text-sm text-gray-600 dark:text-gray-300" v-if="form.recentlySuccessful">{{ trans('tomato-admin::global.saved') }}</p>
+       </div>
     </x-splade-form>
 </section>

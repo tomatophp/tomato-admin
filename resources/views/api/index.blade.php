@@ -38,7 +38,9 @@
 
                             <p class="text-sm text-gray-600 dark:text-gray-300" v-if="form.recentlySuccessful">{{ trans('tomato-admin::global.saved') }}</p>
 
-                            <x-splade-submit :label="__('Create')" />
+                            <div class="mt-2">
+                                <x-splade-submit :label="__('Create')" />
+                            </div>
                         </x-splade-form>
 
                     </section>

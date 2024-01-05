@@ -48,6 +48,8 @@ class TomatoAdminUpgrade extends Command
         $this->handelFile('/config/tomato-admin.php', config_path('/tomato-admin.php'));
         $this->handelFile('/publish/resources/js', resource_path('/js'), 'folder');
         $this->handelFile('/publish/resources/css', resource_path('/css'), 'folder');
+        $this->handelFile('/publish/markdown', resource_path('/markdown'), 'folder');
+        $this->handelFile('/publish/emails', resource_path('/views/emails'), 'folder');
         $this->callSilent('optimize:clear');
         $this->info('run yarn & yarn build');
         $this->info('🍅 Upgrade Done!');
