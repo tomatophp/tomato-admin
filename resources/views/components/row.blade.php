@@ -1,12 +1,22 @@
-<div @if(isset($table)) class="grid grid-cols-1 gap-2" @endif>
+<div @if(isset($table)) class="grid grid-cols-1 gap-2" @elseif($inline) class="flex justify-between border-b pb-3 mb-3" @endif>
     @if(!isset($table))
-        <div class="flex items-center justify-between gap-x-3">
-            <dt class="inline-flex items-center gap-x-3">
+        @if($inline)
+            <div class="flex items-center justify-between gap-x-3">
+                <dt class="inline-flex items-center gap-x-3">
                 <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                     {{$label}}
                 </span>
-            </dt>
-        </div>
+                </dt>
+            </div>
+        @else
+            <div class="flex items-center justify-between gap-x-3">
+                <dt class="inline-flex items-center gap-x-3">
+                <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
+                    {{$label}}
+                </span>
+                </dt>
+            </div>
+        @endif
     @endif
     <div class="grid gap-y-2">
         @if($type ==='bool' || !empty($value))
@@ -26,6 +36,33 @@
                 </div>
             @endif
         </div>
+        @elseif($type === 'password')
+            <div class="flex justify-start gap-2">
+                <div class="flex flex-col justify-center items-center">
+                    <x-tomato-admin-copy :text="$value">
+                        <x-tomato-admin-tooltip :text="__('Copy')">
+                            <i class="bx bx-copy"></i>
+                        </x-tomato-admin-tooltip>
+                    </x-tomato-admin-copy>
+                </div>
+                <div>
+                    *********
+                </div>
+            </div>
+        @elseif($type === 'copy')
+            <div class="flex justify-start gap-2">
+                <div class="flex flex-col justify-center items-center">
+                    <x-tomato-admin-copy :text="$value">
+
+                    <x-tomato-admin-tooltip :text="__('Copy')">
+                        <i class="bx bx-copy"></i>
+                    </x-tomato-admin-tooltip>
+                    </x-tomato-admin-copy>
+                </div>
+                <div>
+                    {{ $value }}
+                </div>
+            </div>
         @elseif($type === 'badge')
             @if($href)
             <x-splade-link :href="$href" class="flex fi-in-text">

@@ -56,7 +56,7 @@
                 data-turbo="false"
                 style=""
         >
-            <x-application-logo class="block h-9 w-auto fill-current text-primary-500" />
+            <x-tomato-application-logo class="block h-9 w-auto fill-current text-primary-500" />
         </Link>
     </header>
 

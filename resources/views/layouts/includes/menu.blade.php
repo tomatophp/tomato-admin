@@ -33,9 +33,7 @@
 <div v-show="!data.makeMenuMin" class="my-2 border-t border-gray-700"></div>
 <x-splade-link href="{{route('admin.profile.edit')}}" class="px-4 py-3 flex justify-start gap-4" v-show="!data.makeMenuMin">
     @php
-        $email = auth('web')->user()->email;
-        $size = 220;
-        $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=identicon&s=" . $size;
+        $grav_url = auth()->user()->profile_photo_url;
     @endphp
     <div>
         <div class="w-14 h-14 rounded-full bg-gray-200 bg-cover bg-center dark:bg-gray-900" style="background-image: url('{{$grav_url}}')">

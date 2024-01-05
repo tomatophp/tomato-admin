@@ -1,44 +1,95 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-white">
-            {{ trans('tomato-admin::global.profile.information') }}
+            {{ __('Profile Information') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
-            {{ trans('tomato-admin::global.profile.information-description') }}
+            {{  __('Update your account\'s profile information and email address.') }}
         </p>
     </header>
 
-    <x-splade-form method="patch" :action="route('admin.profile.update')" :default="$user" class="mt-6 space-y-6">
-        <x-splade-input id="name" name="name" type="text" :label="trans('tomato-admin::global.profile.information-name')" required autofocus autocomplete="name" />
-        <x-splade-input id="email" name="email" type="email" :label="trans('tomato-admin::global.profile.information-email')" required autocomplete="email" />
+    <x-splade-form
+        method="put"
+        :action="route('user-profile-information.update')"
+        :default="auth()->user()"
+        stay
+        @success="$splade.emit('profile-information-updated')"
+    >
+        <div class="grid grid-cols-6 gap-6">
+            <!-- Profile Photo -->
+            @if(Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                <div class="col-span-6 sm:col-span-4">
+                    <span class="block mb-1 text-gray-700 font-sans">{{ __('Photo') }}</span>
 
-        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-            <div>
-                <p class="text-sm mt-2 text-gray-800">
-                    {{ trans('tomato-admin::global.profile.email-unverified') }}
+                    <!-- Current Profile Photo -->
+                    <div v-show="!form.photo" class="mt-2">
+                        <img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}" class="rounded-full h-20 w-20 object-cover">
+                    </div>
 
-                    <Link method="post" href="{{ route('verification.send') }}" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {{ trans('tomato-admin::global.profile.email-re-send') }}
-                    </Link>
-                </p>
+                    <!-- New Profile Photo Preview -->
+                    <div v-show="form.photo" class="mt-2">
+                        <span
+                            class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
+                            :style="'background-image: url(\'' + form.$fileAsUrl('photo') + '\');'"
+                        />
+                    </div>
 
-                @if (session('status') === 'verification-link-sent')
-                    <p class="mt-2 font-medium text-sm text-green-600">
-                        {{ trans('tomato-admin::global.profile.email-address') }}
-                    </p>
-                @endif
-            </div>
-        @endif
+                    <!-- Profile Photo File Input -->
+                    <div class="flex mt-2 space-x-2">
+                        <x-splade-file name="photo" :show-filename="false">
+                            {{ __('Select A New Photo') }}
+                        </x-splade-file>
 
-        <div class="flex items-center gap-4">
-            <x-splade-submit :label="trans('tomato-admin::global.save')" />
-
-            @if (session('status') === 'profile-updated')
-                <p class="text-sm text-gray-600 dark:text-gray-300">
-                    {{ trans('tomato-admin::global.saved') }}
-                </p>
+                        <x-splade-rehydrate on="profile-information-updated">
+                            @if(auth()->user()->profile_photo_path)
+                                <x-splade-link method="delete" :href="route('current-user-photo.destroy')" class="inline-block py-2 px-3 rounded-md border border-gray-300 shadow-sm bg-white hover:bg-gray-100 relative cursor-pointer font-medium text-gray-700 text-sm focus:outline-none focus:ring focus:ring-opacity-50 focus:border-indigo-300 focus:ring-indigo-200">
+                                    {{ __('Remove Photo') }}
+                                </x-splade-link>
+                            @endif
+                        </x-splade-rehydrate>
+                    </div>
+                </div>
             @endif
+
+            <!-- Name -->
+            <div class="col-span-6 sm:col-span-4">
+                <x-splade-input id="name" name="name" :label="__('Name')" autocomplete="name" />
+            </div>
+
+            <!-- Email -->
+            <div class="col-span-6 sm:col-span-4">
+                <x-splade-input id="email" name="email" type="email" :label="__('Email')" autocomplete="name" />
+                <div id="verify-email" />
+            </div>
+
+            <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-300">
+                {{ trans('tomato-admin::global.saved') }}
+            </p>
+
+            <x-splade-submit :label="__('Save')" />
         </div>
     </x-splade-form>
+
+    @if(Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && !auth()->user()->hasVerifiedEmail())
+        {{-- This section over here is teleported so we don't have a form in a form. --}}
+        <x-splade-teleport to="#verify-email">
+            <x-splade-form :action="route('verification.send')" stay>
+                <p v-if="!form.wasSuccessful" class="text-sm mt-2 dark:text-white">
+                    {{ __('Your email address is unverified.') }}
+
+                    <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 inline">
+                        {{ __('Click here to re-send the verification email.') }}
+                    </button>
+                </p>
+
+                <div v-if="form.wasSuccessful" class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                    {{ __('A new verification link has been sent to your email address.') }}
+                </div>
+            </x-splade-form>
+        </x-splade-teleport>
+    @endif
 </section>
+
+
+

@@ -1,13 +1,24 @@
 <?php
 
 namespace TomatoPHP\TomatoAdmin;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Jetstream\Jetstream;
+use ProtoneMedia\Splade\Http\SpladeMiddleware;
 use TomatoPHP\TomatoAdmin\Console\TomatoAdminInstall;
 use TomatoPHP\TomatoAdmin\Console\TomatoAdminUpgrade;
+use TomatoPHP\TomatoAdmin\Models\Membership;
+use TomatoPHP\TomatoAdmin\Models\Team;
+use TomatoPHP\TomatoAdmin\Models\TeamInvitation;
+use TomatoPHP\TomatoAdmin\Providers\AuthServiceProvider;
+use TomatoPHP\TomatoAdmin\Providers\FortifyServiceProvider;
+use TomatoPHP\TomatoAdmin\Providers\JetstreamWithTeamsServiceProvider;
 use TomatoPHP\TomatoAdmin\Services\TomatoMenuHandler;
 use TomatoPHP\TomatoAdmin\Services\TomatoRequests;
 use TomatoPHP\TomatoAdmin\Services\TomatoSlots;
 use TomatoPHP\TomatoAdmin\Services\TomatoWidgetHandler;
+use TomatoPHP\TomatoAdmin\Views\ApplicationLogo;
+use TomatoPHP\TomatoAdmin\Views\AuthSessionStatus;
 use TomatoPHP\TomatoAdmin\Views\Icon;
 use TomatoPHP\TomatoAdmin\Views\Items;
 use TomatoPHP\TomatoAdmin\Views\Search;
@@ -43,6 +54,8 @@ use TomatoPHP\TomatoAdmin\Views\Select;
 use TomatoPHP\TomatoAdmin\Views\Draggable;
 use TomatoPHP\TomatoAdmin\Views\Color;
 use TomatoPHP\TomatoAdmin\Views\Code;
+use Laravel\Fortify\Contracts;
+use TomatoPHP\TomatoAdmin\Http\Controllers\Responses;
 
 class TomatoAdminServiceProvider extends ServiceProvider
 {
@@ -88,6 +101,12 @@ class TomatoAdminServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views' => resource_path('views/vendor/tomato-admin'),
         ], 'tomato-admin-views');
 
+        //Publish Migrations
+        $this->publishes([
+            __DIR__.'/../database/migrations' => base_path('database/migrations'),
+        ], 'tomato-admin-migrations');
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->commands([
             TomatoAdminInstall::class,
@@ -109,6 +128,18 @@ class TomatoAdminServiceProvider extends ServiceProvider
         $this->app->bind('tomato',function(){
             return new TomatoRequests();
         });
+
+        Config::set('fortify.middleware', ['splade','web']);
+        Config::set('fortify.home', '/admin');
+        Config::set('fortify.prefix', 'admin');
+        Config::set('jetstream.stack', 'inertia');
+        Config::set('jetstream.middleware', ['web', 'splade']);
+
+        $this->app->register(AuthServiceProvider::class);
+        $this->app->register(FortifyServiceProvider::class);
+        $this->app->register(JetstreamWithTeamsServiceProvider::class);
+
+        $this->bootSplade();
 
     }
 
@@ -161,8 +192,53 @@ class TomatoAdminServiceProvider extends ServiceProvider
 
         $this->loadViewComponentsAs('tomato', [
             Search::class,
-            Items::class
+            Items::class,
+            ApplicationLogo::class,
+            AuthSessionStatus::class
         ]);
 
+
+        Jetstream::useTeamModel(Team::class);
+        Jetstream::useTeamInvitationModel(TeamInvitation::class);
+        Jetstream::useMembershipModel(Membership::class);
+
+    }
+
+
+    /**
+     * Boot any Splade related services.
+     *
+     * @return void
+     */
+    protected function bootSplade()
+    {
+        $this->app->singleton(Contracts\FailedPasswordConfirmationResponse::class, Responses\FailedPasswordConfirmationResponse::class);
+        $this->app->singleton(Contracts\LoginResponse::class, Responses\LoginResponse::class);
+        $this->app->singleton(Contracts\LogoutResponse::class, Responses\LogoutResponse::class);
+        $this->app->singleton(Contracts\PasswordConfirmedResponse::class, Responses\PasswordConfirmedResponse::class);
+        $this->app->singleton(Contracts\PasswordResetResponse::class, Responses\PasswordResetResponse::class);
+        $this->app->singleton(Contracts\PasswordUpdateResponse::class, Responses\PasswordUpdateResponse::class);
+        $this->app->singleton(Contracts\ProfileInformationUpdatedResponse::class, Responses\ProfileInformationUpdatedResponse::class);
+        $this->app->singleton(Contracts\RecoveryCodesGeneratedResponse::class, Responses\RecoveryCodesGeneratedResponse::class);
+        $this->app->singleton(Contracts\RegisterResponse::class, Responses\RegisterResponse::class);
+        $this->app->singleton(Contracts\SuccessfulPasswordResetLinkRequestResponse::class, Responses\SuccessfulPasswordResetLinkRequestResponse::class);
+        $this->app->singleton(Contracts\TwoFactorConfirmedResponse::class, Responses\TwoFactorConfirmedResponse::class);
+        $this->app->singleton(Contracts\TwoFactorDisabledResponse::class, Responses\TwoFactorDisabledResponse::class);
+        $this->app->singleton(Contracts\TwoFactorEnabledResponse::class, Responses\TwoFactorEnabledResponse::class);
+        $this->app->singleton(Contracts\TwoFactorLoginResponse::class, Responses\TwoFactorLoginResponse::class);
+        $this->app->singleton(Contracts\VerifyEmailResponse::class, Responses\VerifyEmailResponse::class);
+
+        SpladeMiddleware::afterOriginalResponse(function () {
+            if (! session('flash.banner')) {
+                return;
+            }
+
+            Splade::share('jetstreamBanner', function () {
+                return [
+                    'banner' => session('flash.banner'),
+                    'bannerStyle' => session('flash.bannerStyle'),
+                ];
+            });
+        });
     }
 }

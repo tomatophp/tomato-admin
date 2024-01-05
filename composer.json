@@ -48,12 +48,13 @@
     "require": {
         "tomatophp/console-helpers": "^1.1",
         "tomatophp/tomato-splade": "^1.1",
-        "tomatophp/tomato-breeze": "^1.0",
         "tomatophp/tomato-plugins": "^1.1",
         "blade-ui-kit/blade-heroicons": "^2.0",
         "spatie/laravel-medialibrary": "^10.7",
         "maatwebsite/excel": "^3.1",
-        "kirschbaum-development/eloquent-power-joins": "^3.0"
+        "kirschbaum-development/eloquent-power-joins": "^3.0",
+        "laravel/fortify": "^1.15",
+        "laravel/jetstream": "^4.2"
     },
     "scripts": {
         "post-update-cmd": [

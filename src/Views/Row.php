@@ -16,6 +16,7 @@ class Row extends Component
         public ?string $href=null,
         public ?string $icon=null,
         public ?string $color=null,
+        public bool $inline=false
     )
     {
 

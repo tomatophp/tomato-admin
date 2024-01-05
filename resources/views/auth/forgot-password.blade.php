@@ -5,7 +5,7 @@
         </h3>
     </x-slot>
 
-    <x-auth-session-status class="mb-4" />
+    <x-tomato-auth-session-status class="mb-4" />
 
     <x-splade-form action="{{ route('password.email') }}" class="space-y-4">
         <x-splade-input id="email" class="block mt-1 w-full" type="email" name="email" :label="__('Email')" required autofocus />

@@ -1,7 +1,7 @@
 <x-tomato-admin-layout>
-    <x-slot name="header">
+    <x-slot:header>
         {{ trans('tomato-admin::global.profile.index') }}
-    </x-slot>
+    </x-slot:header>
 
     <div class="pb-12">
         <div class="mx-auto  space-y-6">
@@ -17,11 +17,27 @@
                 </div>
             </div>
 
+            @if(Laravel\Fortify\Features::canManageTwoFactorAuthentication())
+                <div class="dark:bg-gray-800 dark:text-white p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl" dusk="logout-other-browser-sessions-form">
+                        @include('tomato-admin::profile.partials.two-factor-authentication-form')
+                    </div>
+                </div>
+            @endif
+
             <div class="dark:bg-gray-800 dark:text-white p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl" dusk="delete-user">
-                    @include('tomato-admin::profile.partials.delete-user-form')
+                <div class="max-w-xl" dusk="logout-other-browser-sessions-form">
+                    @include('tomato-admin::profile.partials.logout-other-browser-sessions-form')
                 </div>
             </div>
+
+            @if(Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
+                <div class="dark:bg-gray-800 dark:text-white p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl" dusk="delete-user">
+                        @include('tomato-admin::profile.partials.delete-user-form')
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </x-tomato-admin-layout>

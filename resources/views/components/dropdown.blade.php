@@ -14,9 +14,7 @@
             @endif
         </div>
     </x-slot:trigger>
-    <div class="mt-2 min-w-max rounded-lg border border-gray-200 dark:border-gray-700 dark:bg-gray-800 shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
-        <div class="divide-y divide-gray-200 dark:divide-gray-700">
-            {{ $slot }}
-        </div>
+    <div class="w-60 mt-2 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-700">
+        {{ $slot }}
     </div>
 </x-splade-component>
