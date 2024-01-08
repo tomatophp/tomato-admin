@@ -5,6 +5,7 @@ namespace TomatoPHP\TomatoAdmin\Console;
 use Illuminate\Console\Command;
 use TomatoPHP\ConsoleHelpers\Traits\HandleFiles;
 use TomatoPHP\ConsoleHelpers\Traits\RunCommand;
+use function Laravel\Prompts\confirm;
 
 class TomatoAdminUpgrade extends Command
 {
@@ -32,7 +33,7 @@ class TomatoAdminUpgrade extends Command
      */
     public function __construct()
     {
-        $this->publish = base_path('vendor/tomatophp/tomato-admin/');
+        $this->publish = base_path('vendor/tomatophp/tomato-admin/publish');
         parent::__construct();
     }
 
@@ -41,17 +42,37 @@ class TomatoAdminUpgrade extends Command
      */
     public function handle(): void
     {
-        $this->info('🍅 Updating Files ...');
-        $this->handelFile('/publish/tailwind.config.js', base_path('/tailwind.config.js'));
-        $this->handelFile('/publish/vite.config.js', base_path('/vite.config.js'));
-        $this->handelFile('/publish/package.json', base_path('/package.json'));
-        $this->handelFile('/config/tomato-admin.php', config_path('/tomato-admin.php'));
-        $this->handelFile('/publish/resources/js', resource_path('/js'), 'folder');
-        $this->handelFile('/publish/resources/css', resource_path('/css'), 'folder');
-        $this->handelFile('/publish/markdown', resource_path('/markdown'), 'folder');
-        $this->handelFile('/publish/emails', resource_path('/views/emails'), 'folder');
+        \Laravel\Prompts\info('🍅 Updating Files ...');
+        $this->handelFile('/tailwind.config.js', base_path('/tailwind.config.js'));
+        $this->handelFile('/vite.config.js', base_path('/vite.config.js'));
+        $this->handelFile('/package.json', base_path('/package.json'));
+        $this->handelFile('/tomato-admin.php', config_path('/tomato-admin.php'));
+        $this->handelFile('/resources/js', resource_path('/js'), 'folder');
+        $this->handelFile('/resources/css', resource_path('/css'), 'folder');
+        $this->handelFile('/markdown', resource_path('/markdown'), 'folder');
+        $this->handelFile('/emails', resource_path('/views/emails'), 'folder');
         $this->callSilent('optimize:clear');
-        $this->info('run yarn & yarn build');
-        $this->info('🍅 Upgrade Done!');
+        \Laravel\Prompts\info('run yarn & yarn build');
+        \Laravel\Prompts\info('🍅 Upgrade Done!');
+
+        $replaceUserModel = confirm('Do You Want To Publish User.php Model?', true, 'yes');
+        if($replaceUserModel){
+            $this->handelFile('/Models/User.php', app_path('/Models/User.php'));
+            \Laravel\Prompts\info('🍅 User Model Published!');
+        }
+
+        \Laravel\Prompts\info('if yes please publish console-helper config and change yarn path you can find it by use command whereis yarn');
+        $tryToInstallYarnPackages = confirm('Do You Want To try Install Yarn Packages?', true, 'yes');
+        if($tryToInstallYarnPackages){
+            $this->yarnCommand(['install']);
+            $this->yarnCommand(['build']);
+            \Laravel\Prompts\info('🍅 Yarn Packages Installed!');
+        }
+
+        \Laravel\Prompts\info('🍅 Thanks for using Tomato Plugins & TomatoPHP framework');
+        \Laravel\Prompts\info('💼 Join support server on discord https://discord.gg/VZc8nBJ3ZU');
+        \Laravel\Prompts\info('📄 You can check docs here https://docs.tomatophp.com');
+        \Laravel\Prompts\info('⭐ please gave us a start on any repo if you like it https://github.com/tomatophp');
+        \Laravel\Prompts\info('🤝 sponser us here https://github.com/sponsors/3x1io');
     }
 }

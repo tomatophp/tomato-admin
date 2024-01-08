@@ -45,6 +45,10 @@ class FortifyServiceProvider extends ServiceProvider
             return view('tomato-admin::auth.two-factor-challenge');
         });
 
+        Fortify::verifyEmailView(function () {
+            return view('tomato-admin::auth.verify-email');
+        });
+
 
 
         Fortify::createUsersUsing(CreateNewUser::class);
