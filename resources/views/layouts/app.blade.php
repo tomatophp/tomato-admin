@@ -12,10 +12,10 @@
     }"
 
     remember="admin"
-                local-storage
+    local-storage
 >
 
-<div class="filament-body bg-gray-50 text-gray-950 dark:text-white dark:bg-gray-950 font-main" @load="data.dark" id="appBody">
+<div class="filament-body bg-gray-50 text-gray-950 dark:text-white dark:bg-black font-main" @load="data.dark" id="appBody">
     <div class="filament-app-layout flex w-full min-h-screen overflow-v-clip">
 
         <x-tomato-admin-aside />
