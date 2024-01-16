@@ -19,7 +19,8 @@
                     />
                 @endforeach
             @else
-                <div class="col-span-1 filament-widget filament-account-widget">
+                @if(!count(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getDashboardTop()))
+                    <div class="col-span-1 filament-widget filament-account-widget">
                     <div class="p-2 space-y-2 bg-white shadow rounded-xl dark:border-gray-600 dark:bg-gray-800">
                         <div class="space-y-2">
                             <div class="px-4 py-2 space-y-4">
@@ -43,6 +44,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             @endif
         </div>
 

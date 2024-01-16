@@ -2,7 +2,13 @@
     <div class="w-screen max-w-md px-6 -mt-16 space-y-8 md:mt-0 md:px-2">
         <div class="relative p-8 space-y-4 border border-gray-200 shadow-2xl bg-white/50 backdrop-blur-xl rounded-2xl dark:bg-gray-900/50 dark:border-gray-700">
             <div class="flex justify-center w-full">
-                <x-tomato-application-logo class="block h-9 w-auto fill-current text-primary-500" />
+                @if(count(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLogoSection()))
+                    @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLogoSection() as $item)
+                        @include($item)
+                    @endforeach
+                @else
+                    <x-tomato-application-logo class="block h-9 w-auto fill-current text-primary-500" />
+                @endif
             </div>
 
             <h2 class="text-2xl font-bold tracking-tight text-center">
