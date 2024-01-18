@@ -3,6 +3,7 @@
 namespace TomatoPHP\TomatoAdmin\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use TomatoPHP\ConsoleHelpers\Traits\HandleFiles;
 use TomatoPHP\ConsoleHelpers\Traits\RunCommand;
 use function Laravel\Prompts\confirm;
@@ -42,32 +43,47 @@ class TomatoAdminUpgrade extends Command
      */
     public function handle(): void
     {
-        \Laravel\Prompts\info('🍅 Updating Files ...');
-        $this->handelFile('/tailwind.config.js', base_path('/tailwind.config.js'));
-        $this->handelFile('/vite.config.js', base_path('/vite.config.js'));
-        $this->handelFile('/package.json', base_path('/package.json'));
-        $this->handelFile('/tomato-admin.php', config_path('/tomato-admin.php'));
-        $this->handelFile('/resources/js', resource_path('/js'), 'folder');
-        $this->handelFile('/resources/css', resource_path('/css'), 'folder');
-        $this->handelFile('/markdown', resource_path('/markdown'), 'folder');
-        $this->handelFile('/emails', resource_path('/views/emails'), 'folder');
-        $this->callSilent('optimize:clear');
-        \Laravel\Prompts\info('run yarn & yarn build');
-        \Laravel\Prompts\info('🍅 Upgrade Done!');
+        \Laravel\Prompts\info('🍅 Please Note That The Following File Will Be Replaced By The New File');
+        $update = confirm('Do You Want To Continue?', true, 'yes');
+        if($update){
 
-        $replaceUserModel = confirm('Do You Want To Publish User.php Model?', true, 'yes');
-        if($replaceUserModel){
-            $this->handelFile('/Models/User.php', app_path('/Models/User.php'));
-            \Laravel\Prompts\info('🍅 User Model Published!');
+            \Laravel\Prompts\info('🍅 Updating Files ...');
+            $this->handelFile('/tailwind.config.js', base_path('/tailwind.config.js'));
+            $this->handelFile('/vite.config.js', base_path('/vite.config.js'));
+            $this->handelFile('/package.json', base_path('/package.json'));
+            $this->handelFile('/resources/js', resource_path('/js'), 'folder');
+            $this->handelFile('/resources/css', resource_path('/css'), 'folder');
+            $this->handelFile('/markdown', resource_path('/markdown'), 'folder');
+            $this->handelFile('/emails', resource_path('/views/emails'), 'folder');
+            $this->callSilent('optimize:clear');
+            $this->callSilent('migrate');
+
+            $checkConfigFile = base_path('vendor/tomatophp/tomato-admin/config/tomato-admin.php');
+            if(File::exists($checkConfigFile)){
+                File::delete(config_path('tomato-admin.php'));
+                File::copy($checkConfigFile, config_path('tomato-admin.php'));
+            }
+            \Laravel\Prompts\info('run yarn & yarn build');
+            \Laravel\Prompts\info('🍅 Upgrade Done!');
+
+            $replaceUserModel = confirm('Do You Want To Publish User.php Model?', true, 'yes');
+            if($replaceUserModel){
+                $this->handelFile('/Models/User.php', app_path('/Models/User.php'));
+                \Laravel\Prompts\info('🍅 User Model Published!');
+            }
+
+            \Laravel\Prompts\info('if yes please publish console-helper config and change yarn path you can find it by use command whereis yarn');
+            $tryToInstallYarnPackages = confirm('Do You Want To try Install Yarn Packages?', true, 'yes');
+            if($tryToInstallYarnPackages){
+                $this->yarnCommand(['install']);
+                $this->yarnCommand(['build']);
+                \Laravel\Prompts\info('🍅 Yarn Packages Installed!');
+            }
+        }
+        else {
+            \Laravel\Prompts\error('Update Not Installed No file Changed!');
         }
 
-        \Laravel\Prompts\info('if yes please publish console-helper config and change yarn path you can find it by use command whereis yarn');
-        $tryToInstallYarnPackages = confirm('Do You Want To try Install Yarn Packages?', true, 'yes');
-        if($tryToInstallYarnPackages){
-            $this->yarnCommand(['install']);
-            $this->yarnCommand(['build']);
-            \Laravel\Prompts\info('🍅 Yarn Packages Installed!');
-        }
 
         \Laravel\Prompts\info('🍅 Thanks for using Tomato Plugins & TomatoPHP framework');
         \Laravel\Prompts\info('💼 Join support server on discord https://discord.gg/VZc8nBJ3ZU');
