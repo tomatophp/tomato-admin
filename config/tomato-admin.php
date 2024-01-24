@@ -49,7 +49,8 @@ return [
             "key" => "ar",
             "label" =>  [
                 "ar" => "العربية",
-                "en" => "Arabic"
+                "en" => "Arabic",
+                "gr" => "Arabische",
             ],
             "flag" => "🇪🇬"
         ],
@@ -57,7 +58,8 @@ return [
             "key" => "en",
             "label" =>  [
                 "ar" => "الانجليزية",
-                "en" => "English"
+                "en" => "English",
+                "gr" => "Englische",
             ],
             "flag" => "🇺🇸"
         ],
@@ -65,7 +67,8 @@ return [
             "key" => "gr",
             "label" =>  [
                 "ar" => "الالمانية",
-                "en" => "Germany"
+                "en" => "Germany",
+                "gr" => "Deutsche",
             ],
             "flag" => "🇩🇪"
         ]
