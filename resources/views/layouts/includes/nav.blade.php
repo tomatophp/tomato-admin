@@ -83,6 +83,67 @@
             <i class="bx bx-fullscreen" id="fullScreen"></i>
         </button>
 
+        @if(\Laravel\Jetstream\Jetstream::hasTeamFeatures())
+            <div class="flex flex-col justify-center items-center mx-4">
+                <x-tomato-admin-dropdown id="team-dropdown">
+                    <x-slot:button>
+                    <span class="inline-flex rounded-md">
+                        <button type="button" class="flex gap-2 items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                            <div>
+                                @if(auth()->user()->currentTeam)
+                                    {{ auth()->user()->currentTeam?->name }}
+                                @else
+                                    {{ __('No Team')}}
+                                @endif
+                            </div>
+
+                            <div>
+                                <svg class="ml-2 rtl:mr-2 rtl:-ml-0.5 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                            </svg>
+                            </div>
+                        </button>
+                    </span>
+                    </x-slot:button>
+
+                    @if(auth()->user()->currentTeam)
+                        <!-- Team Management -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Manage Team') }}
+                        </div>
+
+
+                        <!-- Team Settings -->
+                        <x-tomato-admin-dropdown-item type="link" icon="bx bxs-cog" :href="route('admin.teams.show', auth()->user()->currentTeam)" :label="__('Team Settings')" />
+                        @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                            <x-tomato-admin-dropdown-item type="link" icon="bx bxs-plus-circle" :href="route('admin.teams.create')" :label="__('Create New Team')" />
+                        @endcan
+                        <div class="border-t border-gray-200 dark:border-gray-600" />
+                        <!-- Team Switcher -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Switch Teams') }}
+                        </div>
+
+                        @foreach(auth()->user()->allTeams() as $team)
+                            <x-splade-form method="PUT" :action="route('admin.current-team.update')" :default="['team_id' => $team->getKey()]">
+                                <x-tomato-admin-dropdown-item type="button" :icon="$team->is(auth()->user()->currentTeam) ? 'bx bxs-check-circle' : 'bx bx-check-circle'" :label="$team->name" />
+                            </x-splade-form>
+                        @endforeach
+                    @else
+                        <!-- Team Management -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Manage Team') }}
+                        </div>
+
+                        @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                            <x-tomato-admin-dropdown-item type="link" icon="bx bxs-plus-circle" :href="route('admin.teams.create')" :label="__('Create New Team')" />
+                        @endcan
+                    @endif
+
+                </x-tomato-admin-dropdown>
+            </div>
+        @endif
+
         <div class="flex items-center justify-between flex-1">
 
             <!-- breadcrumbs -->
@@ -92,6 +153,77 @@
                 @endforeach
             </div>
 
+{{--            <x-tomato-admin-dropdown-item type="button" icon="bx bxs-moon" @click.prevent="data.dark = !data.dark; $splade.refresh()"  :label="trans('tomato-admin::global.dark')"/>--}}
+{{--            <x-tomato-admin-dropdown-item type="link" method="POST" icon="bx bx-globe" :href="route('admin.lang')"  :label="trans('tomato-admin::global.translation')"/>--}}
+
+            {{-- Dark Mode Button --}}
+            <div>
+                <div class="filament-notifications pointer-events-none fixed inset-4 z-50 mx-auto flex justify-end gap-3 items-end flex-col-reverse" role="status">
+                </div>
+
+                <!-- Notifications -->
+                <div>
+                    <!-- Open Notification Modal -->
+                    <div
+                        title="filament::layout.database_notifications"
+                        type="button"
+                        class="filament-icon-button flex items-center justify-center rounded-full relative hover:bg-gray-500/5 focus:outline-none text-primary-500 focus:bg-primary-500/10 dark:hover:bg-gray-300/5 w-10 h-10 ml-4 -mr-1">
+                            <span class="sr-only">
+
+                            </span>
+
+                        @php $langs = collect(config('tomato-admin.langs')) @endphp
+                        <x-tomato-admin-dropdown>
+                            <x-slot:button>
+                                <div>
+                                    {{ isset($langs->where('key', app()->getLocale())->first()['flag']) ? $langs->where('key', app()->getLocale())->first()['flag'] : __('Lang') }}
+                                </div>
+                            </x-slot:button>
+
+                            @foreach($langs as $lang)
+                                <Link href="{{route('admin.lang', ['lang' => $lang])}}" method="POST"  class="@if($lang['key'] === app()->getLocale())  text-primary-600 dark:text-primary-200 hover:text-gray-500  @else text-gray-600 dark:text-gray-200 hover:text-primary-500 @endif whitespace-nowrap block w-full px-4 py-2  text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
+                                <div class="flex justify-start gap-2">
+                                    <div class="flex flex-col items-center justify-center">
+                                        {{$lang['flag']}}
+                                    </div>
+                                    <div>
+                                        {{$lang['label']}}
+                                    </div>
+                                </div>
+                                </Link>
+                            @endforeach
+                        </x-tomato-admin-dropdown>
+                    </div>
+                </div>
+
+                <div></div>
+            </div>
+
+
+            {{-- Dark Mode Button --}}
+            <div>
+                <div class="filament-notifications pointer-events-none fixed inset-4 z-50 mx-auto flex justify-end gap-3 items-end flex-col-reverse" role="status">
+                </div>
+
+                <!-- Notifications -->
+                <div>
+                    <!-- Open Notification Modal -->
+                    <button
+                        @click.prevent="data.dark = !data.dark; $splade.refresh()"
+                        title="filament::layout.database_notifications"
+                        type="button"
+                        class="filament-icon-button flex items-center justify-center rounded-full relative hover:bg-gray-500/5 focus:outline-none text-primary-500 focus:bg-primary-500/10 dark:hover:bg-gray-300/5 w-10 h-10 ml-4 -mr-1">
+                            <span class="sr-only">
+
+                            </span>
+
+                        <x-heroicon-o-sun v-if="data.dark" class="filament-icon-button-icon w-5 h-5"/>
+                        <x-heroicon-o-moon v-else class="filament-icon-button-icon w-5 h-5"/>
+                    </button>
+                </div>
+
+                <div></div>
+            </div>
 
 
             @if(class_exists(\TomatoPHP\TomatoNotifications\Models\UserNotification::class))
@@ -112,9 +244,8 @@
 
                             </span>
 
-                            <svg class="filament-icon-button-icon w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                            </svg>
+                            <x-heroicon-o-bell class="filament-icon-button-icon w-5 h-5"/>
+
                             <span class="filament-icon-button-indicator absolute rounded-full text-xs inline-block w-4 h-4 -top-0.5 -right-0.5 bg-primary-500/10">
                                 @php
                                     $notifications = \TomatoPHP\TomatoNotifications\Models\UserNotification::query()

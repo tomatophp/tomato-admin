@@ -23,100 +23,29 @@ class DashboardController extends Controller
         return view('tomato-admin::pages.dashboard');
     }
 
-//    /**
-//     * @return View
-//     */
-//    public function profile(): View
-//    {
-//        return view('tomato-admin::profile.edit', [
-//            "user" => auth()->user()
-//        ]);
-//    }
-//
-//
-//    /**
-//     * @param ProfileUpdateRequest $request
-//     * @return RedirectResponse
-//     */
-//    public function update(ProfileUpdateRequest $request): \Illuminate\Http\RedirectResponse
-//    {
-//        $request->user()->fill($request->validated());
-//
-//        if ($request->user()->isDirty('email')) {
-//            $request->user()->email_verified_at = null;
-//        }
-//
-//        $request->user()->save();
-//
-//        return Redirect::route('admin.profile.edit')->with('status', 'profile-updated');
-//    }
-//
-//
-//    /**
-//     * @param Request $request
-//     * @return RedirectResponse
-//     */
-//    public function password(Request $request): RedirectResponse
-//    {
-//        $validated = $request->validateWithBag('updatePassword', [
-//            'current_password' => ['required', 'current_password'],
-//            'password' => ['required', Password::defaults(), 'confirmed'],
-//        ]);
-//
-//        $request->user()->update([
-//            'password' => Hash::make($validated['password']),
-//        ]);
-//
-//        return back()->with('status', 'password-updated');
-//    }
-//
-//
-//    /**
-//     * @param Request $request
-//     * @return RedirectResponse
-//     */
-//    public function destroy(Request $request): RedirectResponse
-//    {
-//        $request->validateWithBag('userDeletion', [
-//            'password' => ['required', 'current-password'],
-//        ]);
-//
-//        $user = $request->user();
-//
-//        Auth::logout();
-//
-//        $user->delete();
-//
-//        $request->session()->invalidate();
-//        $request->session()->regenerateToken();
-//
-//        return Redirect::to('/');
-//    }
-//
     public function switchLang(Request $request){
-        if(!Cookie::has('lang')){
-            Cookie::queue('lang', json_encode(["id" => "en", "name" => "English"]));
-            app()->setLocale("en");
-        }
-
-
-
-        if( json_decode(Cookie::get('lang'))->id == "en"){
-            Cookie::queue('lang', json_encode(["id" => "ar", "name" => "Arabic"]));
-            app()->setLocale("ar");
+        if($request->has('lang') && $request->get('lang')){
+            Cookie::queue('lang', json_encode(["id" => $request->get('lang')['key'], "name" => $request->get('lang')['label']]));
+            app()->setLocale($request->get('lang')['key']);
         }
         else {
-            Cookie::queue('lang', json_encode(["id" => "en", "name" => "English"]));
-            app()->setLocale("en");
+            if(!Cookie::has('lang')){
+                Cookie::queue('lang', json_encode(["id" => "en", "name" => "English"]));
+                app()->setLocale("en");
+            }
+
+            if( json_decode(Cookie::get('lang'))->id == "en"){
+                Cookie::queue('lang', json_encode(["id" => "ar", "name" => "Arabic"]));
+                app()->setLocale("ar");
+            }
+            else {
+                Cookie::queue('lang', json_encode(["id" => "en", "name" => "English"]));
+                app()->setLocale("en");
+            }
         }
+
         return redirect()->back();
+
     }
-//
-//    public function teams()
-//    {
-//        return view('tomato-admin::profile.teams', [
-//            "user" => auth()->user()
-//        ]);
-//    }
 
 }
