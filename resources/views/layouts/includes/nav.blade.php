@@ -187,7 +187,7 @@
                                         {{$lang['flag']}}
                                     </div>
                                     <div>
-                                        {{$lang['label']}}
+                                        {{$lang['label'][app()->getLocale()]}}
                                     </div>
                                 </div>
                                 </Link>

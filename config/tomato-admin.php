@@ -47,17 +47,26 @@ return [
     "langs" => [
         [
             "key" => "ar",
-            "label" =>  "Arabic",
+            "label" =>  [
+                "ar" => "العربية",
+                "en" => "Arabic"
+            ],
             "flag" => "🇪🇬"
         ],
         [
             "key" => "en",
-            "label" => "English",
+            "label" =>  [
+                "ar" => "الانجليزية",
+                "en" => "English"
+            ],
             "flag" => "🇺🇸"
         ],
         [
             "key" => "gr",
-            "label" => "Germany",
+            "label" =>  [
+                "ar" => "الالمانية",
+                "en" => "Germany"
+            ],
             "flag" => "🇩🇪"
         ]
     ]
