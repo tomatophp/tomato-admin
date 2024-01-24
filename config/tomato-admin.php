@@ -43,4 +43,22 @@ return [
      * if you need to change the route path for global search
      */
     "global_search_route" => null,
+
+    "langs" => [
+        [
+            "key" => "ar",
+            "label" =>  "Arabic",
+            "flag" => "🇪🇬"
+        ],
+        [
+            "key" => "en",
+            "label" => "English",
+            "flag" => "🇺🇸"
+        ],
+        [
+            "key" => "gr",
+            "label" => "Germany",
+            "flag" => "🇩🇪"
+        ]
+    ]
 ];
