@@ -2,6 +2,7 @@
 
 namespace TomatoPHP\TomatoAdmin\Views;
 
+use Illuminate\Http\Request;
 use Illuminate\View\Component;
 
 class Button extends Component
@@ -29,6 +30,31 @@ class Button extends Component
      */
     public function render()
     {
-        return view('tomato-admin::components.button');
+        return function (array $data) {
+            if(isset($data['attributes']) && isset($data['attributes']['href'])){
+                $route = \Route::getRoutes()->match(Request::create($this->attributes->getAttributes()['href']))->getName();
+                if(class_exists(\Spatie\Permission\Models\Role::class)){
+                    $permission = \Spatie\Permission\Models\Permission::where('name', $route)->first();
+                }
+                else {
+                    $permission = null;
+                }
+
+                if($permission && auth('web')->user() && auth('web')->user()->can($permission->name)){
+                    return 'tomato-admin::components.button';
+                }
+                else if(!$permission){
+                    return 'tomato-admin::components.button';
+                }
+                else {
+                    return '';
+                }
+            }
+            else {
+                return 'tomato-admin::components.button';
+            }
+        };
+
+
     }
 }
