@@ -4,6 +4,7 @@ namespace TomatoPHP\TomatoAdmin\Services;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
 use TomatoPHP\TomatoAdmin\Services\Menu\TomatoMenuRegister;
 use TomatoPHP\TomatoAdmin\Facade\TomatoMenu as TomatoMenuFacade;
@@ -25,7 +26,20 @@ class TomatoMenu
 
     public function loadFromSource(): static
     {
-        $this->menu = TomatoMenuFacade::load();
+        if(class_exists(Role::class)){
+            $this->menu = TomatoMenuFacade::load()->where('route', '!=', '')->filter(function ($item) {
+                $permission = \Spatie\Permission\Models\Permission::where('name', $item->route)->first();
+                if($permission){
+                    return auth('web')->user()->can($permission->name);
+                }
+                else {
+                    return true;
+                }
+            });
+        }
+        else {
+            $this->menu = TomatoMenuFacade::load();
+        }
         return $this;
     }
 
