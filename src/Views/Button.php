@@ -30,7 +30,7 @@ class Button extends Component
      */
     public function render()
     {
-        return function (array $data) {
+        $checkPermission = function (array $data) {
             if(isset($data['attributes']) && isset($data['attributes']['href'])){
                 $route = \Route::getRoutes()->match(Request::create($this->attributes->getAttributes()['href']))->getName();
                 if(class_exists(\Spatie\Permission\Models\Role::class)){
@@ -41,20 +41,25 @@ class Button extends Component
                 }
 
                 if($permission && auth('web')->user() && auth('web')->user()->can($permission->name)){
-                    return 'tomato-admin::components.button';
+                    return true;
                 }
                 else if(!$permission){
-                    return 'tomato-admin::components.button';
+                    return true;
                 }
                 else {
-                    return '';
+                    return false;
                 }
             }
             else {
-                return 'tomato-admin::components.button';
+                return true;
             }
         };
 
-
+        if($checkPermission){
+            return view('tomato-admin::components.button');
+        }
+        else {
+            return '';
+        }
     }
 }
