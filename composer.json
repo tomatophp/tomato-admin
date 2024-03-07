@@ -48,7 +48,7 @@
     "require": {
         "tomatophp/console-helpers": "^1.1",
         "tomatophp/tomato-splade": "^1.1",
-        "tomatophp/tomato-plugins": "^1.1",
+        "tomatophp/tomato-plugins": "^1.2",
         "blade-ui-kit/blade-heroicons": "^2.0",
         "spatie/laravel-medialibrary": "^10.7",
         "maatwebsite/excel": "^3.1",
