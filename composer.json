@@ -55,7 +55,8 @@
         "kirschbaum-development/eloquent-power-joins": "^3.5",
         "laravel/fortify": "^1.21",
         "laravel/jetstream": "^5.0",
-        "laravel/sanctum": "^4.0"
+        "laravel/sanctum": "^4.0",
+        "laravel/framework": "^11.0"
     },
     "scripts": {
         "post-update-cmd": [
