@@ -50,7 +50,7 @@
         "tomatophp/tomato-splade": "^1.1",
         "tomatophp/tomato-plugins": "^1.2",
         "blade-ui-kit/blade-heroicons": "^2.0",
-        "spatie/laravel-medialibrary": "^10.7",
+        "spatie/laravel-medialibrary": "^11.4",
         "maatwebsite/excel": "^3.1",
         "kirschbaum-development/eloquent-power-joins": "^3.0",
         "laravel/fortify": "^1.15",
