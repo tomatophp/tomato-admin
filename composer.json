@@ -49,12 +49,12 @@
         "tomatophp/console-helpers": "^1.1",
         "tomatophp/tomato-splade": "^1.1",
         "tomatophp/tomato-plugins": "^1.2",
-        "blade-ui-kit/blade-heroicons": "^2.0",
+        "blade-ui-kit/blade-heroicons": "^2.3",
         "spatie/laravel-medialibrary": "^11.4",
         "maatwebsite/excel": "^3.1",
-        "kirschbaum-development/eloquent-power-joins": "^3.0",
-        "laravel/fortify": "^1.15",
-        "laravel/jetstream": "^4.0"
+        "kirschbaum-development/eloquent-power-joins": "^3.5",
+        "laravel/fortify": "^1.21",
+        "laravel/jetstream": "^5.0"
     },
     "scripts": {
         "post-update-cmd": [
