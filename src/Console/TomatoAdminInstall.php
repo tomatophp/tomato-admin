@@ -45,15 +45,16 @@ class TomatoAdminInstall extends Command
         \Laravel\Prompts\info('🍅 Install Splade / Jetstream ...');
         $this->artisanCommand(["splade:install"]);
         \Laravel\Prompts\info('🍅 Publish Files ...');
-        $this->handelFile('/Models/User.php', app_path('/Models/User.php'));
         $this->handelFile('/config/jetstream.php', base_path('/config/jetstream.php'));
         $this->handelFile('/config/fortify.php', base_path('/config/fortify.php'));
         $this->handelFile('/Models/User.php', app_path('/Models/User.php'));
-        $this->handelFile('/app/Http/Middleware/RedirectIfAuthenticated.php', app_path('/Http/Middleware/RedirectIfAuthenticated.php'));
+        $this->handelFile('/boostrap/app.php', base_path('/boostrap/app.php'));
         $this->handelFile('/tailwind.config.js', base_path('/tailwind.config.js'));
         $this->handelFile('/vite.config.js', base_path('/vite.config.js'));
+        $this->handelFile('/modules_statuses.json', base_path('/modules_statuses.json'));
         $this->handelFile('/package.json', base_path('/package.json'));
         $this->handelFile('/resources/js', resource_path('/js'), 'folder');
+        $this->handelFile('/Modules', base_path('/Modules'), 'folder');
         $this->handelFile('/resources/css', resource_path('/css'), 'folder');
         $this->handelFile('/resources/views/welcome.blade.php', resource_path('/views/welcome.blade.php'));
         $this->handelFile('/markdown', resource_path('/markdown'), 'folder');

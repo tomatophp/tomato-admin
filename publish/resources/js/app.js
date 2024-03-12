@@ -28,6 +28,10 @@ import TomatoItems from "../../vendor/tomatophp/tomato-admin/resources/js/compon
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 
+import { MdEditor, MdPreview } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
+
+
 createApp({
     render: renderSpladeApp({ el }),
 })
@@ -53,4 +57,6 @@ createApp({
     .component("TomatoSlider", TomatoSlider)
     .component("TomatoSearch", TomatoSearch)
     .component("TomatoItems", TomatoItems)
+    .component("MdEditor", MdEditor)
+    .component("MdPreview", MdPreview)
     .mount(el);

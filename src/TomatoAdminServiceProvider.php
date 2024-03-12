@@ -4,6 +4,8 @@ namespace TomatoPHP\TomatoAdmin;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
+use TomatoPHP\TomatoAdmin\Views\MarkdownEditor;
+use TomatoPHP\TomatoAdmin\Views\MarkdownViewer;
 use ProtoneMedia\Splade\Http\SpladeMiddleware;
 use TomatoPHP\TomatoAdmin\Console\TomatoAdminInstall;
 use TomatoPHP\TomatoAdmin\Console\TomatoAdminUpgrade;
@@ -140,6 +142,11 @@ class TomatoAdminServiceProvider extends ServiceProvider
         $this->app->register(JetstreamWithTeamsServiceProvider::class);
 
         $this->bootSplade();
+
+        $this->loadViewComponentsAs('tomato', [
+            MarkdownEditor::class,
+            MarkdownViewer::class
+        ]);
 
     }
 

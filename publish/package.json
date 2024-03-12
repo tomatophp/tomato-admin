@@ -38,6 +38,7 @@
         "vue3-swatches": "^1.2.3",
         "swiper": "^11.0.5",
         "vue3-tel-input": "^1.0.4",
-        "vue3-carousel": "^0.3.1"
+        "vue3-carousel": "^0.3.1",
+        "md-editor-v3": "^4.12.1"
     }
 }
