@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Password;
 
-use Jenssegers\Agent\Agent;
 use Laravel\Fortify\Features;
+use Laravel\Jetstream\Agent;
 
 class UserProfileController extends Controller
 {
