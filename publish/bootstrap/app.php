@@ -16,7 +16,5 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->renderable(function (\Illuminate\Foundation\Exceptions\Handler $e) {
-            return \ProtoneMedia\Splade\SpladeCore::exceptionHandler($e);
-        });
+        $exceptions->renderable(\ProtoneMedia\Splade\SpladeCore::exceptionHandler($exceptions->handler));
     })->create();
