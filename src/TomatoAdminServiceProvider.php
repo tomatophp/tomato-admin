@@ -4,6 +4,7 @@ namespace TomatoPHP\TomatoAdmin;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
+use TomatoPHP\TomatoAdmin\Console\TomatoAdminUser;
 use TomatoPHP\TomatoAdmin\Views\MarkdownEditor;
 use TomatoPHP\TomatoAdmin\Views\MarkdownViewer;
 use ProtoneMedia\Splade\Http\SpladeMiddleware;
@@ -112,7 +113,8 @@ class TomatoAdminServiceProvider extends ServiceProvider
 
         $this->commands([
             TomatoAdminInstall::class,
-            TomatoAdminUpgrade::class
+            TomatoAdminUpgrade::class,
+            TomatoAdminUser::class
         ]);
 
         $this->app->bind('tomato-menu',function(){
