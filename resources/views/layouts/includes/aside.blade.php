@@ -68,7 +68,7 @@
 
     <!-- Search -->
     @if(config('tomato-admin.global_search'))
-    <div v-show="!data.makeMenuMin" class="my-4 px-6" v-show="!data.makeMenuMin">
+    <div class="my-4 px-6" v-show="!data.makeMenuMin">
         <div class="relative">
             <div class="filament-global-search-input">
                 <label for="globalSearchInput" class="sr-only">
