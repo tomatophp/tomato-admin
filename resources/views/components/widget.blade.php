@@ -1,12 +1,12 @@
 <div  {{$attributes->class([
-    "relative rounded-xl bg-white p-6 shadow-sm border border-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:ring-white/10"
+    "relative rounded-xl bg-white p-6 shadow-sm border border-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:ring-white/10"
 ])}} >
     <div class="flex justify-between gap-4">
         <div>
             <div class="flex items-center gap-x-2">
-                <span class="text-sm font-medium text-gray-500 dark:text-gray-400"> {{$title}} </span>
+                <span class="text-sm font-medium text-zinc-500 dark:text-zinc-400"> {{$title}} </span>
             </div>
-            <div class="text-3xl font-semibold tracking-tight text-gray-950 dark:text-white">
+            <div class="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-white">
                 @if(\Illuminate\Support\Str::contains('${response.data}', $counter))
                     <div v-if="response.data">
                         @{{ response.data }}

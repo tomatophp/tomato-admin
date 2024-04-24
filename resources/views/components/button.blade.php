@@ -7,7 +7,7 @@
             'bg-warning-600 hover:bg-warning-500 focus:bg-warning-700 focus:ring-offset-warning-700 text-white border-transparent' => $warning,
             'bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 text-white border-transparent' => $primary,
             'bg-success-600 hover:bg-success-500 focus:bg-success-700 focus:ring-offset-success-700 text-white border-transparent' => $success,
-            'bg-white hover:bg-gray-50 focus:bg-gray-100 focus:ring-offset-gray-95 text-gray-950 ring-gray-950/10 dark:bg-gray-800 dark:text-gray-200' => $secondary,
+            'bg-white hover:bg-zinc-50 focus:bg-zinc-100 focus:ring-offset-zinc-95 text-zinc-950 ring-zinc-950/10  border border-zinc-200 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200' => $secondary,
             'cursor-pointer transition-colors ease-in-out duration-20'
         ]) }} :method="$method">
         {{$label ?: $slot}}
@@ -41,7 +41,7 @@
         'bg-warning-600 hover:bg-warning-500 focus:bg-warning-700 focus:ring-offset-warning-700 text-white border-transparent' => $warning,
         'bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 text-white border-transparent' => $primary,
         'bg-success-600 hover:bg-success-500 focus:bg-success-700 focus:ring-offset-success-700 text-white border-transparent' => $success,
-        'bg-white hover:bg-gray-50 focus:bg-gray-100 focus:ring-offset-gray-95 text-gray-950 ring-gray-950/10 dark:bg-gray-800 dark:text-gray-200' => $secondary,
+        'bg-white hover:bg-zinc-50 focus:bg-zinc-100 focus:ring-offset-zinc-95 text-zinc-950 ring-zinc-950/10 border-transparent dark:bg-zinc-800 dark:text-zinc-200' => $secondary,
     ]) }}>
         {{$label ?: $slot}}
     </button>

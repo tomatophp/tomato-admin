@@ -20,7 +20,7 @@
     @else
         <x-splade-link
             href="{{url($url)}}"
-            class="hover:bg-gray-500/5 focus:bg-gray-500/5 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center justify-center w-full gap-3 px-3 py-2 font-medium transition rounded-lg">
+            class="hover:bg-zinc-500/5 focus:bg-zinc-500/5 dark:text-zinc-300 dark:hover:bg-zinc-700 flex items-center justify-center w-full gap-3 px-3 py-2 font-medium transition rounded-lg">
 
             <i class="w-5 h-5 shrink-0 {{$icon}}" style="font-size: 20px"></i>
 

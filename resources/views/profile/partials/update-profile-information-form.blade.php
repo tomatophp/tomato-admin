@@ -1,10 +1,10 @@
 <section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-white">
+    <header class="pb-4">
+        <h2 class="text-lg font-medium text-zinc-900 dark:text-white">
             {{ __('Profile Information') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
             {{  __('Update your account\'s profile information and email address.') }}
         </p>
     </header>
@@ -20,7 +20,7 @@
             <!-- Profile Photo -->
             @if(Laravel\Jetstream\Jetstream::managesProfilePhotos())
                 <div class="col-span-6 sm:col-span-4">
-                    <span class="block mb-1 text-gray-700 font-sans">{{ __('Photo') }}</span>
+                    <span class="block mb-1 text-zinc-700 font-sans">{{ __('Photo') }}</span>
 
                     <!-- Current Profile Photo -->
                     <div v-show="!form.photo" class="mt-2">
@@ -36,14 +36,14 @@
                     </div>
 
                     <!-- Profile Photo File Input -->
-                    <div class="flex mt-2 space-x-2">
+                    <div class="flex mt-2 gap-2">
                         <x-splade-file name="photo" :show-filename="false">
                             {{ __('Select A New Photo') }}
                         </x-splade-file>
 
                         <x-splade-rehydrate on="profile-information-updated">
                             @if(auth()->user()->profile_photo_path)
-                                <x-splade-link method="delete" :href="route('current-user-photo.destroy')" class="inline-block py-2 px-3 rounded-md border border-gray-300 shadow-sm bg-white hover:bg-gray-100 relative cursor-pointer font-medium text-gray-700 text-sm focus:outline-none focus:ring focus:ring-opacity-50 focus:border-indigo-300 focus:ring-indigo-200">
+                                <x-splade-link method="delete" :href="route('current-user-photo.destroy')" class="inline-block py-2 px-3 rounded-md border border-zinc-300 shadow-sm bg-white hover:bg-zinc-100 relative cursor-pointer font-medium text-zinc-700 text-sm focus:outline-none focus:ring focus:ring-opacity-50 focus:border-indigo-300 focus:ring-indigo-200">
                                     {{ __('Remove Photo') }}
                                 </x-splade-link>
                             @endif
@@ -64,11 +64,11 @@
             </div>
         </div>
         <div class="mt-4">
-            <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-300">
+            <p v-if="form.recentlySuccessful" class="text-sm text-zinc-600 dark:text-zinc-300">
                 {{ trans('tomato-admin::global.saved') }}
             </p>
 
-            <x-splade-submit :label="__('Save')" />
+            <x-tomato-admin-submit spinner :label="__('Save')" />
         </div>
     </x-splade-form>
 
@@ -79,7 +79,7 @@
                 <p v-if="!form.wasSuccessful" class="text-sm mt-2 dark:text-white">
                     {{ __('Your email address is unverified.') }}
 
-                    <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 inline">
+                    <button type="submit" class="underline text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-zinc-800 inline">
                         {{ __('Click here to re-send the verification email.') }}
                     </button>
                 </p>

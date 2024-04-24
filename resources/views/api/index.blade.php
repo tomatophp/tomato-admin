@@ -5,15 +5,15 @@
 
     <div class="pb-12">
         <div class="mx-auto  space-y-6">
-            <div class="dark:bg-gray-800 dark:text-white p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="dark:bg-zinc-800 dark:text-white p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl" dusk="update-profile-information">
                     <section>
-                        <header>
-                            <h2 class="text-lg font-medium text-gray-900 dark:text-white">
+                        <header class="pb-4">
+                            <h2 class="text-lg font-medium text-zinc-900 dark:text-white">
                                 {{ __('Create API Token') }}
                             </h2>
 
-                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
                                 {{ __('API tokens allow third-party services to authenticate with our application on your behalf.') }}
                             </p>
                         </header>
@@ -21,7 +21,7 @@
                         <x-splade-form :action="route('admin.api-tokens.store')" class="flex flex-col gap-4">
                             <!-- Token Name -->
                             <div class="col-span-6 sm:col-span-4">
-                                <x-splade-input name="name" autofocus label="Name" />
+                                <x-splade-input name="name" autofocus :label="__('Name')" />
                             </div>
 
                             <!-- Token Permissions -->
@@ -29,17 +29,17 @@
                                 <div class="col-span-6">
                                     <x-splade-checkboxes
                                         name="permissions"
-                                        label="Permissions"
+                                        :label="__('Permissions')"
                                         class="grid grid-cols-1 md:grid-cols-2 gap-1"
                                         :options="array_combine($availablePermissions, $availablePermissions)"
                                     />
                                 </div>
                             @endif
 
-                            <p class="text-sm text-gray-600 dark:text-gray-300" v-if="form.recentlySuccessful">{{ trans('tomato-admin::global.saved') }}</p>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-300" v-if="form.recentlySuccessful">{{ trans('tomato-admin::global.saved') }}</p>
 
                             <div class="mt-2">
-                                <x-splade-submit :label="__('Create')" />
+                                <x-tomato-admin-submit spinner :label="__('Create')" />
                             </div>
                         </x-splade-form>
 
@@ -48,15 +48,15 @@
                 </div>
             </div>
             @if(count($tokens) > 0)
-            <div class="dark:bg-gray-800 dark:text-white p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="dark:bg-zinc-800 dark:text-white p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl" dusk="update-profile-information">
                     <section>
                             <header>
-                                <h2 class="text-lg font-medium text-gray-900 dark:text-white">
+                                <h2 class="text-lg font-medium text-zinc-900 dark:text-white">
                                     {{ __('Manage API Tokens') }}
                                 </h2>
 
-                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                                <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
                                     {{ __('You may delete any of your existing tokens if they are no longer needed.') }}
                                 </p>
                             </header>
@@ -70,7 +70,7 @@
 
                                         <div class="flex items-center ml-2 gap-4">
                                             @if($token['last_used_ago'])
-                                                <div class="text-sm text-gray-400">
+                                                <div class="text-sm text-zinc-400">
                                                     {{ __('Last used') }} {{ $token['last_used_ago'] }}
                                                 </div>
                                             @endif
@@ -79,7 +79,7 @@
                                                 <Link
                                                     modal
                                                     href="{{ route('admin.api-tokens.edit', $token['id']) }}"
-                                                    class="cursor-pointer ml-6 text-sm text-gray-400 underline"
+                                                    class="cursor-pointer ml-6 text-sm text-zinc-400 underline"
                                                 >
                                                     {{ __('Permissions') }}
                                                 </Link>
@@ -121,7 +121,7 @@
 
             <div class="flex flex-col gap-4">
                 <div class="flex justify-between gap-2">
-                    <div class="mt-4 bg-gray-100 px-4 py-2 rounded font-mono text-sm text-gray-500 break-all w-full">
+                    <div class="mt-4 bg-zinc-100 px-4 py-2 rounded font-mono text-sm text-zinc-500 break-all w-full">
                         {{ $newToken }}
                     </div>
                     <div class="flex flex-col justify-center items-center mt-4">

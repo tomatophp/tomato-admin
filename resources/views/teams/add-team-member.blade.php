@@ -1,23 +1,18 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-white">
-            {{ __('Team Name') }}
+        <h2 class="text-lg font-medium text-zinc-900 dark:text-white">
+            {{ __('Add Team Member') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
-            {{ __('The team\'s name and owner information.') }}
+        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+            {{ __('Please provide the email address of the person you would like to add to this team.') }}
         </p>
     </header>
 
     <x-splade-form class="grid grid-cols-6 gap-6" :action="route('team-members.store', $team)">
-        <div class="col-span-6">
-            <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                {{ __('Please provide the email address of the person you would like to add to this team.') }}
-            </div>
-        </div>
 
         <!-- Member Email -->
-        <div class="col-span-6 sm:col-span-4">
+        <div class="col-span-6 sm:col-span-4 mt-4">
             <x-splade-input id="email" name="email" type="email" :label="__('Email')" />
         </div>
 
@@ -25,18 +20,18 @@
         @if(count($availableRoles) > 0)
             <div class="col-span-6 lg:col-span-4">
                 <x-splade-group name="role" :label="__('Role')">
-                    <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
+                    <div class="relative z-0 mt-1 border border-zinc-200 dark:border-zinc-700 rounded-lg cursor-pointer">
                         @foreach($availableRoles as $role)
                             <button
                                 type="button"
-                                class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200"
-                                :class="{'border-t border-gray-200 rounded-t-none': @json(!$loop->first), 'rounded-b-none': @json(!$loop->last)}"
+                                class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-blue-300 focus:ring-1 focus:ring-primary-500"
+                                :class="{'border-t border-zinc-200 dark:border-zinc-700 rounded-t-none': @json(!$loop->first), 'rounded-b-none': @json(!$loop->last)}"
                                 @click='form.role = @json($role->key)'
                             >
                                 <div :class='{"opacity-50": form.role && form.role != @json($role->key)}'>
                                     <!-- Role Name -->
                                     <div class="flex items-center">
-                                        <div class="text-sm text-gray-600" :class='{"font-semibold": form.role == @json($role->key)}'>
+                                        <div class="text-sm dark:text-zinc-100 text-zinc-600" :class='{"font-semibold": form.role == @json($role->key)}'>
                                             {{ $role->name }}
                                         </div>
 
@@ -46,7 +41,7 @@
                                     </div>
 
                                     <!-- Role Description -->
-                                    <div class="mt-2 text-xs text-gray-600 text-left">
+                                    <div class="mt-2 text-xs text-zinc-600 dark:text-zinc-200 text-left">
                                         {{ $role->description }}
                                     </div>
                                 </div>
@@ -59,9 +54,9 @@
 
 
        <div class="col-span-6">
-           <x-splade-submit :label="__('Save')" />
+           <x-tomato-admin-submit spinner :label="__('Save')" />
 
-           <p class="text-sm text-gray-600 dark:text-gray-300" v-if="form.recentlySuccessful">{{ trans('tomato-admin::global.saved') }}</p>
+           <p class="text-sm text-zinc-600 dark:text-zinc-300" v-if="form.recentlySuccessful">{{ trans('tomato-admin::global.saved') }}</p>
        </div>
     </x-splade-form>
 </section>

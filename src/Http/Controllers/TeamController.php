@@ -104,6 +104,11 @@ class TeamController extends Controller
 
         $deleter->delete($team);
 
+        if($request->user()->ownedTeams()->count() > 0) {
+            $team = $request->user()->ownedTeams()->first();
+            $request->user()->switchTeam($team);
+        }
+
         return $this->redirectPath($deleter);
     }
 }

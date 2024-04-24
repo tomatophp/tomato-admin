@@ -72,5 +72,7 @@ return [
             ],
             "flag" => "🇩🇪"
         ]
-    ]
+    ],
+
+    "global_search" => true,
 ];

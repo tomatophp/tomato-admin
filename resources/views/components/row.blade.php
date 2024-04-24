@@ -3,7 +3,7 @@
         @if($inline)
             <div class="flex items-center justify-between gap-x-3">
                 <dt class="inline-flex items-center gap-x-3">
-                <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
+                <span class="text-sm font-medium leading-6 text-zinc-950 dark:text-white">
                     {{$label}}
                 </span>
                 </dt>
@@ -11,7 +11,7 @@
         @else
             <div class="flex items-center justify-between gap-x-3">
                 <dt class="inline-flex items-center gap-x-3">
-                <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
+                <span class="text-sm font-medium leading-6 text-zinc-950 dark:text-white">
                     {{$label}}
                 </span>
                 </dt>
@@ -24,13 +24,13 @@
         <div class="flex fi-in-text">
             @if($href)
             <a class="min-w-0 flex-1" href="{{$href}}" target="_blank">
-                <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white underline" >
+                <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white underline" >
                     {!! $value !!}
                 </div>
             </a>
             @else
                 <div class="min-w-0 flex-1">
-                    <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white" >
+                    <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white" >
                         {!! $value !!}
                     </div>
                 </div>
@@ -93,7 +93,7 @@
         @elseif($type === 'date')
                 <div class="flex fi-in-text">
                     <div class="min-w-0 flex-10">
-                        <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white  text-primary-600" >
+                        <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white  text-primary-600" >
                             <div class="flex flex-col item-center justifiy-center">
                                 <i class="bx bx-calendar"></i>
                             </div>
@@ -106,7 +106,7 @@
         @elseif($type === 'datetime')
                 <div class="flex fi-in-text">
                     <div class="min-w-0 flex-10">
-                        <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white  text-primary-600" >
+                        <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white  text-primary-600" >
                             <div class="flex flex-col item-center justifiy-center">
                                 <i class="bx bx-calender"></i>
                             </div>
@@ -119,7 +119,7 @@
         @elseif($type === 'time')
             <div class="flex fi-in-text">
                 <div class="min-w-0 flex-10">
-                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white  text-primary-600" >
+                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white  text-primary-600" >
                         <div class="flex flex-col item-center justifiy-center">
                             <i class="bx bx-time"></i>
                         </div>
@@ -132,7 +132,7 @@
         @elseif($type === 'number')
             <div class="flex fi-in-text">
                 <div class="min-w-0 flex-1">
-                    <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white" >
+                    <div class="inline-flex items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white" >
                        {{ number_format($value, 2) }}
                     </div>
                 </div>
@@ -146,7 +146,7 @@
         @elseif($type === 'icon')
             <div class="flex fi-in-text">
                 <div class="min-w-0 flex-1">
-                    <div class="inline-flex items-center gap-1.5 leading-6 text-gray-950 dark:text-white" >
+                    <div class="inline-flex items-center gap-1.5 leading-6 text-zinc-950 dark:text-white" >
                         <i class="{{$value}}"></i>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
         @elseif($type === 'tel')
             <a href="tel:{{$value}}" target="_blank" class="flex fi-in-text">
                 <div class="min-w-0 flex-10">
-                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white  text-primary-600" >
+                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white  text-primary-600" >
                         <div class="flex flex-col item-center justifiy-center">
                             <i class="bx bx-phone"></i>
                         </div>
@@ -167,7 +167,7 @@
         @elseif($type === 'email')
             <a href="mailto:{{$value}}" target="_blank" class="flex fi-in-text">
                 <div class="min-w-0 flex-10">
-                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white  text-primary-600" >
+                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white  text-primary-600" >
                         <div class="flex flex-col item-center justifiy-center">
                             <i class="bx bx-envelope"></i>
                         </div>
@@ -180,13 +180,13 @@
         @elseif($type === 'bool')
             <div class="flex fi-in-text">
                 <div class="min-w-0 flex-10">
-                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-gray-950 dark:text-white" >
+                    <div class="flex justifiy-start items-center gap-1.5 text-sm leading-6 text-zinc-950 dark:text-white" >
                         @if($value === true)
                             <div class="w-4 h-4 bg-success-500 rounded-full">
 
                             </div>
                         @else
-                            <div class="w-4 h-4 bg-gray-500 rounded-full">
+                            <div class="w-4 h-4 bg-zinc-500 rounded-full">
 
                             </div>
                         @endif

@@ -10,18 +10,18 @@
             </x-slot>
 
             <x-slot:content>
-                <div class="relative z-0 mt-1 border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer">
+                <div class="relative z-0 mt-1 border border-zinc-200 dark:border-zinc-700 rounded-lg cursor-pointer">
                     @foreach($availableRoles as $role)
                         <button
                             type="button"
                             class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600"
-                            :class="{'border-t border-gray-200 dark:border-gray-700 focus:border-none rounded-t-none': @json(!$loop->first), 'rounded-b-none': @json(!$loop->last)}"
+                            :class="{'border-t border-zinc-200 dark:border-zinc-700 focus:border-none rounded-t-none': @json(!$loop->first), 'rounded-b-none': @json(!$loop->last)}"
                             @click='form.role = @json($role->key)'
                         >
                             <div :class='{"opacity-50": form.role && form.role != @json($role->key)}'>
                                 <!-- Role Name -->
                                 <div class="flex items-center">
-                                    <div class="text-sm text-gray-600 dark:text-gray-400" :class='{"font-semibold": form.role == @json($role->key)}'>
+                                    <div class="text-sm text-zinc-600 dark:text-zinc-400" :class='{"font-semibold": form.role == @json($role->key)}'>
                                         {{ $role->name }}
                                     </div>
 
@@ -31,7 +31,7 @@
                                 </div>
 
                                 <!-- Role Description -->
-                                <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                <div class="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
                                     {{ $role->description }}
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
             </x-slot>
 
             <x-slot:footer>
-                <button type="button" class="text-sm text-gray-700" @click="modal.close">
+                <button type="button" class="text-sm text-zinc-700" @click="modal.close">
                     Cancel
                 </button>
 

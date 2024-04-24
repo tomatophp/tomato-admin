@@ -11,15 +11,15 @@
         @if(\Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
             <x-splade-checkbox name="terms">
                 {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                    'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">'.__('Terms of Service').'</a>',
-                    'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">'.__('Privacy Policy').'</a>',
+                    'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-zinc-800">'.__('Terms of Service').'</a>',
+                    'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-zinc-800">'.__('Privacy Policy').'</a>',
                 ]) !!}
             </x-splade-checkbox>
         @endif
 
 
         <div class="flex items-center justify-between">
-            <Link class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+            <Link class="underline text-sm text-zinc-600 hover:text-zinc-900" href="{{ route('login') }}">
                 {{ trans('tomato-admin::global.auth.already-registered') }}
             </Link>
 

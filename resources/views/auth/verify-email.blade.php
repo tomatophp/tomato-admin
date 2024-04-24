@@ -5,7 +5,7 @@
 
         <x-tomato-auth-session-status class="mb-4" />
 
-    <div class="mb-4 text-sm text-gray-600">
+    <div class="mb-4 text-sm text-zinc-600">
         {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
     </div>
 
@@ -23,7 +23,7 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
+            <button type="submit" class="underline text-sm text-zinc-600 hover:text-zinc-900">
                 {{ __('Log Out') }}
             </button>
         </form>

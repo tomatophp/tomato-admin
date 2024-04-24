@@ -1,7 +1,7 @@
 @seoTitle(__('Privacy Policy'))
 
-<div class="font-sans text-gray-900 antialiased">
-    <div class="pt-4 bg-gray-100">
+<div class="font-sans text-zinc-900 antialiased">
+    <div class="pt-4 bg-zinc-100">
         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
             <div>
                 <x-tomato-application-logo />

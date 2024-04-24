@@ -1,10 +1,10 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-white">
+        <h2 class="text-lg font-medium text-zinc-900 dark:text-white">
             {{  __('Team Members') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
             {{ __('All of the people that are part of this team.') }}
         </p>
     </header>
@@ -20,11 +20,11 @@
                 <div class="flex items-center gap-4">
                     <!-- Manage Team Member Role -->
                     @if($permissions['canAddTeamMembers'] && !empty($availablePermissions))
-                        <Link modal href="{{ route('admin.team-members.edit', [$team, $user]) }}" class="ml-2 text-sm text-gray-400 underline">
+                        <Link modal href="{{ route('admin.team-members.edit', [$team, $user]) }}" class="ml-2 text-sm text-zinc-400 underline">
                             {{ collect($availableRoles)->firstWhere('key', $user->membership->role)?->name }}
                         </Link>
                     @elseif(!empty($availablePermissions))
-                        <div class="ml-2 text-sm text-gray-400">
+                        <div class="ml-2 text-sm text-zinc-400">
                             {{ collect($availableRoles)->firstWhere('key', $user->membership->role)?->name }}
                         </div>
                     @endif

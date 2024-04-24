@@ -21,12 +21,12 @@
             @else
                 @if(!count(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getDashboardTop()))
                     <div class="col-span-1 filament-widget filament-account-widget">
-                    <div class="p-2 space-y-2 bg-white shadow rounded-xl dark:border-gray-600 dark:bg-gray-800">
+                    <div class="p-2 space-y-2 bg-white shadow rounded-xl dark:border-zinc-600 dark:bg-zinc-800">
                         <div class="space-y-2">
                             <div class="px-4 py-2 space-y-4">
                                 <div class="flex items-center h-12 space-v-4 rtl:space-v-reverse">
-                                    <div class="w-10 h-10 mx-4 bg-gray-200 bg-center bg-cover rounded-full dark:bg-gray-900"
-                                         style="background-image: url('https://avatars.dicebear.com/api/initials/{{auth()->user()->name}}.svg')">
+                                    <div class="w-10 h-10 mx-4 bg-zinc-200 bg-center bg-cover rounded-full dark:bg-zinc-900"
+                                         style="background-image: url('{{auth()->user()->profile_photo_url}}')">
                                     </div>
 
                                     <div>
@@ -35,7 +35,7 @@
                                         </h2>
 
                                         <Link href="{{route('logout')}}" method="POST"
-                                              class="text-gray-600 hover:text-primary-500 focus:outline-none focus:underline dark:text-gray-300 dark:hover:text-primary-500">
+                                              class="text-zinc-600 hover:text-primary-500 focus:outline-none focus:underline dark:text-zinc-300 dark:hover:text-primary-500">
                                             {{trans('tomato-admin::global.logout')}}
                                         </Link>
                                     </div>

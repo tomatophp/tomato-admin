@@ -5,25 +5,25 @@
 >
     <template #default="repeater">
         <div class="block">
-            <div class=" border border-gray-300 p-4 rounded-lg">
+            <div class=" border border-zinc-300 p-4 rounded-lg">
                 @if($prepend)
-                    <span :class="{ 'opacity-50': inputScope.disabled && @json(!$alwaysEnablePrepend) }" class="inline-flex items-center px-3 rounded-l-md border border-t-0 border-b-0 border-l-0 border-gray-300 bg-gray-50 text-gray-50 dark:text-white">
+                    <span :class="{ 'opacity-50': inputScope.disabled && @json(!$alwaysEnablePrepend) }" class="inline-flex items-center px-3 rounded-l-md border border-t-0 border-b-0 border-l-0 border-zinc-300 bg-zinc-50 text-zinc-50 dark:text-white">
                     {!! $prepend !!}
                 </span>
                 @endif
                 <div>
                     <div
-                        class="mb-4 relative bg-white border border-gray-300 shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-600"
+                        class="mb-4 relative bg-white border border-zinc-300 shadow-sm rounded-xl dark:bg-zinc-800 dark:border-zinc-600"
                         v-for="(item, key) in repeater.main"
                         :key="key"
                     >
-                        <header class="flex items-center h-10 overflow-hidden border-b bg-gray-50 rounded-t-xl dark:bg-gray-800 dark:border-gray-700">
-                            <p class="flex-none px-4 text-xs font-medium text-gray-600 truncate dark:text-gray-400">
+                        <header class="flex items-center h-10 overflow-hidden border-b bg-zinc-50 rounded-t-xl dark:bg-zinc-800 dark:border-zinc-700">
+                            <p class="flex-none px-4 text-xs font-medium text-zinc-600 truncate dark:text-zinc-400">
                                 @includeWhen($label, 'splade::form.label', ['label' => $label])
                             </p>
                             <div class="flex-1"></div>
                             @if($type !== 'schema' && !$disabled)
-                                <ul class="flex divide-x rtl:divide-x-reverse dark:divide-gray-700">
+                                <ul class="flex divide-x rtl:divide-x-reverse dark:divide-zinc-700">
                                     <li>
                                         <button
                                             @click.prevent="repeater.removeItem(item)"
@@ -54,7 +54,7 @@
                                     disabled
                                 @endif
                                 @click.prevent="repeater.addItem()"
-                                class="disabled:bg-gray-600 disabled:hover:bg-gray-500  filament-button inline-flex items-center justify-center py-1 gap-1 font-medium rounded-lg border transition-colors focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset dark:focus:ring-offset-0 min-h-[2rem] px-3 text-sm text-white shadow focus:ring-white border-transparent bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700"
+                                class="disabled:bg-zinc-600 disabled:hover:bg-zinc-500  filament-button inline-flex items-center justify-center py-1 gap-1 font-medium rounded-lg border transition-colors focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset dark:focus:ring-offset-0 min-h-[2rem] px-3 text-sm text-white shadow focus:ring-white border-transparent bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700"
                             >
                                 Add New {{$label}}
                             </button>
@@ -62,7 +62,7 @@
                     </div>
                 @endif
                 @if($append)
-                    <span :class="{ 'opacity-50': inputScope.disabled && @json(!$alwaysEnableAppend) }" class="inline-flex items-center px-3 rounded-r-md border border-t-0 border-b-0 border-r-0 border-gray-300 bg-gray-50 text-gray-500 dark:text-white">
+                    <span :class="{ 'opacity-50': inputScope.disabled && @json(!$alwaysEnableAppend) }" class="inline-flex items-center px-3 rounded-r-md border border-t-0 border-b-0 border-r-0 border-zinc-300 bg-zinc-50 text-zinc-500 dark:text-white">
                         {!! $append !!}
                     </span>
                 @endif
