@@ -3,6 +3,7 @@
 return [
     "dashboard" => "Dashboard",
     "saved" => "Saved.",
+    "actions" => "Actions",
     "save" => "Save",
     "empty" => "Sorry there is no records like this please add new record or change the filter",
     "search" => "Searching...",

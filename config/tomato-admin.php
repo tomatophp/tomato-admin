@@ -50,7 +50,7 @@ return [
             "label" =>  [
                 "ar" => "العربية",
                 "en" => "Arabic",
-                "gr" => "Arabische",
+                "de" => "Arabische",
             ],
             "flag" => "🇪🇬"
         ],
@@ -59,16 +59,16 @@ return [
             "label" =>  [
                 "ar" => "الانجليزية",
                 "en" => "English",
-                "gr" => "Englische",
+                "de" => "Englische",
             ],
             "flag" => "🇺🇸"
         ],
         [
-            "key" => "gr",
+            "key" => "de",
             "label" =>  [
                 "ar" => "الالمانية",
                 "en" => "Germany",
-                "gr" => "Deutsche",
+                "de" => "Deutsche",
             ],
             "flag" => "🇩🇪"
         ]
