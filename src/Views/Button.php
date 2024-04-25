@@ -12,6 +12,7 @@ class Button extends Component
     public function __construct(
         public string $type='link',
         public ?string $label=null,
+        public ?string $title=null,
         public ?string $method="get",
         public ?string$icon=null,
         public ?bool $warning =false,

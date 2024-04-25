@@ -19,13 +19,13 @@
             'text-warning-500 hover:text-warning-400' => $warning,
             'text-primary-500 hover:text-primary-400' => $primary,
             'text-success-500 hover:text-success-400' => $success
-        ]) }} title="{{$label}}" :method="$method">
-        @if($label)
-            <x-tomato-admin-tooltip :text="$label">
+        ]) }} title="{{$title}}" :method="$method">
+        @if($title)
+            <x-tomato-admin-tooltip :text="$title">
                 @if(isset($icon))
                     <i class="{{$icon}} text-2xl"></i>
                 @else
-                    {{$label}}
+                    {{$slot}}
                 @endif
             </x-tomato-admin-tooltip>
         @else
