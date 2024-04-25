@@ -16,18 +16,18 @@ fieldset:disabled .#{$choices-selector} {
 }
 
 .multiselect, .multiselect__select, .multiselect__tags, .multiselect__spinner {
-    @apply dark:bg-gray-800 dark:border-gray-700 rounded-lg;
+    @apply dark:bg-zinc-800 dark:border-zinc-700 rounded-lg;
 }
 
 .multiselect__input, .multiselect__option, .multiselect__single, .multiselect__tags, .multiselect__content-wrapper {
-    @apply dark:bg-gray-800 dark:border-gray-700 dark:ring-0 dark:text-gray-200;
+    @apply dark:bg-zinc-800 dark:border-zinc-700 dark:ring-0 dark:text-zinc-200;
 }
 
 .#{$choices-selector} {
     @apply shadow-sm;
 
     .#{$choices-selector}__inner {
-        @apply block rounded-md dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm w-full py-2;
+        @apply block rounded-md dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 shadow-sm w-full py-2;
 
         min-height: auto;
     }
@@ -39,7 +39,7 @@ fieldset:disabled .#{$choices-selector} {
     }
 
     .#{$choices-selector}__inner {
-        @apply px-3 text-base dark:text-gray-200 bg-no-repeat;
+        @apply px-3 text-base dark:text-zinc-200 bg-no-repeat;
 
         .#{$choices-selector}__input {
             &:focus {
@@ -59,12 +59,12 @@ fieldset:disabled .#{$choices-selector} {
         }
 
         .#{$choices-selector}__input {
-            @apply px-4 text-base dark:text-gray-200;
+            @apply px-4 text-base dark:text-zinc-200;
 
             box-shadow: none;
 
             &::placeholder {
-                @apply text-gray-700;
+                @apply text-zinc-700;
             }
         }
 
@@ -88,14 +88,14 @@ fieldset:disabled .#{$choices-selector} {
     }
 
     .#{$choices-selector}__list--dropdown {
-        @apply mt-1 shadow-lg rounded-md border-gray-200 dark:bg-gray-800 dark:border-gray-700;
+        @apply mt-1 shadow-lg rounded-md border-zinc-200 dark:bg-zinc-800 dark:border-zinc-700;
 
         .#{$choices-selector}__item.#{$choices-selector}__placeholder {
             @apply hidden;
         }
 
         .#{$choices-selector}__item--selectable {
-            @apply text-gray-900 dark:text-gray-200 text-base px-4;
+            @apply text-zinc-900 dark:text-zinc-200 text-base px-4;
 
             &.is-highlighted {
                 @apply bg-primary-500 text-white ;
@@ -107,7 +107,7 @@ fieldset:disabled .#{$choices-selector} {
         @apply mb-0;
 
         .#{$choices-selector}__item {
-            @apply bg-primary-500 border-primary-500 dark:text-gray-200 rounded-md font-medium py-1 text-sm mb-0 ;
+            @apply bg-primary-500 border-primary-500 dark:text-zinc-200 rounded-md font-medium py-1 text-sm mb-0 ;
 
             &:hover{
                 @apply bg-primary-700 border-primary-700
@@ -131,11 +131,11 @@ fieldset:disabled .#{$choices-selector} {
         }
 
         .#{$choices-selector}__input {
-            @apply m-0 py-px ltr:pl-0 rtl:pr-0 text-base dark:text-gray-200 min-w-0 leading-none;
+            @apply m-0 py-px ltr:pl-0 rtl:pr-0 text-base dark:text-zinc-200 min-w-0 leading-none;
         }
     }
 }
 
 .#{$choices-selector}__placeholder {
-    @apply opacity-100 text-gray-500 dark:text-gray-200
+    @apply opacity-100 text-zinc-500 dark:text-zinc-200
 }

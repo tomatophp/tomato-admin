@@ -18,7 +18,7 @@
         <!-- hide button -->
         <button
                 class="
-                            filament-sidebar-open-button
+
                             shrink-0
                             flex
                             items-center
@@ -27,14 +27,13 @@
                             h-10
                             transition
                             text-zinc-900
+                            text-center
+                            dark:text-zinc-100
                             rounded-full
-                            hover:bg-zinc-500/5
                             focus:bg-primary-500/10
                             focus:outline-none
                             lg:z-10
-                            lg:hover:bg-white
                             lg:focus:bg-white
-                            lg:hover:text-zinc-600
                             lg:focus:text-zinc-600
                             lg:-ml-[44px]
                             lg:w-6
@@ -43,7 +42,6 @@
                             lg:bg-white
                             lg:shadow
                             lg:dark:bg-zinc-900
-                            lg:dark:hover:text-zinc-400
                             lg:dark:focus:text-zinc-400
                             lg:mr-4
                             rtl:lg:ml-4
@@ -53,7 +51,7 @@
         >
             <div
                     @click.prevent="data.makeMenuMin = !data.makeMenuMin"
-                    class="relative lg:absolute invisible lg:visible"
+                    class="relative lg:absolute invisible lg:visible text-center flex justify-center"
             >
                 @if(app()->getLocale() === 'ar')
                     <x-heroicon-o-arrow-small-right class="w-4 h-4 text-primary-500" v-if="!data.makeMenuMin" />
@@ -65,7 +63,7 @@
             </div>
 
             <div
-                    class="relative lg:absolute visible lg:invisible"
+                    class="relative lg:absolute visible lg:invisible flex justify-center text-center"
                     @click.prevent="data.makeMenuHide = !data.makeMenuHide"
             >
                 <x-heroicon-o-bars-3 class="w-6 h-6"/>

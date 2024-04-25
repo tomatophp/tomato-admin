@@ -100,7 +100,7 @@
     @if(\Laravel\Jetstream\Jetstream::hasTeamFeatures())
         <div v-show="!data.makeMenuMin" class="my-2 border-t border-zinc-700"></div>
         <div v-show="!data.makeMenuMin" class="flex flex-col justify-center items-center">
-            <x-tomato-admin-dropdown id="team-dropdown">
+            <x-tomato-admin-dropdown class="mt-2" id="team-dropdown">
                 <x-slot:button>
                     <div class="flex justify-start gap-4 w-full mx-4" v-show="!data.makeMenuMin">
                         <div>

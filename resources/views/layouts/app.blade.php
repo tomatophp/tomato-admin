@@ -15,7 +15,7 @@
     local-storage
 >
 
-<div class="filament-body bg-zinc-50 text-zinc-950 dark:text-white dark:bg-black font-main" @load="data.dark" id="appBody">
+<div class="filament-body bg-zinc-50 text-zinc-950 dark:text-white dark:bg-zinc-900 font-main" @load="data.dark" id="appBody">
     <div class="filament-app-layout flex w-full min-h-screen overflow-v-clip">
 
         <x-tomato-admin-aside />
