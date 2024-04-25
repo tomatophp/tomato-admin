@@ -12,6 +12,7 @@ class Dropdown extends Component
         public ?string $label=null,
         public ?string $icon=null,
         public ?string $id=null,
+        public bool $full=true,
     )
     {
         $this->id = Str::random(10);

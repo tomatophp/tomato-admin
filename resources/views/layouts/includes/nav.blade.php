@@ -180,7 +180,7 @@
 
                             </span>
 
-                            <x-heroicon-o-bell class="filament-icon-button-icon w-5 h-5"/>
+                            <x-heroicon-o-bell class="filament-icon-button-icon w-4 h-4"/>
 
                             <span class="filament-icon-button-indicator absolute rounded-full text-xs inline-block w-4 h-4 -top-0.5 -right-0.5 bg-primary-500/10">
                                 @php

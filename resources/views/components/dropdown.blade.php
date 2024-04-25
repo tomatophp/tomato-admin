@@ -1,4 +1,4 @@
-<x-splade-component is="dropdown"  v-bind:close-on-click="true">
+<x-splade-component is="dropdown" :full="$full"  v-bind:close-on-click="true">
     <x-slot:trigger>
         <div {{ $attributes }}>
             @isset($button)
