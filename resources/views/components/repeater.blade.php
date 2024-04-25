@@ -5,7 +5,7 @@
 >
     <template #default="repeater">
         <div class="block">
-            <div class=" border border-zinc-300 p-4 rounded-lg">
+            <div class=" border border-zinc-300 dark:border-zinc-700 p-4 rounded-lg">
                 @if($prepend)
                     <span :class="{ 'opacity-50': inputScope.disabled && @json(!$alwaysEnablePrepend) }" class="inline-flex items-center px-3 rounded-l-md border border-t-0 border-b-0 border-l-0 border-zinc-300 bg-zinc-50 text-zinc-50 dark:text-white">
                     {!! $prepend !!}
