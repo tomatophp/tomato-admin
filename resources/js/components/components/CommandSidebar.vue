@@ -1,8 +1,7 @@
 <template>
-  <form ref="form" @submit.prevent="onSubmit" class="relative flex flex-col h-full pt-16">
+  <form ref="form" @submit.prevent="onSubmit" class="relative flex flex-col h-full pt-16 z-10">
 
-
-    <div class="sticky top-0 px-6 py-4 bg-white">
+    <div class="sticky top-0 px-6 py-4 bg-white dark:bg-zinc-800">
 
       <div class="flex items-center justify-between mb-2">
 
@@ -11,7 +10,7 @@
         </div>
 
         <button @click="$emit('close')"
-                class="flex items-center justify-center w-10 h-10 text-gray-500 transition duration-200 ease-in-out bg-white rounded-full focus:outline-none hover:shadow-xl hover:text-gray-800 hover:bg-gray-100">
+                class="flex items-center justify-center w-10 h-10 text-zinc-500 transition duration-200 ease-in-out bg-white rounded-full focus:outline-none hover:shadow-xl hover:text-zinc-800 hover:bg-zinc-100">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-4 h-4" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
@@ -19,7 +18,7 @@
 
       </div>
 
-      <div class="text-xs text-gray-400 pt-4" :class="{'mb-6': command.arguments != null}">
+      <div class="text-xs text-zinc-400 pt-4" :class="{'mb-6': command.arguments != null}">
         {{ command.description }}
       </div>
 
@@ -37,7 +36,7 @@
 
     </div>
 
-    <div class="flex-1 px-6 py-5 bg-gray-50">
+    <div class="flex-1 px-6 py-5 bg-zinc-50 dark:bg-zinc-700">
 
       <div v-if="command.options != null" class="-my-6">
 
@@ -55,8 +54,8 @@
 
     </div>
 
-      <button class="sticky bottom-0 flex items-center justify-end px-8 py-6 text-xl tracking-widest text-white transition duration-200 ease-in-out bg-primary-500 hover:bg-primary-600 focus:outline-none">
-        <span class="block mr-3">
+    <button class="sticky bottom-0 flex items-center justify-end px-8 py-6 text-xl tracking-widest text-white transition duration-200 ease-in-out bg-primary-500 hover:bg-primary-600 focus:outline-none">
+        <span class="block ltr:mr-3 rtl:ml-3">
           Run
         </span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-4 h-4 mt-1" viewBox="0 0 24 24" stroke="currentColor">

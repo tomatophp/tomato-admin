@@ -34,7 +34,7 @@
         leave-class="transform translate-x-0"
         leave-to-class="transform translate-x-full"
     >
-      <div v-if="selectedCommand != null" class="fixed top-0 right-0 w-full h-full max-w-lg overflow-x-hidden overflow-y-auto bg-white">
+      <div v-if="selectedCommand != null" class="fixed top-0 right-0 w-full h-full max-w-lg overflow-x-hidden overflow-y-auto bg-white dark:bg-zinc-800">
         <command-sidebar :old="old" :errors="errors" @run="runCommand" @close="selectedCommand = null" :command="selectedCommand" />
       </div>
 

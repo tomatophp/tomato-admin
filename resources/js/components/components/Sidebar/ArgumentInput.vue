@@ -1,12 +1,12 @@
 <template>
 <div>
-  <label :for="id" class="flex items-center text-gray-500 mb-1">
+  <label :for="id" class="flex items-center text-zinc-500 dark:text-zinc-200 mb-1">
     {{ argument.title }}
-    <div class="px-1 py-px rounded text-xs ml-2" :class="argument.required ? 'bg-red-100 text-red-500' : 'text-green-500 bg-green-100'">
+    <div class="px-1 py-px rounded text-xs mx-2" :class="argument.required ? 'bg-red-100 text-red-500' : 'text-green-500 bg-green-100'">
       {{ argument.required ? 'Required' : 'Optional' }}
     </div>
   </label>
-  <input class="px-5 py-3 w-full border rounded-lg focus:border-primary-500 transition ease-in-out duration-200 focus:outline-none"
+  <input class="px-5 py-3 w-full border rounded-lg dark:bg-zinc-700 focus:border-primary-500 transition ease-in-out duration-200 focus:outline-none"
          type="text"
          :id="id"
          :name="argument.name"
@@ -15,7 +15,7 @@
          @focus="errorMessage = ''"
   >
   <div class="text-xs mt-1">
-    <div class="text-gray-400" v-if="argument.description != null && !errorMessage">
+    <div class="text-zinc-400" v-if="argument.description != null && !errorMessage">
       {{ argument.description }}
     </div>
 

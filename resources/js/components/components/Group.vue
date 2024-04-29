@@ -1,6 +1,6 @@
 <template>
   <div class="mt-6 mb-10">
-    <div class="mb-6 text-3xl text-gray-400">
+    <div class="mb-6 text-3xl text-zinc-400 dark:text-zinc-200">
       {{ name }}
     </div>
 

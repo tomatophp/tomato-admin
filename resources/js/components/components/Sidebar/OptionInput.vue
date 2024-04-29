@@ -3,19 +3,19 @@
 
     <div v-if="option['accept_value']">
 
-      <label :for="id" class="block text-gray-500 mb-1 text-sm">
+      <label :for="id" class="block text-zinc-500 dark:text-zinc-300 mb-1 text-sm">
         {{ option.title }}
         <span v-if="option.required" class="text-red-500">*</span>
-        <span v-if="option.array" class="px-1 py-px rounded text-xs bg-gray-200">array</span>
+        <span v-if="option.array" class="px-1 py-px rounded text-xs bg-zinc-200">array</span>
       </label>
 
       <div v-if="option['array']">
 
-        <div class="flex flex-wrap items-center cursor-text px-2 py-px border bg-white rounded-lg focus-within:border-primary-500 transition ease-in-out duration-200" @click="$refs.arrayInput.focus()">
+        <div class="flex flex-wrap items-center cursor-text px-2 py-px border bg-white dark:bg-zinc-700 rounded-lg focus-within:border-primary-500 transition ease-in-out duration-200" @click="$refs.arrayInput.focus()">
 
           <input type="hidden" :name="option.name + '[]'" v-for="item in items" :value="item">
 
-          <div @click="deleteItem(item)" class="cursor-pointer px-2 py-1 bg-gray-100 text-gray-800 hover:bg-gray-200 mr-1 rounded my-1 transition ease-in-out duration-200" v-for="item in items">
+          <div @click="deleteItem(item)" class="cursor-pointer px-2 py-1 bg-zinc-100 text-zinc-800 hover:bg-zinc-200 mr-1 rounded my-1 transition ease-in-out duration-200" v-for="item in items">
             {{ item }}
           </div>
 
@@ -25,7 +25,7 @@
                  type="text"
                  ref="arrayInput"
                  :id="id"
-                 class="focus:outline-none bg-transparent flex-1 px-2 py-1 my-1"
+                 class="focus:outline-none dark:bg-zinc-800 bg-transparent flex-1 px-2 py-1 my-1"
                  placeholder="Add item..."
                  v-model="arrayInput"
                  :required="option.required && items.length === 0"
@@ -39,7 +39,7 @@
         <input :name="option.name"
                :id="id"
                type="text"
-               class="px-4 py-2 rounded-lg border w-full focus:outline-none focus:border-primary-500 transition ease-in-out duration-200"
+               class="px-4 py-2 rounded-lg border w-full dark:bg-zinc-800 focus:outline-none focus:border-primary-500 transition ease-in-out duration-200"
                :placeholder="'Enter ' + option.title.toLowerCase() + '...'"
                :required="option.required && false"
                @focus="errorMessage = ''"
@@ -54,13 +54,13 @@
       <input :id="id" :name="option.name" type="hidden" value="1"  :checked="checked" :required="option.required">
       <div class="flex items-center cursor-pointer" @change="errorMessage = ''" @click="checked = !checked">
 
-        <div class="h-5 w-5 border bg-white rounded mr-2 flex items-center justify-center" :class="{'border-primary-300': checked}">
+        <div class="h-5 w-5 border bg-white dark:bg-zinc-800 dark:bordr-zinc-700 rounded ltr:mr-2 rtl:ml-2  flex items-center justify-center" :class="{'border-primary-300': checked}">
           <svg v-if="checked" xmlns="http://www.w3.org/2000/svg" class="text-primary-500 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
         </div>
 
-        <div class="block text-gray-700">
+        <div class="block text-zinc-700 dark:text-zinc-200">
           {{ option.title }}
           <span v-if="option.required" class="text-red-500">*</span>
         </div>
@@ -70,7 +70,7 @@
     </div>
 
     <div class="text-xs mt-1">
-      <div class="text-gray-400" v-if="option.description != null && !errorMessage">
+      <div class="text-zinc-400 dark:text-zinc-300" v-if="option.description != null && !errorMessage">
         {{ option.description }}
       </div>
 
