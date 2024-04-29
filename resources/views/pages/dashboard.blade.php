@@ -4,7 +4,7 @@
             @include($item)
         @endforeach
         <!-- Dashboard Widgets -->
-        <div class="grid grid-cols-1 gap-4 mb-6 filament-widgets-container md:grid-cols-2 lg:grid-cols-2 lg:gap-8">
+        <div class="grid grid-cols-1 gap-4 filament-widgets-container md:grid-cols-2 lg:grid-cols-2">
             @php
                 $hasWidgets = \TomatoPHP\TomatoAdmin\Services\TomatoWidget::get();
             @endphp

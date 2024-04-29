@@ -1,5 +1,5 @@
 <div  {{$attributes->class([
-    "relative rounded-xl bg-white p-6 shadow-sm border border-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:ring-white/10"
+    "relative rounded-xl bg-white p-6 shadow-sm border border-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:ring-white/10"
 ])}} >
     <div class="flex justify-between gap-4">
         <div>

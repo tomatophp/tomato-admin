@@ -89,8 +89,46 @@
                 @endforeach
             </div>
 
-{{--            <x-tomato-admin-dropdown-item type="button" icon="bx bxs-moon" @click.prevent="data.dark = !data.dark; $splade.refresh()"  :label="trans('tomato-admin::global.dark')"/>--}}
-{{--            <x-tomato-admin-dropdown-item type="link" method="POST" icon="bx bx-globe" :href="route('admin.lang')"  :label="trans('tomato-admin::global.translation')"/>--}}
+
+
+            @if(count(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getNavBeforeUserDropdown()))
+            {{-- Dark Mode Button --}}
+            <div>
+                <div class="filament-notifications pointer-events-none fixed inset-4 z-50 mx-auto flex justify-end gap-3 items-end flex-col-reverse" role="status">
+                </div>
+
+                <!-- Notifications -->
+                <div>
+                    <!-- Open Notification Modal -->
+                    <div
+                        title="filament::layout.database_notifications"
+                        type="button"
+                        class="text-center border border-zinc-100 dark:border-zinc-700 filament-icon-button flex items-center justify-center rounded-full relative hover:bg-zinc-500/5 focus:outline-none text-primary-500 focus:bg-primary-500/10 dark:hover:bg-zinc-300/5 w-8 h-8 ml-4 -mr-1">
+                            <span class="sr-only">
+
+                            </span>
+
+                        <x-tomato-admin-dropdown>
+                            <x-slot:button>
+                                <x-tomato-admin-tooltip text="{{ __('Quick Actions') }}">
+                                    <div class="text-center flex flex-col item-center justify-center">
+                                        <div>
+                                            <i class="bx bx-plus-circle mt-1"></i>
+                                        </div>
+                                    </div>
+                                </x-tomato-admin-tooltip>
+                            </x-slot:button>
+
+                            @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getNavBeforeUserDropdown() as $item)
+                                @include($item)
+                            @endforeach
+                        </x-tomato-admin-dropdown>
+                    </div>
+                </div>
+
+                <div></div>
+            </div>
+            @endif
 
             {{-- Dark Mode Button --}}
             <div>
@@ -201,9 +239,7 @@
                 <div></div>
             </div>
             @endif
-            @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getNavBeforeUserDropdown() as $item)
-                @include($item)
-            @endforeach
+
 
             <x-tomato-admin-profile-dropdown />
 
