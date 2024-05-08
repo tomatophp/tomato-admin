@@ -17,7 +17,7 @@
 
     <div class="mt-4 flex items-center justify-between">
         <x-splade-form action="{{ route('verification.send') }}">
-            <x-splade-submit :label="__('Resend Verification Email')" />
+            <x-tomato-admin-submit spinner :label="__('Resend Verification Email')" />
         </x-splade-form>
 
         <form method="POST" action="{{ route('logout') }}">

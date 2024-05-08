@@ -16,6 +16,7 @@
                 ">
     <div class="flex items-center w-full px-2 sm:px-4 md:px-6 lg:px-8">
         <!-- hide button -->
+        @if($sidebar)
         <button
                 class="
 
@@ -49,6 +50,7 @@
                         "
 
         >
+
             <div
                     @click.prevent="data.makeMenuMin = !data.makeMenuMin"
                     class="relative lg:absolute invisible lg:visible text-center flex justify-center"
@@ -69,6 +71,7 @@
                 <x-heroicon-o-bars-3 class="w-6 h-6"/>
             </div>
         </button>
+        @endif
         <button
             class="
                   flex

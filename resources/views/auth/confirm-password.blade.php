@@ -8,7 +8,7 @@
             <x-splade-input id="password" type="password" name="password" required autocomplete="current-password" :label="__('Password')" />
 
             <div class="flex justify-end">
-                <x-splade-submit :label="__('Confirm')" />
+                <x-tomato-admin-submit spinner :label="__('Confirm')" />
             </div>
         </x-splade-form>
     </x-auth-card>

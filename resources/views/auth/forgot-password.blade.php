@@ -11,7 +11,7 @@
         <x-splade-input id="email" class="block mt-1 w-full" type="email" name="email" :label="__('Email')" required autofocus />
 
         <div class="flex items-center justify-end">
-            <x-splade-submit :label="__('Email Password Reset Link')" />
+            <x-tomato-admin-submit spinner :label="__('Email Password Reset Link')" />
         </div>
     </x-splade-form>
 </x-tomato-admin-guest-layout>

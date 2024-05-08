@@ -18,12 +18,16 @@
 <div class="filament-body bg-zinc-50 text-zinc-950 dark:text-white dark:bg-zinc-900 font-main" @load="data.dark" id="appBody">
     <div class="filament-app-layout flex w-full min-h-screen overflow-v-clip">
 
-        <x-tomato-admin-aside />
+        @if($sidebar)
+            <x-tomato-admin-aside />
+        @endif
         <div
+            @if($sidebar)
                 :class="{
                         'lg:pl-24 lg:pl-24 rtl:lg:pr-24 rtl:lg:pl-0': data.makeMenuMin,
                         'lg:pl-72 lg:pl-72 rtl:lg:pr-72 rtl:lg:pl-0': !data.makeMenuMin
-                    }"
+                }"
+            @endif
                 class="
                         flex
                         filament-main
@@ -36,7 +40,7 @@
                     "
         >
 
-            <x-tomato-admin-navbar />
+            <x-tomato-admin-navbar :sidebar="$sidebar" />
 
             <div class="filament-main-content flex-1 w-full px-4 mx-auto md:px-6 lg:px-8">
                 @foreach(\TomatoPHP\TomatoAdmin\Facade\TomatoSlot::getLayoutTop() as $item)

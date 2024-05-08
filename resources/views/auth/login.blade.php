@@ -1,7 +1,7 @@
 <x-tomato-admin-guest-layout>
-    <x-slot name="header">
+    <x-slot:header>
         {{ __('Login') }}
-    </x-slot>
+    </x-slot:header>
 
     <x-tomato-auth-session-status class="mb-4" />
     <div class="space-y-8">
@@ -19,7 +19,7 @@
                     </Link>
                 @endif
 
-                <x-splade-submit class="ml-3" :label="__('Log in')" />
+                <x-tomato-admin-submit spinner :label="__('Log in')" />
             </div>
         </x-splade-form>
     </div>

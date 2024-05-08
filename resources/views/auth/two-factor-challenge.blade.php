@@ -36,7 +36,7 @@
                     </span>
                     </button>
 
-                    <x-splade-submit :label="__('Log in')" />
+                    <x-tomato-admin-submit spinner :label="__('Log in')" />
                 </div>
             </x-splade-form>
 

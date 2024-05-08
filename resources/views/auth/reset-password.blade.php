@@ -6,7 +6,7 @@
             <x-splade-input id="password_confirmation" type="password" name="password_confirmation" :label="__('Confirm Password')" required />
 
             <div class="flex items-center justify-end">
-                <x-splade-submit :label="__('Reset Password')" />
+                <x-tomato-admin-submit spinner :label="__('Reset Password')" />
             </div>
         </x-splade-form>
     </x-auth-card>

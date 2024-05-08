@@ -23,7 +23,7 @@
                 {{ trans('tomato-admin::global.auth.already-registered') }}
             </Link>
 
-            <x-splade-submit class="ml-4" :label="trans('tomato-admin::global.auth.register-button')" />
+            <x-tomato-admin-submit spinner class="ml-4" :label="trans('tomato-admin::global.auth.register-button')" />
         </div>
     </x-splade-form>
 </x-tomato-admin-guest-layout>

@@ -6,6 +6,12 @@ use Illuminate\View\Component;
 
 class Navbar extends Component
 {
+    public function __construct(
+        public bool $sidebar = true,
+    )
+    {
+    }
+
     /**
      * Get the view / contents that represents the component.
      *
