@@ -1,7 +1,7 @@
 <template>
     <div ref="input">
         <slot name="prepend"/>
-        <VueEditor :disabled="disabled" v-model="value" class="bg-white" />
+        <VueEditor :disabled="disabled" v-model="value" class="bg-white dark:bg-zinc-800" />
         <slot name="append"/>
     </div>
 </template>
