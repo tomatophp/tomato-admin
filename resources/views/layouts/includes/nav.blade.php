@@ -152,22 +152,27 @@
                         @php $langs = collect(config('tomato-admin.langs')) @endphp
                         <x-tomato-admin-dropdown>
                             <x-slot:button>
-                                <div class="text-center flex flex-col item-center justify-center">
+                                <div class="text-center text-sm flex flex-col item-center justify-center">
                                     {{ isset($langs->where('key', app()->getLocale())->first()['flag']) ? $langs->where('key', app()->getLocale())->first()['flag'] : __('Lang') }}
                                 </div>
                             </x-slot:button>
 
                             @foreach($langs as $lang)
-                                <Link href="{{route('admin.lang', ['lang' => $lang])}}" method="POST"  class="@if($lang['key'] === app()->getLocale())  text-primary-600 dark:text-primary-200 hover:text-zinc-500  @else text-zinc-600 dark:text-zinc-200 hover:text-primary-500 @endif whitespace-nowrap block w-full px-4 py-2  text-sm leading-5 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus:bg-zinc-100 dark:focus:bg-zinc-800 transition duration-150 ease-in-out">
-                                <div class="flex justify-start gap-2">
-                                    <div class="flex flex-col items-center justify-center">
-                                        {{$lang['flag']}}
-                                    </div>
-                                    <div>
-                                        {{$lang['label'][app()->getLocale()]}}
-                                    </div>
-                                </div>
-                                </Link>
+                                <x-splade-form action="{{route('admin.lang', ['lang' => $lang])}}" method="POST"  class="@if($lang['key'] === app()->getLocale())  text-primary-600 dark:text-primary-200 hover:text-zinc-500  @else text-zinc-600 dark:text-zinc-200 hover:text-primary-500 @endif whitespace-nowrap block w-full px-4 py-2  text-sm leading-5 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus:bg-zinc-100 dark:focus:bg-zinc-800 transition duration-150 ease-in-out">
+                                    <button class="w-full" @click.prevent="data.lang = {
+                                            id: '{{ $lang['key'] }}',
+                                            name: '{{$lang['label'][app()->getLocale()]}}'
+                                        }; form.submit()">
+                                        <div class="flex justify-start gap-2">
+                                            <div class="flex flex-col items-center justify-center">
+                                                {{$lang['flag']}}
+                                            </div>
+                                            <div>
+                                                {{$lang['label'][app()->getLocale()]}}
+                                            </div>
+                                        </div>
+                                    </button>
+                                </x-splade-form>
                             @endforeach
                         </x-tomato-admin-dropdown>
                     </div>
@@ -186,7 +191,7 @@
                 <div>
                     <!-- Open Notification Modal -->
                     <button
-                        @click.prevent="data.dark = !data.dark; $splade.refresh()"
+                        @click.prevent="data.dark = !data.dark; $splade.refresh();"
                         title="filament::layout.database_notifications"
                         type="button"
                         class="border border-zinc-100 dark:border-zinc-700 filament-icon-button flex items-center justify-center rounded-full relative hover:bg-zinc-500/5 focus:outline-none text-primary-500 focus:bg-primary-500/10 dark:hover:bg-zinc-300/5 w-8 h-8 ml-4 -mr-1">
